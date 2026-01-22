@@ -1,6 +1,6 @@
 {
   "provides" : "ext_libc",
-  "sources" : [ "src/*.c3" ],
+  "sources" : [ "src/**.c3" ],
   "linklib-dir" : "linked-libs",
   "targets" : {
     "android-aarch64" : {
