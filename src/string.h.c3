@@ -4,11 +4,11 @@
 // string.h C3 Extern Mapping
 // Unified for Windows (WIN32) and POSIX systems
 
-module c::string;
+module string;
 
 // Platform-specific wchar_t handling:
-alias Wchar @if(env::WIN32) = ushort;
-alias Wchar @if(env::POSIX) = uint;
+alias Wchar_t @if(env::WIN32) = ushort;
+alias Wchar_t @if(env::POSIX) = uint;
 
 // Common Functions (All Platforms)
 
@@ -52,7 +52,7 @@ extern fn char* strdup(char* s);
 
 // POSIX Extensions
 
-module c::string @if(env::POSIX);
+module string @if(env::POSIX);
 
 // POSIX String Functions
 extern fn CInt strcasecmp(char* s1, char* s2);
@@ -115,7 +115,7 @@ extern fn CInt strncasecmp_l(char* s1, char* s2, usz n, void* locale);
 
 // Linux-specific Extensions
 
-module c::string @if(env::LINUX);
+module string @if(env::LINUX);
 
 // Additional GNU/Linux extensions
 extern fn char* strchrnul(char* s, CInt c);  // GNU extension
@@ -124,7 +124,7 @@ extern fn void* memfrob(void* s, usz n);  // GNU extension (obfuscation)
 
 // Windows (WIN32) Extensions
 
-module c::string @if(env::WIN32);
+module string @if(env::WIN32);
 
 // Secure CRT Functions (_s suffix)
 extern fn CInt memcpy_s(void* dest, usz destSize, void* src, usz count);
@@ -194,109 +194,109 @@ extern fn char* __strerror(CInt errnum);
 
 // Wide Character String Functions (Common across platforms)
 
-module c::string;
+module string;
 
 // Wide character memory functions
-extern fn usz wcslen(Wchar* s);
-extern fn Wchar* wcscpy(Wchar* dest, Wchar* src);
-extern fn Wchar* wcsncpy(Wchar* dest, Wchar* src, usz n);
-extern fn Wchar* wcscat(Wchar* dest, Wchar* src);
-extern fn Wchar* wcsncat(Wchar* dest, Wchar* src, usz n);
-extern fn CInt wcscmp(Wchar* s1, Wchar* s2);
-extern fn CInt wcsncmp(Wchar* s1, Wchar* s2, usz n);
-extern fn CInt wcscoll(Wchar* s1, Wchar* s2);
-extern fn usz wcsxfrm(Wchar* dest, Wchar* src, usz n);
-extern fn Wchar* wcschr(Wchar* s, Wchar c);
-extern fn Wchar* wcsrchr(Wchar* s, Wchar c);
-extern fn usz wcsspn(Wchar* s, Wchar* accept);
-extern fn usz wcscspn(Wchar* s, Wchar* reject);
-extern fn Wchar* wcspbrk(Wchar* s, Wchar* accept);
-extern fn Wchar* wcsstr(Wchar* haystack, Wchar* needle);
-extern fn Wchar* wcstok(Wchar* str, Wchar* delim, Wchar** ptr);
-extern fn Wchar* wcsdup(Wchar* s);
+extern fn usz wcslen(Wchar_t* s);
+extern fn Wchar_t* wcscpy(Wchar_t* dest, Wchar_t* src);
+extern fn Wchar_t* wcsncpy(Wchar_t* dest, Wchar_t* src, usz n);
+extern fn Wchar_t* wcscat(Wchar_t* dest, Wchar_t* src);
+extern fn Wchar_t* wcsncat(Wchar_t* dest, Wchar_t* src, usz n);
+extern fn CInt wcscmp(Wchar_t* s1, Wchar_t* s2);
+extern fn CInt wcsncmp(Wchar_t* s1, Wchar_t* s2, usz n);
+extern fn CInt wcscoll(Wchar_t* s1, Wchar_t* s2);
+extern fn usz wcsxfrm(Wchar_t* dest, Wchar_t* src, usz n);
+extern fn Wchar_t* wcschr(Wchar_t* s, Wchar_t c);
+extern fn Wchar_t* wcsrchr(Wchar_t* s, Wchar_t c);
+extern fn usz wcsspn(Wchar_t* s, Wchar_t* accept);
+extern fn usz wcscspn(Wchar_t* s, Wchar_t* reject);
+extern fn Wchar_t* wcspbrk(Wchar_t* s, Wchar_t* accept);
+extern fn Wchar_t* wcsstr(Wchar_t* haystack, Wchar_t* needle);
+extern fn Wchar_t* wcstok(Wchar_t* str, Wchar_t* delim, Wchar_t** ptr);
+extern fn Wchar_t* wcsdup(Wchar_t* s);
 
 // Wide character memory operations
-extern fn Wchar* wmemcpy(Wchar* dest, Wchar* src, usz n);
-extern fn Wchar* wmemmove(Wchar* dest, Wchar* src, usz n);
-extern fn Wchar* wmemset(Wchar* s, Wchar c, usz n);
-extern fn CInt wmemcmp(Wchar* s1, Wchar* s2, usz n);
-extern fn Wchar* wmemchr(Wchar* s, Wchar c, usz n);
+extern fn Wchar_t* wmemcpy(Wchar_t* dest, Wchar_t* src, usz n);
+extern fn Wchar_t* wmemmove(Wchar_t* dest, Wchar_t* src, usz n);
+extern fn Wchar_t* wmemset(Wchar_t* s, Wchar_t c, usz n);
+extern fn CInt wmemcmp(Wchar_t* s1, Wchar_t* s2, usz n);
+extern fn Wchar_t* wmemchr(Wchar_t* s, Wchar_t c, usz n);
 
 
 // Wide Character String Functions (POSIX)
 
-module c::string @if(env::POSIX);
+module string @if(env::POSIX);
 
 // POSIX wide character extensions
-extern fn usz wcsnlen(Wchar* s, usz maxlen);
-extern fn Wchar* wcsndup(Wchar* s, usz n);
-extern fn CInt wcscasecmp(Wchar* s1, Wchar* s2);
-extern fn CInt wcsncasecmp(Wchar* s1, Wchar* s2, usz n);
-extern fn Wchar* wcpcpy(Wchar* dest, Wchar* src);
-extern fn Wchar* wcpncpy(Wchar* dest, Wchar* src, usz n);
+extern fn usz wcsnlen(Wchar_t* s, usz maxlen);
+extern fn Wchar_t* wcsndup(Wchar_t* s, usz n);
+extern fn CInt wcscasecmp(Wchar_t* s1, Wchar_t* s2);
+extern fn CInt wcsncasecmp(Wchar_t* s1, Wchar_t* s2, usz n);
+extern fn Wchar_t* wcpcpy(Wchar_t* dest, Wchar_t* src);
+extern fn Wchar_t* wcpncpy(Wchar_t* dest, Wchar_t* src, usz n);
 
 // Locale-specific wide character functions
-extern fn CInt wcscoll_l(Wchar* s1, Wchar* s2, void* locale);
-extern fn usz wcsxfrm_l(Wchar* dest, Wchar* src, usz n, void* locale);
-extern fn CInt wcscasecmp_l(Wchar* s1, Wchar* s2, void* locale);
-extern fn CInt wcsncasecmp_l(Wchar* s1, Wchar* s2, usz n, void* locale);
+extern fn CInt wcscoll_l(Wchar_t* s1, Wchar_t* s2, void* locale);
+extern fn usz wcsxfrm_l(Wchar_t* dest, Wchar_t* src, usz n, void* locale);
+extern fn CInt wcscasecmp_l(Wchar_t* s1, Wchar_t* s2, void* locale);
+extern fn CInt wcsncasecmp_l(Wchar_t* s1, Wchar_t* s2, usz n, void* locale);
 
 
 // Wide Character String Functions (Windows)
 
-module c::string @if(env::WIN32);
+module string @if(env::WIN32);
 
 // Secure wide string functions
-extern fn CInt wcscpy_s(Wchar* dest, usz destSize, Wchar* src);
-extern fn CInt wcsncpy_s(Wchar* dest, usz destSize, Wchar* src, usz count);
-extern fn CInt wcscat_s(Wchar* dest, usz destSize, Wchar* src);
-extern fn CInt wcsncat_s(Wchar* dest, usz destSize, Wchar* src, usz count);
-extern fn usz wcsnlen_s(Wchar* str, usz maxCount);
-extern fn CInt wmemcpy_s(Wchar* dest, usz destSize, Wchar* src, usz count);
-extern fn CInt wmemmove_s(Wchar* dest, usz destSize, Wchar* src, usz count);
+extern fn CInt wcscpy_s(Wchar_t* dest, usz destSize, Wchar_t* src);
+extern fn CInt wcsncpy_s(Wchar_t* dest, usz destSize, Wchar_t* src, usz count);
+extern fn CInt wcscat_s(Wchar_t* dest, usz destSize, Wchar_t* src);
+extern fn CInt wcsncat_s(Wchar_t* dest, usz destSize, Wchar_t* src, usz count);
+extern fn usz wcsnlen_s(Wchar_t* str, usz maxCount);
+extern fn CInt wmemcpy_s(Wchar_t* dest, usz destSize, Wchar_t* src, usz count);
+extern fn CInt wmemmove_s(Wchar_t* dest, usz destSize, Wchar_t* src, usz count);
 
 // Wide character case conversion (MS-specific)
-extern fn Wchar* _wcslwr(Wchar* str);
-extern fn Wchar* _wcsupr(Wchar* str);
-extern fn Wchar* _wcslwr_s(Wchar* str, usz size);
-extern fn Wchar* _wcsupr_s(Wchar* str, usz size);
-extern fn Wchar* _wcslwr_l(Wchar* str, void* locale);
-extern fn Wchar* _wcsupr_l(Wchar* str, void* locale);
-extern fn Wchar* _wcslwr_s_l(Wchar* str, usz size, void* locale);
-extern fn Wchar* _wcsupr_s_l(Wchar* str, usz size, void* locale);
+extern fn Wchar_t* _wcslwr(Wchar_t* str);
+extern fn Wchar_t* _wcsupr(Wchar_t* str);
+extern fn Wchar_t* _wcslwr_s(Wchar_t* str, usz size);
+extern fn Wchar_t* _wcsupr_s(Wchar_t* str, usz size);
+extern fn Wchar_t* _wcslwr_l(Wchar_t* str, void* locale);
+extern fn Wchar_t* _wcsupr_l(Wchar_t* str, void* locale);
+extern fn Wchar_t* _wcslwr_s_l(Wchar_t* str, usz size, void* locale);
+extern fn Wchar_t* _wcsupr_s_l(Wchar_t* str, usz size, void* locale);
 
 // Wide character reversal (MS-specific)
-extern fn Wchar* _wcsrev(Wchar* str);
+extern fn Wchar_t* _wcsrev(Wchar_t* str);
 
 // Wide character set functions (MS-specific)
-extern fn Wchar* _wcsset(Wchar* str, Wchar c);
-extern fn Wchar* _wcsnset(Wchar* str, Wchar c, usz count);
-extern fn Wchar* _wcsset_s(Wchar* str, usz destSize, Wchar c);
-extern fn Wchar* _wcsnset_s(Wchar* str, usz destSize, Wchar c, usz count);
+extern fn Wchar_t* _wcsset(Wchar_t* str, Wchar_t c);
+extern fn Wchar_t* _wcsnset(Wchar_t* str, Wchar_t c, usz count);
+extern fn Wchar_t* _wcsset_s(Wchar_t* str, usz destSize, Wchar_t c);
+extern fn Wchar_t* _wcsnset_s(Wchar_t* str, usz destSize, Wchar_t c, usz count);
 
 // Wide character duplication (MS-specific)
-extern fn Wchar* _wcsdup(Wchar* str);
-extern fn Wchar* _wcsndup(Wchar* str, usz count);
+extern fn Wchar_t* _wcsdup(Wchar_t* str);
+extern fn Wchar_t* _wcsndup(Wchar_t* str, usz count);
 
 // Wide character case-insensitive comparison (MS-specific)
-extern fn CInt _wcsicmp(Wchar* s1, Wchar* s2);
-extern fn CInt _wcsnicmp(Wchar* s1, Wchar* s2, usz count);
-extern fn CInt _wcsicmp_l(Wchar* s1, Wchar* s2, void* locale);
-extern fn CInt _wcsnicmp_l(Wchar* s1, Wchar* s2, usz count, void* locale);
+extern fn CInt _wcsicmp(Wchar_t* s1, Wchar_t* s2);
+extern fn CInt _wcsnicmp(Wchar_t* s1, Wchar_t* s2, usz count);
+extern fn CInt _wcsicmp_l(Wchar_t* s1, Wchar_t* s2, void* locale);
+extern fn CInt _wcsnicmp_l(Wchar_t* s1, Wchar_t* s2, usz count, void* locale);
 
 // Wide character collation (MS-specific)
-extern fn CInt _wcscoll_l(Wchar* s1, Wchar* s2, void* locale);
-extern fn CInt _wcsicoll(Wchar* s1, Wchar* s2);
-extern fn CInt _wcsicoll_l(Wchar* s1, Wchar* s2, void* locale);
-extern fn CInt _wcsncoll(Wchar* s1, Wchar* s2, usz count);
-extern fn CInt _wcsncoll_l(Wchar* s1, Wchar* s2, usz count, void* locale);
-extern fn CInt _wcsnicoll(Wchar* s1, Wchar* s2, usz count);
-extern fn CInt _wcsnicoll_l(Wchar* s1, Wchar* s2, usz count, void* locale);
+extern fn CInt _wcscoll_l(Wchar_t* s1, Wchar_t* s2, void* locale);
+extern fn CInt _wcsicoll(Wchar_t* s1, Wchar_t* s2);
+extern fn CInt _wcsicoll_l(Wchar_t* s1, Wchar_t* s2, void* locale);
+extern fn CInt _wcsncoll(Wchar_t* s1, Wchar_t* s2, usz count);
+extern fn CInt _wcsncoll_l(Wchar_t* s1, Wchar_t* s2, usz count, void* locale);
+extern fn CInt _wcsnicoll(Wchar_t* s1, Wchar_t* s2, usz count);
+extern fn CInt _wcsnicoll_l(Wchar_t* s1, Wchar_t* s2, usz count, void* locale);
 
 // Wide character token (MS-specific)
-extern fn Wchar* _wcstok_s(Wchar* str, Wchar* delimiters, Wchar** context);
+extern fn Wchar_t* _wcstok_s(Wchar_t* str, Wchar_t* delimiters, Wchar_t** context);
 
 // Wide character transformation (MS-specific)
-extern fn usz _wcsxfrm_l(Wchar* dest, Wchar* src, usz count, void* locale);
+extern fn usz _wcsxfrm_l(Wchar_t* dest, Wchar_t* src, usz count, void* locale);
 
 

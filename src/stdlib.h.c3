@@ -1,6 +1,6 @@
 // stdlib.h.c3
 
-module c::stdlib;
+module stdlib;
 
 alias LongLong = long;
 alias CUint = uint;

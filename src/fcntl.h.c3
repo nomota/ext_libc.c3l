@@ -1,6 +1,6 @@
 // fcntl.h.linux.c3
 
-module c::fcntl @if(env::LINUX);
+module fcntl @if(env::LINUX);
 
 // ========== Function Declarations ==========
 
@@ -254,7 +254,7 @@ const uint MFD_HUGETLB = 0x0004;
 
 
 
-module c::fcntl @if(env::DARWIN);
+module fcntl @if(env::DARWIN);
 
 // ========== Function Declarations ==========
 
@@ -444,7 +444,7 @@ const int MAXPATHLEN = 1024;
 
 
 
-module c::fcntl @if(env::FREEBSD);
+module fcntl @if(env::FREEBSD);
 
 // ========== Function Declarations ==========
 
@@ -645,7 +645,7 @@ const int F_READAHEAD_MAX = 128;
 
 
 
-module c::fcntl @if(env::NETBSD);
+module fcntl @if(env::NETBSD);
 
 // ========== Function Declarations ==========
 
@@ -811,7 +811,7 @@ const int AT_SYMLINK_NOFOLLOW_ANY = 0x1000;
 
 
 
-module c::fcntl @if(env::OPENBSD);
+module fcntl @if(env::OPENBSD);
 
 // ========== Function Declarations ==========
 
