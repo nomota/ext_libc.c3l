@@ -2,7 +2,7 @@
 
 // unistd.h C3 Extern Mapping
 
-module c::unistd;
+module unistd;
 
 // Function Declarations
 
@@ -32,19 +32,19 @@ extern fn Pid_t setsid() ;
 extern fn CInt daemon(CInt nochdir, CInt noclose) ;
 
 // File Descriptor Operations
-extern fn SSize read(CInt fd, void* buf, usz count) ;
-extern fn SSize write(CInt fd, void* buf, usz count) ;
-extern fn SSize pread(CInt fd, void* buf, usz count, Off offset) ;
-extern fn SSize pwrite(CInt fd, void* buf, usz count, Off offset) ;
-extern fn SSize pread64(CInt fd, void* buf, usz count, Off64 offset) ;
-extern fn SSize pwrite64(CInt fd, void* buf, usz count, Off64 offset) ;
+extern fn Ssize_t read(CInt fd, void* buf, usz count) ;
+extern fn Ssize_t write(CInt fd, void* buf, usz count) ;
+extern fn Ssize_t pread(CInt fd, void* buf, usz count, Off offset) ;
+extern fn Ssize_t pwrite(CInt fd, void* buf, usz count, Off offset) ;
+extern fn Ssize_t pread64(CInt fd, void* buf, usz count, Off64 offset) ;
+extern fn Ssize_t pwrite64(CInt fd, void* buf, usz count, Off64 offset) ;
 
-extern fn SSize readv(CInt fd, Iovec* iov, CInt iovcnt) ;
-extern fn SSize writev(CInt fd, Iovec* iov, CInt iovcnt) ;
-extern fn SSize preadv(CInt fd, Iovec* iov, CInt iovcnt, Off offset) ;
-extern fn SSize pwritev(CInt fd, Iovec* iov, CInt iovcnt, Off offset) ;
-extern fn SSize preadv2(CInt fd, Iovec* iov, CInt iovcnt, Off offset, CInt flags) ;
-extern fn SSize pwritev2(CInt fd, Iovec* iov, CInt iovcnt, Off offset, CInt flags) ;
+extern fn Ssize_t readv(CInt fd, Iovec* iov, CInt iovcnt) ;
+extern fn Ssize_t writev(CInt fd, Iovec* iov, CInt iovcnt) ;
+extern fn Ssize_t preadv(CInt fd, Iovec* iov, CInt iovcnt, Off offset) ;
+extern fn Ssize_t pwritev(CInt fd, Iovec* iov, CInt iovcnt, Off offset) ;
+extern fn Ssize_t preadv2(CInt fd, Iovec* iov, CInt iovcnt, Off offset, CInt flags) ;
+extern fn Ssize_t pwritev2(CInt fd, Iovec* iov, CInt iovcnt, Off offset, CInt flags) ;
 
 extern fn CInt close(CInt fd) ;
 extern fn CInt dup(CInt oldfd) ;
@@ -66,12 +66,12 @@ extern fn CInt ftruncate(CInt fd, Off length) ;
 extern fn CInt ftruncate64(CInt fd, Off64 length) ;
 
 // Advanced I/O operations (Linux specific)
-extern fn SSize splice(CInt fd_in, Off64* off_in, CInt fd_out, Off64* off_out, usz len, CUInt flags) ;
-extern fn SSize tee(CInt fd_in, CInt fd_out, usz len, CUInt flags) ;
-extern fn SSize vmsplice(CInt fd, Iovec* iov, CULong nr_segs, CUInt flags) ;
+extern fn Ssize_t splice(CInt fd_in, Off64* off_in, CInt fd_out, Off64* off_out, usz len, CUInt flags) ;
+extern fn Ssize_t tee(CInt fd_in, CInt fd_out, usz len, CUInt flags) ;
+extern fn Ssize_t vmsplice(CInt fd, Iovec* iov, CULong nr_segs, CUInt flags) ;
 extern fn CInt sync_file_range(CInt fd, Off64 offset, Off64 nbytes, CUInt flags) ;
-extern fn SSize readahead(CInt fd, Off64 offset, usz count) ;
-extern fn SSize copy_file_range(CInt fd_in, Off64* off_in, CInt fd_out, Off64* off_out, usz len, CUInt flags) ;
+extern fn Ssize_t readahead(CInt fd, Off64 offset, usz count) ;
+extern fn Ssize_t copy_file_range(CInt fd_in, Off64* off_in, CInt fd_out, Off64* off_out, usz len, CUInt flags) ;
 
 // File allocation
 extern fn CInt fallocate(CInt fd, CInt mode, Off offset, Off len) ;
@@ -105,8 +105,8 @@ extern fn CInt unlink(char* pathname) ;
 extern fn CInt unlinkat(CInt dirfd, char* pathname, CInt flags) ;
 extern fn CInt rmdir(char* pathname) ;
 
-extern fn SSize readlink(char* pathname, char* buf, usz bufsiz) ;
-extern fn SSize readlinkat(CInt dirfd, char* pathname, char* buf, usz bufsiz) ;
+extern fn Ssize_t readlink(char* pathname, char* buf, usz bufsiz) ;
+extern fn Ssize_t readlinkat(CInt dirfd, char* pathname, char* buf, usz bufsiz) ;
 
 extern fn CInt truncate(char* path, Off length) ;
 extern fn CInt truncate64(char* path, Off64 length) ;
@@ -164,7 +164,7 @@ extern fn CInt tcsetpgrp(CInt fd, Pid_t pgrp) ;
 
 // Random/Entropy
 extern fn CInt getentropy(void* buffer, usz length) ;
-extern fn SSize getrandom(void* buf, usz buflen, CUInt flags) ;
+extern fn Ssize_t getrandom(void* buf, usz buflen, CUInt flags) ;
 
 // Priority Control
 extern fn CInt nice(CInt inc) ;
@@ -215,7 +215,7 @@ extern fn CInt lockf(CInt fd, CInt cmd, Off len) ;
 extern fn CInt getopt(CInt argc, char** argv, char* optstring) ;
 
 
-module c::unistd @if (env::LINUX);
+module unistd @if (env::LINUX);
 
 // Vectored I/O
 struct Iovec 
@@ -239,7 +239,7 @@ alias Uid_t = CUInt;
 alias Gid_t = CUInt;
 alias Off = CLong;
 alias Off64 = CLongLong;
-alias SSize = CLong;
+alias Ssize_t = CLong;
 alias Mode = CUInt;
 alias UShort = CUShort;
 
@@ -338,7 +338,7 @@ const ulong RWF_NOWAIT = 0x00000008;
 const ulong RWF_APPEND = 0x00000010;
 
 
-module c::unistd @if (env::DARWIN);
+module unistd @if (env::DARWIN);
 
 // Vectored I/O
 struct Iovec 
@@ -363,7 +363,7 @@ alias Uid_t = CUInt;
 alias Gid_t = CUInt;
 alias Off = CLongLong;  // macOS uses 64-bit off_t
 alias Off64 = CLongLong;
-alias SSize = CLong;
+alias Ssize_t = CLong;
 alias Mode = CUShort;  // Different from Linux
 alias UShort = CUShort;
 
@@ -431,7 +431,7 @@ const int RB_SINGLE = 2;
 const int RB_HALT = 8;
 
 
-module c::unistd @if (env::FREEBSD);
+module unistd @if (env::FREEBSD);
 
 // Vectored I/O
 struct Iovec 
@@ -456,7 +456,7 @@ alias Uid_t = CUInt;
 alias Gid_t = CUInt;
 alias Off = CLongLong;  // FreeBSD uses 64-bit off_t
 alias Off64 = CLongLong;
-alias SSize = CLong;
+alias Ssize_t = CLong;
 alias Mode = CUShort;
 alias UShort = CUShort;
 
@@ -544,7 +544,7 @@ const int RB_POWERCYCLE = 0x400000;
 const int RB_PROBE = 0x10000000;
 
 
-module c::unistd @if (env::OPENBSD);
+module unistd @if (env::OPENBSD);
 
 // Vectored I/O
 struct Iovec 
@@ -569,7 +569,7 @@ alias Uid_t = CUInt;
 alias Gid_t = CUInt;
 alias Off = CLongLong;  // OpenBSD uses 64-bit off_t
 alias Off64 = CLongLong;
-alias SSize = CLong;
+alias Ssize_t = CLong;
 alias Mode = CUInt;
 alias UShort = CUShort;
 
@@ -651,7 +651,7 @@ const int RB_RESET = 0x8000;
 const int RB_GOODRANDOM = 0x10000;
 
 
-module c::unistd @if (env::NETBSD);
+module unistd @if (env::NETBSD);
 
 // Vectored I/O
 struct Iovec 
@@ -676,7 +676,7 @@ alias Uid_t = CUInt;
 alias Gid_t = CUInt;
 alias Off = CLongLong;  // NetBSD uses 64-bit off_t
 alias Off64 = CLongLong;
-alias SSize = CLong;
+alias Ssize_t = CLong;
 alias Mode = CUInt;
 alias UShort = CUShort;
 
