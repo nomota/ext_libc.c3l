@@ -1,8 +1,8 @@
 
 // netdb.h.c3
-module c::netdb;
+module netdb;
 
-import c::netinet::in;
+import netinet::in;
 
 // ========== Function Declarations (Common) ==========
 
@@ -110,7 +110,7 @@ struct Sockaddr {
 
 // ========== Linux-specific Definitions ==========
 
-module c::netdb::c @if(env::LINUX);
+module netdb::c @if(env::LINUX);
 
 // Host errors
 const int HOST_NOT_FOUND = 1;
@@ -178,7 +178,7 @@ const int NI_MAXSERV = 32;
 
 // ========== Darwin-specific Definitions ==========
 
-module c::netdb::c @if(env::DARWIN);
+module netdb::c @if(env::DARWIN);
 
 // Host errors
 const int HOST_NOT_FOUND = 1;
@@ -244,7 +244,7 @@ const int NI_MAXSERV = 32;
 
 // ========== FreeBSD-specific Definitions ==========
 
-module c::netdb::c @if(env::FREEBSD);
+module netdb::c @if(env::FREEBSD);
 
 // Host errors
 const int HOST_NOT_FOUND = 1;
@@ -305,7 +305,7 @@ const int NI_MAXSERV = 32;
 
 // ========== NetBSD-specific Definitions ==========
 
-module c::netdb::c @if(env::NETBSD);
+module netdb::c @if(env::NETBSD);
 
 // Host errors
 const int HOST_NOT_FOUND = 1;
@@ -369,7 +369,7 @@ const int NI_MAXSERV = 32;
 
 // ========== OpenBSD-specific Definitions ==========
 
-module c::netdb::c @if(env::OPENBSD);
+module netdb::c @if(env::OPENBSD);
 
 // Host errors
 const int HOST_NOT_FOUND = 1;

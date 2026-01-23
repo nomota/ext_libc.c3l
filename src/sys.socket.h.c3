@@ -37,7 +37,7 @@ macro usz cmsg_len(usz len) => (cmsg_align(@sizeof(Cmsghdr)) + (len));
 macro Cmsghdr* cmsg_firsthdr(Msghdr* msg) => ((msg).msg_controllen >= @sizeof(Cmsghdr) ? (Cmsghdr*)(msg).msg_control : (Cmsghdr*)0);
 macro char* cmsg_data(Cmsghdr* cmsg) => ((char*)(cmsg) + cmsg_align(@sizeof(Cmsghdr)));
 
-
+alias Socklen_t = uint;
 
 module sys::socket @if(env::LINUX);
 

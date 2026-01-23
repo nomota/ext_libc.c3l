@@ -159,15 +159,15 @@ const ushort IPPORT_RESERVED = 1024;
 const ushort IPPORT_USERRESERVED = 5000;
 
 // IPv4 multicast addresses
-const uint In_addr_ANY = 0x00000000;
-const uint In_addr_BROADCAST = 0xffffffff;
-const uint In_addr_NONE = 0xffffffff;
-const uint In_addr_LOOPBACK = 0x7f000001;
+const uint INADDR_ANY = 0x00000000;
+const uint INADDR_BROADCAST = 0xffffffff;
+const uint INADDR_NONE = 0xffffffff;
+const uint INADDR_LOOPBACK = 0x7f000001;
 
-const uint In_addr_UNSPEC_GROUP = 0xe0000000;
-const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
-const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
-const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint INADDR_UNSPEC_GROUP = 0xe0000000;
+const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
+const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
+const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 4;
@@ -416,15 +416,15 @@ const ushort IPPORT_RESERVED = 1024;
 const ushort IPPORT_USERRESERVED = 5000;
 
 // IPv4 multicast addresses
-const uint In_addr_ANY = 0x00000000;
-const uint In_addr_BROADCAST = 0xffffffff;
-const uint In_addr_NONE = 0xffffffff;
-const uint In_addr_LOOPBACK = 0x7f000001;
+const uint INADDR_ANY = 0x00000000;
+const uint INADDR_BROADCAST = 0xffffffff;
+const uint INADDR_NONE = 0xffffffff;
+const uint INADDR_LOOPBACK = 0x7f000001;
 
-const uint In_addr_UNSPEC_GROUP = 0xe0000000;
-const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
-const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
-const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint INADDR_UNSPEC_GROUP = 0xe0000000;
+const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
+const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
+const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 4;
@@ -656,15 +656,15 @@ const ushort IPPORT_RESERVED = 1024;
 const ushort IPPORT_USERRESERVED = 5000;
 
 // IPv4 multicast addresses
-const uint In_addr_ANY = 0x00000000;
-const uint In_addr_BROADCAST = 0xffffffff;
-const uint In_addr_NONE = 0xffffffff;
-const uint In_addr_LOOPBACK = 0x7f000001;
+const uint INADDR_ANY = 0x00000000;
+const uint INADDR_BROADCAST = 0xffffffff;
+const uint INADDR_NONE = 0xffffffff;
+const uint INADDR_LOOPBACK = 0x7f000001;
 
-const uint In_addr_UNSPEC_GROUP = 0xe0000000;
-const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
-const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
-const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint INADDR_UNSPEC_GROUP = 0xe0000000;
+const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
+const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
+const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 1;
@@ -912,15 +912,15 @@ const ushort IPPORT_RESERVED = 1024;
 const ushort IPPORT_USERRESERVED = 5000;
 
 // IPv4 multicast addresses
-const uint In_addr_ANY = 0x00000000;
-const uint In_addr_BROADCAST = 0xffffffff;
-const uint In_addr_NONE = 0xffffffff;
-const uint In_addr_LOOPBACK = 0x7f000001;
+const uint INADDR_ANY = 0x00000000;
+const uint INADDR_BROADCAST = 0xffffffff;
+const uint INADDR_NONE = 0xffffffff;
+const uint INADDR_LOOPBACK = 0x7f000001;
 
-const uint In_addr_UNSPEC_GROUP = 0xe0000000;
-const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
-const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
-const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint INADDR_UNSPEC_GROUP = 0xe0000000;
+const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
+const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
+const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 1;
@@ -1137,15 +1137,15 @@ const ushort IPPORT_HIFIRSTAUTO = 49152;
 const ushort IPPORT_HILASTAUTO = 65535;
 
 // IPv4 multicast addresses
-const uint In_addr_ANY = 0x00000000;
-const uint In_addr_BROADCAST = 0xffffffff;
-const uint In_addr_NONE = 0xffffffff;
-const uint In_addr_LOOPBACK = 0x7f000001;
+const uint INADDR_ANY = 0x00000000;
+const uint INADDR_BROADCAST = 0xffffffff;
+const uint INADDR_NONE = 0xffffffff;
+const uint INADDR_LOOPBACK = 0x7f000001;
 
-const uint In_addr_UNSPEC_GROUP = 0xe0000000;
-const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
-const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
-const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint INADDR_UNSPEC_GROUP = 0xe0000000;
+const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
+const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
+const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 1;
