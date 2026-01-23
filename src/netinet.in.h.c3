@@ -8,7 +8,7 @@ module netinet::in @if(env::LINUX);
 // Byte order conversion functions
 extern fn ushort htons(ushort hostshort);
 extern fn uint htonl(uint hostlong);
-extern fn ushort xxxntohs(ushort netshort);
+extern fn ushort ntohs(ushort netshort);
 extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
