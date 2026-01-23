@@ -1,37 +1,38 @@
 // netinet.in.h.c3
+module netinet::in;
 
-module c::netinet::in @if(env::LINUX);
+module netinet::in @if(env::LINUX);
 
 // ========== Function Declarations ==========
 
 // Byte order conversion functions
 extern fn ushort htons(ushort hostshort);
 extern fn uint htonl(uint hostlong);
-extern fn ushort ntohs(ushort netshort);
+extern fn ushort xxxntohs(ushort netshort);
 extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(InAddr in_);
+extern fn char* inet_ntoa(In_addr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, InAddr* inp);
+extern fn int inet_aton(char* cp, In_addr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn InAddr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(InAddr in_);
-extern fn uint inet_netof(InAddr in_);
+extern fn In_addr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(In_addr in_);
+extern fn uint inet_netof(In_addr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct InAddr {
+struct In_addr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6Addr {
+struct In6_addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -40,64 +41,64 @@ struct In6Addr {
 }
 
 // Socket address structures (Linux)
-struct SockaddrIn {
+struct Sockaddr_in {
     ushort sin_family;
     ushort sin_port;
-    InAddr sin_addr;
+    In_addr sin_addr;
     char[8] sin_zero;
 }
 
-struct SockaddrIn6 {
+struct Sockaddr_in6 {
     ushort sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6Addr sin6_addr;
+    In6_addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
 }
 
 struct IpMreqn {
-    InAddr imr_multiaddr;
-    InAddr imr_address;
+    In_addr imr_multiaddr;
+    In_addr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
-    InAddr imr_sourceaddr;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
+    In_addr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6Addr ipv6mr_multiaddr;
+    In6_addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     int ipi_ifindex;
-    InAddr ipi_spec_dst;
-    InAddr ipi_addr;
+    In_addr ipi_spec_dst;
+    In_addr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6Addr ipi6_addr;
+    In6_addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
 struct InPktinfo {
     int ipi_ifindex;
-    InAddr ipi_spec_dst;
-    InAddr ipi_addr;
+    In_addr ipi_spec_dst;
+    In_addr ipi_addr;
 }
 
 struct In6Pktinfo {
-    In6Addr ipi6_addr;
+    In6_addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -158,15 +159,15 @@ const ushort IPPORT_RESERVED = 1024;
 const ushort IPPORT_USERRESERVED = 5000;
 
 // IPv4 multicast addresses
-const uint INADDR_ANY = 0x00000000;
-const uint INADDR_BROADCAST = 0xffffffff;
-const uint INADDR_NONE = 0xffffffff;
-const uint INADDR_LOOPBACK = 0x7f000001;
+const uint In_addr_ANY = 0x00000000;
+const uint In_addr_BROADCAST = 0xffffffff;
+const uint In_addr_NONE = 0xffffffff;
+const uint In_addr_LOOPBACK = 0x7f000001;
 
-const uint INADDR_UNSPEC_GROUP = 0xe0000000;
-const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
-const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
-const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint In_addr_UNSPEC_GROUP = 0xe0000000;
+const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
+const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
+const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 4;
@@ -266,7 +267,7 @@ const int IPV6_TCLASS = 67;
 
 
 
-module c::netinet::in @if(env::DARWIN);
+module netinet::in @if(env::DARWIN);
 
 // ========== Function Declarations ==========
 
@@ -278,26 +279,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(InAddr in_);
+extern fn char* inet_ntoa(In_addr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, InAddr* inp);
+extern fn int inet_aton(char* cp, In_addr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn InAddr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(InAddr in_);
-extern fn uint inet_netof(InAddr in_);
+extern fn In_addr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(In_addr in_);
+extern fn uint inet_netof(In_addr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct InAddr {
+struct In_addr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6Addr {
+struct In6_addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -306,55 +307,55 @@ struct In6Addr {
 }
 
 // Socket address structures (Darwin - includes length field)
-struct SockaddrIn {
+struct Sockaddr_in {
     char sin_len;
     char sin_family;
     ushort sin_port;
-    InAddr sin_addr;
+    In_addr sin_addr;
     char[8] sin_zero;
 }
 
-struct SockaddrIn6 {
+struct Sockaddr_in6 {
     char sin6_len;
     char sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6Addr sin6_addr;
+    In6_addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
 }
 
 struct IpMreqn {
-    InAddr imr_multiaddr;
-    InAddr imr_address;
+    In_addr imr_multiaddr;
+    In_addr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
-    InAddr imr_sourceaddr;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
+    In_addr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6Addr ipv6mr_multiaddr;
+    In6_addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     uint ipi_ifindex;
-    InAddr ipi_spec_dst;
-    InAddr ipi_addr;
+    In_addr ipi_spec_dst;
+    In_addr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6Addr ipi6_addr;
+    In6_addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -415,15 +416,15 @@ const ushort IPPORT_RESERVED = 1024;
 const ushort IPPORT_USERRESERVED = 5000;
 
 // IPv4 multicast addresses
-const uint INADDR_ANY = 0x00000000;
-const uint INADDR_BROADCAST = 0xffffffff;
-const uint INADDR_NONE = 0xffffffff;
-const uint INADDR_LOOPBACK = 0x7f000001;
+const uint In_addr_ANY = 0x00000000;
+const uint In_addr_BROADCAST = 0xffffffff;
+const uint In_addr_NONE = 0xffffffff;
+const uint In_addr_LOOPBACK = 0x7f000001;
 
-const uint INADDR_UNSPEC_GROUP = 0xe0000000;
-const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
-const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
-const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint In_addr_UNSPEC_GROUP = 0xe0000000;
+const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
+const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
+const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 4;
@@ -506,7 +507,7 @@ const int IPV6_PREFER_TEMPADDR = 63;
 
 
 
-module c::netinet::in @if(env::FREEBSD);
+module netinet::in @if(env::FREEBSD);
 
 // ========== Function Declarations ==========
 
@@ -518,26 +519,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(InAddr in_);
+extern fn char* inet_ntoa(In_addr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, InAddr* inp);
+extern fn int inet_aton(char* cp, In_addr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn InAddr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(InAddr in_);
-extern fn uint inet_netof(InAddr in_);
+extern fn In_addr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(In_addr in_);
+extern fn uint inet_netof(In_addr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct InAddr {
+struct In_addr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6Addr {
+struct In6_addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -546,55 +547,55 @@ struct In6Addr {
 }
 
 // Socket address structures (FreeBSD - includes length field)
-struct SockaddrIn {
+struct Sockaddr_in {
     char sin_len;
     char sin_family;
     ushort sin_port;
-    InAddr sin_addr;
+    In_addr sin_addr;
     char[8] sin_zero;
 }
 
-struct SockaddrIn6 {
+struct Sockaddr_in6 {
     char sin6_len;
     char sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6Addr sin6_addr;
+    In6_addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
 }
 
 struct IpMreqn {
-    InAddr imr_multiaddr;
-    InAddr imr_address;
+    In_addr imr_multiaddr;
+    In_addr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
-    InAddr imr_sourceaddr;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
+    In_addr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6Addr ipv6mr_multiaddr;
+    In6_addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     uint ipi_ifindex;
-    InAddr ipi_spec_dst;
-    InAddr ipi_addr;
+    In_addr ipi_spec_dst;
+    In_addr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6Addr ipi6_addr;
+    In6_addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -655,15 +656,15 @@ const ushort IPPORT_RESERVED = 1024;
 const ushort IPPORT_USERRESERVED = 5000;
 
 // IPv4 multicast addresses
-const uint INADDR_ANY = 0x00000000;
-const uint INADDR_BROADCAST = 0xffffffff;
-const uint INADDR_NONE = 0xffffffff;
-const uint INADDR_LOOPBACK = 0x7f000001;
+const uint In_addr_ANY = 0x00000000;
+const uint In_addr_BROADCAST = 0xffffffff;
+const uint In_addr_NONE = 0xffffffff;
+const uint In_addr_LOOPBACK = 0x7f000001;
 
-const uint INADDR_UNSPEC_GROUP = 0xe0000000;
-const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
-const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
-const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint In_addr_UNSPEC_GROUP = 0xe0000000;
+const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
+const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
+const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 1;
@@ -759,7 +760,7 @@ const int IPV6_RECVRSSBUCKETID = 71;
 
 
 
-module c::netinet::in @if(env::NETBSD);
+module netinet::in @if(env::NETBSD);
 
 // ========== Function Declarations ==========
 
@@ -771,26 +772,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(InAddr in_);
+extern fn char* inet_ntoa(In_addr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, InAddr* inp);
+extern fn int inet_aton(char* cp, In_addr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn InAddr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(InAddr in_);
-extern fn uint inet_netof(InAddr in_);
+extern fn In_addr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(In_addr in_);
+extern fn uint inet_netof(In_addr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct InAddr {
+struct In_addr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6Addr {
+struct In6_addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -799,55 +800,55 @@ struct In6Addr {
 }
 
 // Socket address structures (NetBSD - includes length field)
-struct SockaddrIn {
+struct Sockaddr_in {
     char sin_len;
     char sin_family;
     ushort sin_port;
-    InAddr sin_addr;
+    In_addr sin_addr;
     char[8] sin_zero;
 }
 
-struct SockaddrIn6 {
+struct Sockaddr_in6 {
     char sin6_len;
     char sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6Addr sin6_addr;
+    In6_addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
 }
 
 struct IpMreqn {
-    InAddr imr_multiaddr;
-    InAddr imr_address;
+    In_addr imr_multiaddr;
+    In_addr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
-    InAddr imr_sourceaddr;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
+    In_addr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6Addr ipv6mr_multiaddr;
+    In6_addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     uint ipi_ifindex;
-    InAddr ipi_spec_dst;
-    InAddr ipi_addr;
+    In_addr ipi_spec_dst;
+    In_addr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6Addr ipi6_addr;
+    In6_addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -911,15 +912,15 @@ const ushort IPPORT_RESERVED = 1024;
 const ushort IPPORT_USERRESERVED = 5000;
 
 // IPv4 multicast addresses
-const uint INADDR_ANY = 0x00000000;
-const uint INADDR_BROADCAST = 0xffffffff;
-const uint INADDR_NONE = 0xffffffff;
-const uint INADDR_LOOPBACK = 0x7f000001;
+const uint In_addr_ANY = 0x00000000;
+const uint In_addr_BROADCAST = 0xffffffff;
+const uint In_addr_NONE = 0xffffffff;
+const uint In_addr_LOOPBACK = 0x7f000001;
 
-const uint INADDR_UNSPEC_GROUP = 0xe0000000;
-const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
-const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
-const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint In_addr_UNSPEC_GROUP = 0xe0000000;
+const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
+const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
+const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 1;
@@ -987,7 +988,7 @@ const int IPV6_TCLASS = 61;
 
 
 // in.h.openbsd.c3
-module c::netinet::in @if(env::OPENBSD);
+module netinet::in @if(env::OPENBSD);
 
 // ========== Function Declarations ==========
 
@@ -999,26 +1000,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(InAddr in_);
+extern fn char* inet_ntoa(In_addr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, InAddr* inp);
+extern fn int inet_aton(char* cp, In_addr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn InAddr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(InAddr in_);
-extern fn uint inet_netof(InAddr in_);
+extern fn In_addr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(In_addr in_);
+extern fn uint inet_netof(In_addr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct InAddr {
+struct In_addr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6Addr {
+struct In6_addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -1027,55 +1028,55 @@ struct In6Addr {
 }
 
 // Socket address structures (OpenBSD - includes length field)
-struct SockaddrIn {
+struct Sockaddr_in {
     char sin_len;
     char sin_family;
     ushort sin_port;
-    InAddr sin_addr;
+    In_addr sin_addr;
     char[8] sin_zero;
 }
 
-struct SockaddrIn6 {
+struct Sockaddr_in6 {
     char sin6_len;
     char sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6Addr sin6_addr;
+    In6_addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
 }
 
 struct IpMreqn {
-    InAddr imr_multiaddr;
-    InAddr imr_address;
+    In_addr imr_multiaddr;
+    In_addr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    InAddr imr_multiaddr;
-    InAddr imr_interface;
-    InAddr imr_sourceaddr;
+    In_addr imr_multiaddr;
+    In_addr imr_interface;
+    In_addr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6Addr ipv6mr_multiaddr;
+    In6_addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     uint ipi_ifindex;
-    InAddr ipi_spec_dst;
-    InAddr ipi_addr;
+    In_addr ipi_spec_dst;
+    In_addr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6Addr ipi6_addr;
+    In6_addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -1136,15 +1137,15 @@ const ushort IPPORT_HIFIRSTAUTO = 49152;
 const ushort IPPORT_HILASTAUTO = 65535;
 
 // IPv4 multicast addresses
-const uint INADDR_ANY = 0x00000000;
-const uint INADDR_BROADCAST = 0xffffffff;
-const uint INADDR_NONE = 0xffffffff;
-const uint INADDR_LOOPBACK = 0x7f000001;
+const uint In_addr_ANY = 0x00000000;
+const uint In_addr_BROADCAST = 0xffffffff;
+const uint In_addr_NONE = 0xffffffff;
+const uint In_addr_LOOPBACK = 0x7f000001;
 
-const uint INADDR_UNSPEC_GROUP = 0xe0000000;
-const uint INADDR_ALLHOSTS_GROUP = 0xe0000001;
-const uint INADDR_ALLRTRS_GROUP = 0xe0000002;
-const uint INADDR_MAX_LOCAL_GROUP = 0xe00000ff;
+const uint In_addr_UNSPEC_GROUP = 0xe0000000;
+const uint In_addr_ALLHOSTS_GROUP = 0xe0000001;
+const uint In_addr_ALLRTRS_GROUP = 0xe0000002;
+const uint In_addr_MAX_LOCAL_GROUP = 0xe00000ff;
 
 // IP options for setsockopt
 const int IP_OPTIONS = 1;
