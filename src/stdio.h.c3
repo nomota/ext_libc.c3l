@@ -17,6 +17,7 @@ extern fn int getchar();
 // File operations
 
 extern fn CFile fopen(char* filename, char* mode);
+extern fn CFile fdopen(int fd, char* mode);
 extern fn int fclose(CFile stream);
 extern fn int fflush(CFile stream);
 
