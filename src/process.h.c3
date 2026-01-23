@@ -1,10 +1,10 @@
 // process.h.c3
 
-module c::process::c;
+module c::process;
 
 // ========== Linux ==========
 
-module c::process::c @if(env::LINUX);
+module c::process @if(env::LINUX);
 
 // Linux does not have process.h
 // Process-related functions are in unistd.h and sys/wait.h
@@ -24,35 +24,35 @@ module c::process::c @if(env::LINUX);
 
 // ========== Darwin (macOS) ==========
 
-module c::process::c @if(env::DARWIN);
+module c::process @if(env::DARWIN);
 
 // macOS does not have process.h
 // Use unistd.h and sys/wait.h instead
 
 // ========== FreeBSD ==========
 
-module c::process::c @if(env::FREEBSD);
+module c::process @if(env::FREEBSD);
 
 // FreeBSD does not have process.h
 // Use unistd.h and sys/wait.h instead
 
 // ========== NetBSD ==========
 
-module c::process::c @if(env::NETBSD);
+module c::process @if(env::NETBSD);
 
 // NetBSD does not have process.h
 // Use unistd.h and sys/wait.h instead
 
 // ========== OpenBSD ==========
 
-module c::process::c @if(env::OPENBSD);
+module c::process @if(env::OPENBSD);
 
 // OpenBSD does not have process.h
 // Use unistd.h and sys/wait.h instead
 
 // ========== Windows ==========
 
-module c::process::c @if(env::WIN32);
+module c::process @if(env::WIN32);
 
 // Process creation - spawn family
 extern fn iptr _spawnl(int mode, char* cmdname, char* arg0, ...);

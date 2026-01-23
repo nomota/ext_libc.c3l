@@ -1,10 +1,10 @@
 // io.h.c3
 
-module c::io::c;
+module c::io;
 
 // ========== Linux ==========
 
-module c::io::c @if(env::LINUX);
+module c::io @if(env::LINUX);
 
 // Linux does not have io.h as a standard header
 // File I/O operations are in unistd.h and fcntl.h
@@ -24,7 +24,7 @@ module c::io::c @if(env::LINUX);
 
 // ========== Darwin (macOS) ==========
 
-module c::io::c @if(env::DARWIN);
+module c::io @if(env::DARWIN);
 
 // macOS does not have io.h as a standard header
 // File I/O operations are in unistd.h and fcntl.h
@@ -35,28 +35,28 @@ module c::io::c @if(env::DARWIN);
 
 // ========== FreeBSD ==========
 
-module c::io::c @if(env::FREEBSD);
+module c::io @if(env::FREEBSD);
 
 // FreeBSD does not have io.h as a standard header
 // Use unistd.h and fcntl.h instead
 
 // ========== NetBSD ==========
 
-module c::io::c @if(env::NETBSD);
+module c::io @if(env::NETBSD);
 
 // NetBSD does not have io.h as a standard header
 // Use unistd.h and fcntl.h instead
 
 // ========== OpenBSD ==========
 
-module c::io::c @if(env::OPENBSD);
+module c::io @if(env::OPENBSD);
 
 // OpenBSD does not have io.h as a standard header
 // Use unistd.h and fcntl.h instead
 
 // ========== Windows ==========
 
-module c::io::c @if(env::WIN32);
+module c::io @if(env::WIN32);
 
 // Windows io.h - Low-level I/O functions
 

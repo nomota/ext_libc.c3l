@@ -1,10 +1,10 @@
 // dirent.h.c3
 
-module c::dirent::c;
+module c::dirent;
 
 // ========== Linux ==========
 
-module c::dirent::c @if(env::LINUX);
+module c::dirent @if(env::LINUX);
 
 // Function Declarations
 extern fn Dir* opendir(char* name);
@@ -45,7 +45,7 @@ const char DT_WHT = 14;
 
 // ========== Darwin ==========
 
-module c::dirent::c @if(env::DARWIN);
+module c::dirent @if(env::DARWIN);
 
 // Function Declarations
 extern fn Dir* opendir(char* name);
@@ -89,7 +89,7 @@ const int MAXNAMLEN = 255;
 
 // ========== FreeBSD ==========
 
-module c::dirent::c @if(env::FREEBSD);
+module c::dirent @if(env::FREEBSD);
 
 // Function Declarations
 extern fn Dir* opendir(char* name);
@@ -131,7 +131,7 @@ const int MAXNAMLEN = 255;
 
 // ========== NetBSD ==========
 
-module c::dirent::c @if(env::NETBSD);
+module c::dirent @if(env::NETBSD);
 
 // Function Declarations
 extern fn Dir* opendir(char* name);
@@ -173,7 +173,7 @@ const int MAXNAMLEN = 511;
 
 // ========== OpenBSD ==========
 
-module c::dirent::c @if(env::OPENBSD);
+module c::dirent @if(env::OPENBSD);
 
 // Function Declarations
 extern fn Dir* opendir(char* name);

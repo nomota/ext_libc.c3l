@@ -1,6 +1,6 @@
 // time.h.c3
 
-module c::time::c;
+module c::time;
 
 // ========== Common Types and Structures ==========
 
@@ -22,7 +22,7 @@ struct Tm {
 
 // ========== Linux ==========
 
-module c::time::c @if(env::LINUX);
+module c::time @if(env::LINUX);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
@@ -92,7 +92,7 @@ extern char** tzname;
 
 // ========== Darwin (macOS) ==========
 
-module c::time::c @if(env::DARWIN);
+module c::time @if(env::DARWIN);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
@@ -153,7 +153,7 @@ extern char** tzname;
 
 // ========== FreeBSD ==========
 
-module c::time::c @if(env::FREEBSD);
+module c::time @if(env::FREEBSD);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
@@ -222,7 +222,7 @@ extern char** tzname;
 
 // ========== NetBSD ==========
 
-module c::time::c @if(env::NETBSD);
+module c::time @if(env::NETBSD);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
@@ -283,7 +283,7 @@ extern char** tzname;
 
 // ========== OpenBSD ==========
 
-module c::time::c @if(env::OPENBSD);
+module c::time @if(env::OPENBSD);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
@@ -343,7 +343,7 @@ extern char** tzname;
 
 // ========== Windows ==========
 
-module c::time::c @if(env::WIN32);
+module c::time @if(env::WIN32);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);

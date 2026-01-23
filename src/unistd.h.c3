@@ -2,13 +2,13 @@
 
 // unistd.h C3 Extern Mapping
 
-module c::unistd::c;
+module c::unistd;
 
 // Function Declarations
 
 // Process Control Functions
-extern fn Pid fork() ;
-extern fn Pid vfork() ;
+extern fn Pid_t fork() ;
+extern fn Pid_t vfork() ;
 
 extern fn CInt execv(char* path, char** argv) ;
 extern fn CInt execve(char* path, char** argv, char** envp) ;
@@ -18,16 +18,16 @@ extern fn CInt execle(char* path, char* arg, ...) ;
 extern fn CInt execlp(char* file, char* arg, ...) ;
 extern fn CInt fexecve(CInt fd, char** argv, char** envp) ;
 
-extern fn Pid getpid() ;
-extern fn Pid getppid() ;
-extern fn Pid gettid() ;  // Linux specific - thread ID
-extern fn Pid getpgrp() ;
-extern fn Pid getpgid(Pid pid) ;
-extern fn CInt setpgid(Pid pid, Pid pgid) ;
+extern fn Pid_t getpid() ;
+extern fn Pid_t getppid() ;
+extern fn Pid_t gettid() ;  // Linux specific - thread ID
+extern fn Pid_t getpgrp() ;
+extern fn Pid_t getpgid(Pid_t pid) ;
+extern fn CInt setpgid(Pid_t pid, Pid_t pgid) ;
 extern fn CInt setpgrp() ;
 
-extern fn Pid getsid(Pid pid) ;
-extern fn Pid setsid() ;
+extern fn Pid_t getsid(Pid_t pid) ;
+extern fn Pid_t setsid() ;
 
 extern fn CInt daemon(CInt nochdir, CInt noclose) ;
 
@@ -91,10 +91,10 @@ extern fn CInt fchdir(CInt fd) ;
 extern fn char* getcwd(char* buf, usz size) ;
 extern fn char* get_current_dir_name() ;
 
-extern fn CInt chown(char* pathname, Uid owner, Gid group) ;
-extern fn CInt fchown(CInt fd, Uid owner, Gid group) ;
-extern fn CInt lchown(char* pathname, Uid owner, Gid group) ;
-extern fn CInt fchownat(CInt dirfd, char* pathname, Uid owner, Gid group, CInt flags) ;
+extern fn CInt chown(char* pathname, Uid_t owner, Gid_t group) ;
+extern fn CInt fchown(CInt fd, Uid_t owner, Gid_t group) ;
+extern fn CInt lchown(char* pathname, Uid_t owner, Gid_t group) ;
+extern fn CInt fchownat(CInt dirfd, char* pathname, Uid_t owner, Gid_t group, CInt flags) ;
 
 extern fn CInt link(char* oldpath, char* newpath) ;
 extern fn CInt linkat(CInt olddirfd, char* oldpath, CInt newdirfd, char* newpath, CInt flags) ;
@@ -114,31 +114,31 @@ extern fn CInt truncate64(char* path, Off64 length) ;
 extern fn CInt chroot(char* path) ;
 
 // User and Group ID Functions
-extern fn Uid getuid() ;
-extern fn Uid geteuid() ;
-extern fn CInt setuid(Uid uid) ;
-extern fn CInt seteuid(Uid uid) ;
-extern fn CInt setreuid(Uid ruid, Uid euid) ;
+extern fn Uid_t getuid() ;
+extern fn Uid_t geteuid() ;
+extern fn CInt setuid(Uid_t uid) ;
+extern fn CInt seteuid(Uid_t uid) ;
+extern fn CInt setreuid(Uid_t ruid, Uid_t euid) ;
 
-extern fn Gid getgid() ;
-extern fn Gid getegid() ;
-extern fn CInt setgid(Gid gid) ;
-extern fn CInt setegid(Gid gid) ;
-extern fn CInt setregid(Gid rgid, Gid egid) ;
+extern fn Gid_t getgid() ;
+extern fn Gid_t getegid() ;
+extern fn CInt setgid(Gid_t gid) ;
+extern fn CInt setegid(Gid_t gid) ;
+extern fn CInt setregid(Gid_t rgid, Gid_t egid) ;
 
-extern fn CInt getgroups(CInt size, Gid* list) ;
-extern fn CInt setgroups(usz size, Gid* list) ;
-extern fn CInt initgroups(char* user, Gid group) ;
+extern fn CInt getgroups(CInt size, Gid_t* list) ;
+extern fn CInt setgroups(usz size, Gid_t* list) ;
+extern fn CInt initgroups(char* user, Gid_t group) ;
 
-extern fn CInt getresuid(Uid* ruid, Uid* euid, Uid* suid) ;
-extern fn CInt setresuid(Uid ruid, Uid euid, Uid suid) ;
+extern fn CInt getresuid(Uid_t* ruid, Uid_t* euid, Uid_t* suid) ;
+extern fn CInt setresuid(Uid_t ruid, Uid_t euid, Uid_t suid) ;
 
-extern fn CInt getresgid(Gid* rgid, Gid* egid, Gid* sgid) ;
-extern fn CInt setresgid(Gid rgid, Gid egid, Gid sgid) ;
+extern fn CInt getresgid(Gid_t* rgid, Gid_t* egid, Gid_t* sgid) ;
+extern fn CInt setresgid(Gid_t rgid, Gid_t egid, Gid_t sgid) ;
 
 // Filesystem UID/GID (Linux specific)
-extern fn CInt setfsuid(Uid fsuid) ;
-extern fn CInt setfsgid(Gid fsgid) ;
+extern fn CInt setfsuid(Uid_t fsuid) ;
+extern fn CInt setfsgid(Gid_t fsgid) ;
 
 // Login information
 extern fn char* getlogin() ;
@@ -159,8 +159,8 @@ extern fn char* ttyname(CInt fd) ;
 extern fn CInt ttyname_r(CInt fd, char* buf, usz buflen) ;
 extern fn char* ctermid(char* s) ;
 
-extern fn Pid tcgetpgrp(CInt fd) ;
-extern fn CInt tcsetpgrp(CInt fd, Pid pgrp) ;
+extern fn Pid_t tcgetpgrp(CInt fd) ;
+extern fn CInt tcsetpgrp(CInt fd, Pid_t pgrp) ;
 
 // Random/Entropy
 extern fn CInt getentropy(void* buffer, usz length) ;
@@ -215,7 +215,7 @@ extern fn CInt lockf(CInt fd, CInt cmd, Off len) ;
 extern fn CInt getopt(CInt argc, char** argv, char* optstring) ;
 
 
-module c::unistd::c @if (env::LINUX);
+module c::unistd @if (env::LINUX);
 
 // Vectored I/O
 struct Iovec 
@@ -234,9 +234,9 @@ extern CInt opterr ;
 // Type Definitions
 
 // Basic POSIX types
-alias Pid = CInt;
-alias Uid = CUInt;
-alias Gid = CUInt;
+alias Pid_t = CInt;
+alias Uid_t = CUInt;
+alias Gid_t = CUInt;
 alias Off = CLong;
 alias Off64 = CLongLong;
 alias SSize = CLong;
@@ -338,7 +338,7 @@ const ulong RWF_NOWAIT = 0x00000008;
 const ulong RWF_APPEND = 0x00000010;
 
 
-module c::unistd::c @if (env::DARWIN);
+module c::unistd @if (env::DARWIN);
 
 // Vectored I/O
 struct Iovec 
@@ -358,9 +358,9 @@ extern CInt optreset ;  // Darwin specific
 // Type Definitions
 
 // Basic POSIX types
-alias Pid = CInt;
-alias Uid = CUInt;
-alias Gid = CUInt;
+alias Pid_t = CInt;
+alias Uid_t = CUInt;
+alias Gid_t = CUInt;
 alias Off = CLongLong;  // macOS uses 64-bit off_t
 alias Off64 = CLongLong;
 alias SSize = CLong;
@@ -431,7 +431,7 @@ const int RB_SINGLE = 2;
 const int RB_HALT = 8;
 
 
-module c::unistd::c @if (env::FREEBSD);
+module c::unistd @if (env::FREEBSD);
 
 // Vectored I/O
 struct Iovec 
@@ -451,9 +451,9 @@ extern CInt optreset ;  // BSD specific
 // Type Definitions
 
 // Basic POSIX types
-alias Pid = CInt;
-alias Uid = CUInt;
-alias Gid = CUInt;
+alias Pid_t = CInt;
+alias Uid_t = CUInt;
+alias Gid_t = CUInt;
 alias Off = CLongLong;  // FreeBSD uses 64-bit off_t
 alias Off64 = CLongLong;
 alias SSize = CLong;
@@ -544,7 +544,7 @@ const int RB_POWERCYCLE = 0x400000;
 const int RB_PROBE = 0x10000000;
 
 
-module c::unistd::c @if (env::OPENBSD);
+module c::unistd @if (env::OPENBSD);
 
 // Vectored I/O
 struct Iovec 
@@ -564,9 +564,9 @@ extern CInt optreset ;  // BSD specific
 // Type Definitions
 
 // Basic POSIX types
-alias Pid = CInt;
-alias Uid = CUInt;
-alias Gid = CUInt;
+alias Pid_t = CInt;
+alias Uid_t = CUInt;
+alias Gid_t = CUInt;
 alias Off = CLongLong;  // OpenBSD uses 64-bit off_t
 alias Off64 = CLongLong;
 alias SSize = CLong;
@@ -651,7 +651,7 @@ const int RB_RESET = 0x8000;
 const int RB_GOODRANDOM = 0x10000;
 
 
-module c::unistd::c @if (env::NETBSD);
+module c::unistd @if (env::NETBSD);
 
 // Vectored I/O
 struct Iovec 
@@ -671,9 +671,9 @@ extern CInt optreset ;  // BSD specific
 // Type Definitions
 
 // Basic POSIX types
-alias Pid = CInt;
-alias Uid = CUInt;
-alias Gid = CUInt;
+alias Pid_t = CInt;
+alias Uid_t = CUInt;
+alias Gid_t = CUInt;
 alias Off = CLongLong;  // NetBSD uses 64-bit off_t
 alias Off64 = CLongLong;
 alias SSize = CLong;

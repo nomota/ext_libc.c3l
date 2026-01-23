@@ -1,6 +1,6 @@
 // arpa.inet.h.c3
 
-module c::arpa::inet::c @if(env::LINUX);
+module c::arpa::inet @if(env::LINUX);
 
 import c::netinet::in;
 
@@ -45,7 +45,7 @@ const int INET6_ADDRSTRLEN = 46;  // xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxx.xxx.xxx.x
 
 
 
-module c::arpa::inet::c @if(env::DARWIN);
+module c::arpa::inet @if(env::DARWIN);
 
 import c::netinet::in;
 
@@ -93,7 +93,7 @@ const int INET6_ADDRSTRLEN = 46;
 
 
 
-module c::arpa::inet::c @if(env::FREEBSD);
+module c::arpa::inet @if(env::FREEBSD);
 
 import c::netinet::in;
 
@@ -143,7 +143,7 @@ const int INET6_ADDRSTRLEN = 46;
 
 
 
-module c::arpa::inet::c @if(env::NETBSD);
+module c::arpa::inet @if(env::NETBSD);
 
 import c::netinet::in;
 
@@ -196,7 +196,7 @@ const int INET6_ADDRSTRLEN = 46;
 
 
 
-module c::arpa::inet::c @if(env::OPENBSD);
+module c::arpa::inet @if(env::OPENBSD);
 
 import c::netinet::in;
 

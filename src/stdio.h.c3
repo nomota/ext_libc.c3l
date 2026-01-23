@@ -1,6 +1,6 @@
 // stdio.h.c3
 
-module c::stdio::c;
+module c::stdio;
 
 alias Size_t = usz;
 alias CFile = void*;

@@ -1,10 +1,10 @@
 // sys.time.h.c3
 
-module c::sys::time::c;
+module c::sys::time;
 
 // ========== Linux ==========
 
-module c::sys::time::c @if(env::LINUX);
+module c::sys::time @if(env::LINUX);
 
 // Structures
 struct Timeval {
@@ -68,7 +68,7 @@ macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
 
 // ========== Darwin (macOS) ==========
 
-module c::sys::time::c @if(env::DARWIN);
+module c::sys::time @if(env::DARWIN);
 
 // Structures
 struct Timeval {
@@ -136,7 +136,7 @@ const int CLOCK_MONOTONIC = 6;
 
 // ========== FreeBSD ==========
 
-module c::sys::time::c @if(env::FREEBSD);
+module c::sys::time @if(env::FREEBSD);
 
 // Structures
 struct Timeval {
@@ -211,7 +211,7 @@ struct Bintime {
 
 // ========== NetBSD ==========
 
-module c::sys::time::c @if(env::NETBSD);
+module c::sys::time @if(env::NETBSD);
 
 // Structures
 struct Timeval {
@@ -275,7 +275,7 @@ macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
 
 // ========== OpenBSD ==========
 
-module c::sys::time::c @if(env::OPENBSD);
+module c::sys::time @if(env::OPENBSD);
 
 // Structures
 struct Timeval {
@@ -346,7 +346,7 @@ macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
 // - _ftime() / _ftime64() for timeval-like functionality (in sys/timeb.h)
 // - SetTimer() / timeSetEvent() for timers
 
-module c::sys::time::c @if(env::WIN32);
+module c::sys::time @if(env::WIN32);
 
 // Windows does not have native sys/time.h
 // However, some compatibility layers (like MinGW) may provide it

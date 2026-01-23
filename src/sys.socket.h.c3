@@ -1,5 +1,5 @@
 // sys.socket.h.c3
-module c::sys::socket::c;
+module c::sys::socket;
 
 // Main socket functions
 extern fn int socket(int domain, int type, int protocol);
@@ -38,7 +38,7 @@ macro Cmsghdr* cmsg_firsthdr(Msghdr* msg) => ((msg).msg_controllen >= @sizeof(Cm
 macro char* cmsg_data(Cmsghdr* cmsg) => ((char*)(cmsg) + cmsg_align(@sizeof(Cmsghdr)));
 
 
-module c::sys::socket::c::unused;
+module c::sys::socket::unused;
 
 
 // Socket types (common values, overridden per platform)
@@ -139,7 +139,7 @@ struct Linger {
 
 
 // socket.h.linux.c3
-module c::sys::socket::c @if(env::LINUX);
+module c::sys::socket @if(env::LINUX);
 
 // Socket types
 const int SOCK_STREAM = 1;
@@ -364,7 +364,7 @@ const int SCM_SECURITY = 0x03;
 
 
 // socket.h.darwin.c3
-module c::sys::socket::c @if(env::DARWIN);
+module c::sys::socket @if(env::DARWIN);
 
 // Socket types
 const int SOCK_STREAM = 1;
@@ -551,7 +551,7 @@ const int SCM_TIMESTAMP_MONOTONIC = 0x04;
 
 
 // socket.h.freebsd.c3
-module c::sys::socket::c @if(env::FREEBSD);
+module c::sys::socket @if(env::FREEBSD);
 
 // Socket types
 const int SOCK_STREAM = 1;
@@ -760,7 +760,7 @@ extern fn int connectat(int fd, int sockfd, Sockaddr* addr, Socklen addrlen);
 
 
 // socket.h.netbsd.c3
-module c::sys::socket::c @if(env::NETBSD);
+module c::sys::socket @if(env::NETBSD);
 
 // Socket types
 const int SOCK_STREAM = 1;
@@ -931,7 +931,7 @@ extern fn int accept4(int sockfd, Sockaddr* addr, Socklen* addrlen, int flags);
 
 
 // socket.h.openbsd.c3
-module c::sys::socket::c @if(env::OPENBSD);
+module c::sys::socket @if(env::OPENBSD);
 
 // Socket types
 const int SOCK_STREAM = 1;

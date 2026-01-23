@@ -4,7 +4,7 @@
 // string.h C3 Extern Mapping
 // Unified for Windows (WIN32) and POSIX systems
 
-module c::string::c;
+module c::string;
 
 // Platform-specific wchar_t handling:
 alias Wchar @if(env::WIN32) = ushort;
@@ -52,7 +52,7 @@ extern fn char* strdup(char* s);
 
 // POSIX Extensions
 
-module c::string::c @if(env::POSIX);
+module c::string @if(env::POSIX);
 
 // POSIX String Functions
 extern fn CInt strcasecmp(char* s1, char* s2);
@@ -115,7 +115,7 @@ extern fn CInt strncasecmp_l(char* s1, char* s2, usz n, void* locale);
 
 // Linux-specific Extensions
 
-module c::string::c @if(env::LINUX);
+module c::string @if(env::LINUX);
 
 // Additional GNU/Linux extensions
 extern fn char* strchrnul(char* s, CInt c);  // GNU extension
@@ -124,7 +124,7 @@ extern fn void* memfrob(void* s, usz n);  // GNU extension (obfuscation)
 
 // Windows (WIN32) Extensions
 
-module c::string::c @if(env::WIN32);
+module c::string @if(env::WIN32);
 
 // Secure CRT Functions (_s suffix)
 extern fn CInt memcpy_s(void* dest, usz destSize, void* src, usz count);
@@ -194,7 +194,7 @@ extern fn char* __strerror(CInt errnum);
 
 // Wide Character String Functions (Common across platforms)
 
-module c::string::c;
+module c::string;
 
 // Wide character memory functions
 extern fn usz wcslen(Wchar* s);
@@ -225,7 +225,7 @@ extern fn Wchar* wmemchr(Wchar* s, Wchar c, usz n);
 
 // Wide Character String Functions (POSIX)
 
-module c::string::c @if(env::POSIX);
+module c::string @if(env::POSIX);
 
 // POSIX wide character extensions
 extern fn usz wcsnlen(Wchar* s, usz maxlen);
@@ -244,7 +244,7 @@ extern fn CInt wcsncasecmp_l(Wchar* s1, Wchar* s2, usz n, void* locale);
 
 // Wide Character String Functions (Windows)
 
-module c::string::c @if(env::WIN32);
+module c::string @if(env::WIN32);
 
 // Secure wide string functions
 extern fn CInt wcscpy_s(Wchar* dest, usz destSize, Wchar* src);

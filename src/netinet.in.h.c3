@@ -1,6 +1,6 @@
 // netinet.in.h.c3
 
-module c::netinet::in::c @if(env::LINUX);
+module c::netinet::in @if(env::LINUX);
 
 // ========== Function Declarations ==========
 
@@ -266,7 +266,7 @@ const int IPV6_TCLASS = 67;
 
 
 
-module c::netinet::in::c @if(env::DARWIN);
+module c::netinet::in @if(env::DARWIN);
 
 // ========== Function Declarations ==========
 
@@ -506,7 +506,7 @@ const int IPV6_PREFER_TEMPADDR = 63;
 
 
 
-module c::netinet::in::c @if(env::FREEBSD);
+module c::netinet::in @if(env::FREEBSD);
 
 // ========== Function Declarations ==========
 
@@ -759,7 +759,7 @@ const int IPV6_RECVRSSBUCKETID = 71;
 
 
 
-module c::netinet::in::c @if(env::NETBSD);
+module c::netinet::in @if(env::NETBSD);
 
 // ========== Function Declarations ==========
 
@@ -987,7 +987,7 @@ const int IPV6_TCLASS = 61;
 
 
 // in.h.openbsd.c3
-module c::netinet::in::c @if(env::OPENBSD);
+module c::netinet::in @if(env::OPENBSD);
 
 // ========== Function Declarations ==========
 

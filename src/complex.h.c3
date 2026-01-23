@@ -1,10 +1,10 @@
 // complex.h.c3
 
-module c::complex::c;
+module c::complex;
 
 // ========== Linux ==========
 
-module c::complex::c @if(env::LINUX);
+module c::complex @if(env::LINUX);
 
 // Complex number types
 struct FloatComplex {
@@ -138,7 +138,7 @@ const LongDoubleComplex I_L = { 0.0, 1.0 };
 
 // ========== Darwin (macOS) ==========
 
-module c::complex::c @if(env::DARWIN);
+module c::complex @if(env::DARWIN);
 
 // Complex number types
 struct FloatComplex {
@@ -243,7 +243,7 @@ const LongDoubleComplex I_L = { 0.0, 1.0 };
 
 // ========== FreeBSD ==========
 
-module c::complex::c @if(env::FREEBSD);
+module c::complex @if(env::FREEBSD);
 
 // Complex number types
 struct FloatComplex {
@@ -348,7 +348,7 @@ const LongDoubleComplex I_L = { 0.0, 1.0 };
 
 // ========== NetBSD ==========
 
-module c::complex::c @if(env::NETBSD);
+module c::complex @if(env::NETBSD);
 
 // Complex number types
 struct FloatComplex {
@@ -453,7 +453,7 @@ const LongDoubleComplex I_L = { 0.0, 1.0 };
 
 // ========== OpenBSD ==========
 
-module c::complex::c @if(env::OPENBSD);
+module c::complex @if(env::OPENBSD);
 
 // Complex number types
 struct FloatComplex {
@@ -558,7 +558,7 @@ const LongDoubleComplex I_L = { 0.0, 1.0 };
 
 // ========== Windows ==========
 
-module c::complex::c @if(env::WIN32);
+module c::complex @if(env::WIN32);
 
 // Complex number types
 struct FloatComplex {

@@ -1,10 +1,10 @@
 // poll.h.c3
 
-module c::poll::c;
+module c::poll;
 
 // ========== Linux ==========
 
-module c::poll::c @if(env::LINUX);
+module c::poll @if(env::LINUX);
 
 // Structure for poll()
 struct Pollfd {
@@ -45,7 +45,7 @@ const int INFTIM = -1;
 
 // ========== Darwin (macOS) ==========
 
-module c::poll::c @if(env::DARWIN);
+module c::poll @if(env::DARWIN);
 
 // Structure for poll()
 struct Pollfd {
@@ -81,7 +81,7 @@ const int INFTIM = -1;
 
 // ========== FreeBSD ==========
 
-module c::poll::c @if(env::FREEBSD);
+module c::poll @if(env::FREEBSD);
 
 // Structure for poll()
 struct Pollfd {
@@ -120,7 +120,7 @@ const int INFTIM = -1;
 
 // ========== NetBSD ==========
 
-module c::poll::c @if(env::NETBSD);
+module c::poll @if(env::NETBSD);
 
 // Structure for poll()
 struct Pollfd {
@@ -158,7 +158,7 @@ const int INFTIM = -1;
 
 // ========== OpenBSD ==========
 
-module c::poll::c @if(env::OPENBSD);
+module c::poll @if(env::OPENBSD);
 
 // Structure for poll()
 struct Pollfd {
@@ -196,7 +196,7 @@ const int INFTIM = -1;
 
 // ========== Windows ==========
 
-module c::poll::c @if(env::WIN32);
+module c::poll @if(env::WIN32);
 
 // Windows does not have poll() natively
 // However, WSAPoll() is available (Windows Vista+)
