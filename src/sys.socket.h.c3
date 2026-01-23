@@ -28,14 +28,12 @@ extern fn int socketpair(int domain, int type, int protocol, int[2] sv);
 extern fn int getsockname(int sockfd, Sockaddr* addr, Socklen_t* addrlen);
 extern fn int getpeername(int sockfd, Sockaddr* addr, Socklen_t* addrlen);
 
-macro @sizeof($Type) => $Type.sizeof;
-
 // Control message macros (helper functions)
-macro usz cmsg_align(usz len) => (((len) + @sizeof(usz) - 1) & ~(@sizeof(usz) - 1));
-macro usz cmsg_space(usz len) => (cmsg_align(@sizeof(Cmsghdr)) + cmsg_align(len));
-macro usz cmsg_len(usz len) => (cmsg_align(@sizeof(Cmsghdr)) + (len));
-macro Cmsghdr* cmsg_firsthdr(Msghdr* msg) => ((msg).msg_controllen >= @sizeof(Cmsghdr) ? (Cmsghdr*)(msg).msg_control : (Cmsghdr*)0);
-macro char* cmsg_data(Cmsghdr* cmsg) => ((char*)(cmsg) + cmsg_align(@sizeof(Cmsghdr)));
+macro usz cmsg_align(usz len) => (((len) + usz.sizeof - 1) & ~(usz.sizeof - 1));
+macro usz cmsg_space(usz len) => (cmsg_align(Cmsghdr.sizeof) + cmsg_align(len));
+macro usz cmsg_len(usz len) => (cmsg_align(Cmsghdr.sizeof) + (len));
+macro Cmsghdr* cmsg_firsthdr(Msghdr* msg) => ((msg).msg_controllen >= Cmsghdr.sizeof ? (Cmsghdr*)(msg).msg_control : (Cmsghdr*)0);
+macro char* cmsg_data(Cmsghdr* cmsg) => ((char*)(cmsg) + cmsg_align(Cmsghdr.sizeof));
 
 alias Socklen_t = uint;
 
@@ -199,7 +197,7 @@ struct Sockaddr {
 struct SockaddrStorage {
     ushort ss_family;
     ulong __ss_align;
-    char[128 - @sizeof(ushort) - @sizeof(ulong)] __ss_padding;
+    char[128 - ushort.sizeof - ulong.sizeof] __ss_padding;
 }
 
 // I/O vector
@@ -403,7 +401,7 @@ struct SockaddrStorage {
     char ss_family;
     char[6] __ss_pad1;
     long __ss_align;
-    char[128 - 2 - 6 - @sizeof(long)] __ss_pad2;
+    char[128 - 2 - 6 - long.sizeof] __ss_pad2;
 }
 
 // I/O vector
@@ -595,7 +593,7 @@ struct SockaddrStorage {
     char ss_family;
     char[6] __ss_pad1;
     long __ss_align;
-    char[128 - 2 - 6 - @sizeof(long)] __ss_pad2;
+    char[128 - 2 - 6 - long.sizeof] __ss_pad2;
 }
 
 // I/O vector
@@ -781,7 +779,7 @@ struct SockaddrStorage {
     char ss_family;
     char[6] __ss_pad1;
     long __ss_align;
-    char[128 - 2 - 6 - @sizeof(long)] __ss_pad2;
+    char[128 - 2 - 6 - long.sizeof] __ss_pad2;
 }
 
 // I/O vector
@@ -959,7 +957,7 @@ struct SockaddrStorage {
     char ss_family;
     char[6] __ss_pad1;
     long __ss_align;
-    char[256 - 2 - 6 - @sizeof(long)] __ss_pad2;
+    char[256 - 2 - 6 - long.sizeof] __ss_pad2;
 }
 
 // I/O vector
@@ -1012,4 +1010,3 @@ struct Timeval {
 extern fn int accept4(int sockfd, Sockaddr* addr, Socklen_t* addrlen, int flags);
 extern fn int getrtable();
 extern fn int setrtable(int rtableid);
-
