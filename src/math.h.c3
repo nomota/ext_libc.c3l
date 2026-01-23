@@ -1,10 +1,10 @@
 // math.h.c3
 
-module c::math;
+module math;
 
 // ========== Linux ==========
 
-module c::math @if(env::LINUX);
+module math @if(env::LINUX);
 
 // Basic functions (double precision)
 extern fn double sin(double x);
@@ -243,7 +243,7 @@ const double NAN = double.nan;
 
 // ========== Darwin (macOS) ==========
 
-module c::math @if(env::DARWIN);
+module math @if(env::DARWIN);
 
 // All the same functions as Linux
 extern fn double sin(double x);
@@ -453,7 +453,7 @@ const double NAN = double.nan;
 
 // ========== FreeBSD ==========
 
-module c::math @if(env::FREEBSD);
+module math @if(env::FREEBSD);
 
 // Same as Linux/Darwin - FreeBSD follows POSIX closely
 extern fn double sin(double x);
@@ -574,7 +574,7 @@ const double NAN = double.nan;
 
 // ========== NetBSD ==========
 
-module c::math @if(env::NETBSD);
+module math @if(env::NETBSD);
 
 // Same as FreeBSD/Linux
 extern fn double sin(double x);
@@ -665,7 +665,7 @@ const double NAN = double.nan;
 
 // ========== OpenBSD ==========
 
-module c::math @if(env::OPENBSD);
+module math @if(env::OPENBSD);
 
 // Same as other BSDs
 extern fn double sin(double x);
@@ -757,7 +757,7 @@ const double NAN = double.nan;
 
 // ========== Windows ==========
 
-module c::math @if(env::WIN32);
+module math @if(env::WIN32);
 
 // Standard C math functions (available on Windows)
 extern fn double sin(double x);

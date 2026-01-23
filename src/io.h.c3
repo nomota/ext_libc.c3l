@@ -1,17 +1,17 @@
 // io.h.c3
 
-module c::io;
+module io;
 
 // ========== Linux ==========
 
-module c::io @if(env::LINUX);
+module io @if(env::LINUX);
 
 // Linux does not have io.h as a standard header
 // File I/O operations are in unistd.h and fcntl.h
 // 
 // For POSIX file operations, use:
-// - c::unistd module for read(), write(), close(), lseek(), etc.
-// - c::fcntl module for open(), fcntl(), etc.
+// - unistd module for read(), write(), close(), lseek(), etc.
+// - fcntl module for open(), fcntl(), etc.
 //
 // This module provides compatibility wrappers if needed
 
@@ -19,44 +19,44 @@ module c::io @if(env::LINUX);
 // but are not part of a separate io.h on Linux
 
 // If you need low-level I/O on Linux, import:
-// import c::unistd;
-// import c::fcntl;
+// import unistd;
+// import fcntl;
 
 // ========== Darwin (macOS) ==========
 
-module c::io @if(env::DARWIN);
+module io @if(env::DARWIN);
 
 // macOS does not have io.h as a standard header
 // File I/O operations are in unistd.h and fcntl.h
 //
 // For POSIX file operations, use:
-// - c::unistd module
-// - c::fcntl module
+// - unistd module
+// - fcntl module
 
 // ========== FreeBSD ==========
 
-module c::io @if(env::FREEBSD);
+module io @if(env::FREEBSD);
 
 // FreeBSD does not have io.h as a standard header
 // Use unistd.h and fcntl.h instead
 
 // ========== NetBSD ==========
 
-module c::io @if(env::NETBSD);
+module io @if(env::NETBSD);
 
 // NetBSD does not have io.h as a standard header
 // Use unistd.h and fcntl.h instead
 
 // ========== OpenBSD ==========
 
-module c::io @if(env::OPENBSD);
+module io @if(env::OPENBSD);
 
 // OpenBSD does not have io.h as a standard header
 // Use unistd.h and fcntl.h instead
 
 // ========== Windows ==========
 
-module c::io @if(env::WIN32);
+module io @if(env::WIN32);
 
 // Windows io.h - Low-level I/O functions
 

@@ -1,10 +1,10 @@
 // sys.mman.h.c3
 
-module c::sys::mman;
+module sys::mman;
 
 // ========== Linux ==========
 
-module c::sys::mman @if(env::LINUX);
+module sys::mman @if(env::LINUX);
 
 // Function Declarations
 extern fn void* mmap(void* addr, usz length, int prot, int flags, int fd, long offset);
@@ -104,7 +104,7 @@ const uint MFD_HUGETLB = 0x0004;
 
 // ========== Darwin ==========
 
-module c::sys::mman @if(env::DARWIN);
+module sys::mman @if(env::DARWIN);
 
 // Function Declarations
 extern fn void* mmap(void* addr, usz length, int prot, int flags, int fd, long offset);
@@ -180,7 +180,7 @@ const int PSHMNAMLEN = 31;
 
 // ========== FreeBSD ==========
 
-module c::sys::mman @if(env::FREEBSD);
+module sys::mman @if(env::FREEBSD);
 
 // Function Declarations
 extern fn void* mmap(void* addr, usz length, int prot, int flags, int fd, long offset);
@@ -251,7 +251,7 @@ const int PSHMNAMLEN = 31;
 
 // ========== NetBSD ==========
 
-module c::sys::mman @if(env::NETBSD);
+module sys::mman @if(env::NETBSD);
 
 // Function Declarations
 extern fn void* mmap(void* addr, usz length, int prot, int flags, int fd, long offset);
@@ -314,7 +314,7 @@ const int PSHMNAMLEN = 31;
 
 // ========== OpenBSD ==========
 
-module c::sys::mman @if(env::OPENBSD);
+module sys::mman @if(env::OPENBSD);
 
 // Function Declarations
 extern fn void* mmap(void* addr, usz length, int prot, int flags, int fd, long offset);

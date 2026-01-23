@@ -2,7 +2,7 @@
 
 // sys/stat.h
 
-module c::sys::stat;
+module sys::stat;
 
 // Get file status
 extern fn CInt stat(char* path, Stat* buf);
@@ -33,7 +33,7 @@ extern fn CInt mknodat(CInt dirfd, char* pathname, Mode_t mode, Dev_t dev);
 // File creation mode masking
 extern fn Mode_t umask(Mode_t mask);
 
-module c::sys::stat @if(env::POSIX);
+module sys::stat @if(env::POSIX);
 
 // POSIX  asic types
 alias Mode_t = CUInt;

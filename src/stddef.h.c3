@@ -1,5 +1,5 @@
 // stddef.h.c3
-module c::stddef;
+module stddef;
 
 alias Size_t = usz;
 alias Ssize_t = isz;

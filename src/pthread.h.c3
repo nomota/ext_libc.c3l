@@ -2,7 +2,7 @@
 
 // C3 extern mappings for pthread.h functions and types.
 
-module c::pthread;
+module pthread;
 
 // Thread Creation and Management
 

@@ -1,12 +1,12 @@
 // time.h.c3
 
-module c::time;
+module time;
 
 // ========== Common Types and Structures ==========
 
 // These are available on all platforms
 alias Time_t = long;   // time_t - seconds since epoch
-alias ClockT = long;  // clock_t - processor time
+alias Clock_t = long;  // clock_t - processor time
 
 struct Tm {
     int tm_sec;     // Seconds [0-60] (60 for leap second)
@@ -22,12 +22,12 @@ struct Tm {
 
 // ========== Linux ==========
 
-module c::time @if(env::LINUX);
+module time @if(env::LINUX);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
 extern fn double difftime(Time_t time1, Time_t time0);
-extern fn ClockT clock();
+extern fn Clock_t clock();
 extern fn Tm* localtime(Time_t* timer);
 extern fn Tm* gmtime(Time_t* timer);
 extern fn Time_t mktime(Tm* timeptr);
@@ -92,12 +92,12 @@ extern char** tzname;
 
 // ========== Darwin (macOS) ==========
 
-module c::time @if(env::DARWIN);
+module time @if(env::DARWIN);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
 extern fn double difftime(Time_t time1, Time_t time0);
-extern fn ClockT clock();
+extern fn Clock_t clock();
 extern fn Tm* localtime(Time_t* timer);
 extern fn Tm* gmtime(Time_t* timer);
 extern fn Time_t mktime(Tm* timeptr);
@@ -153,12 +153,12 @@ extern char** tzname;
 
 // ========== FreeBSD ==========
 
-module c::time @if(env::FREEBSD);
+module time @if(env::FREEBSD);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
 extern fn double difftime(Time_t time1, Time_t time0);
-extern fn ClockT clock();
+extern fn Clock_t clock();
 extern fn Tm* localtime(Time_t* timer);
 extern fn Tm* gmtime(Time_t* timer);
 extern fn Time_t mktime(Tm* timeptr);
@@ -222,12 +222,12 @@ extern char** tzname;
 
 // ========== NetBSD ==========
 
-module c::time @if(env::NETBSD);
+module time @if(env::NETBSD);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
 extern fn double difftime(Time_t time1, Time_t time0);
-extern fn ClockT clock();
+extern fn Clock_t clock();
 extern fn Tm* localtime(Time_t* timer);
 extern fn Tm* gmtime(Time_t* timer);
 extern fn Time_t mktime(Tm* timeptr);
@@ -283,12 +283,12 @@ extern char** tzname;
 
 // ========== OpenBSD ==========
 
-module c::time @if(env::OPENBSD);
+module time @if(env::OPENBSD);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
 extern fn double difftime(Time_t time1, Time_t time0);
-extern fn ClockT clock();
+extern fn Clock_t clock();
 extern fn Tm* localtime(Time_t* timer);
 extern fn Tm* gmtime(Time_t* timer);
 extern fn Time_t mktime(Tm* timeptr);
@@ -343,12 +343,12 @@ extern char** tzname;
 
 // ========== Windows ==========
 
-module c::time @if(env::WIN32);
+module time @if(env::WIN32);
 
 // Standard C functions
 extern fn Time_t time(Time_t* tloc);
 extern fn double difftime(Time_t time1, Time_t time0);
-extern fn ClockT clock();
+extern fn Clock_t clock();
 extern fn Tm* localtime(Time_t* timer);
 extern fn Tm* gmtime(Time_t* timer);
 extern fn Time_t mktime(Tm* timeptr);

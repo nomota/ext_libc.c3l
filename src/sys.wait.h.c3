@@ -1,6 +1,6 @@
 // sys.wait.h.c3
 
-module c::sys::wait;
+module sys::wait;
 
 // Main wait functions
 extern fn int wait(int* wstatus);
@@ -9,7 +9,7 @@ extern fn int waitid(IdType idtype, uint id, Siginfo* infop, int options);
 extern fn int wait3(int* wstatus, int options, Rusage* rusage);
 extern fn int wait4(int pid, int* wstatus, int options, Rusage* rusage);
 
-module c::sys::wait::unused;
+module sys::wait::unused;
 
 // Resource usage structure (from sys/resource.h)
 struct Timeval {
@@ -67,7 +67,7 @@ const int WAIT_ANY = -1;
 const int WAIT_MYPGRP = 0;
 
 // wait.h.linux.c3
-module c::sys::wait @if(env::LINUX);
+module sys::wait @if(env::LINUX);
 
 // Options for waitpid/waitid
 const int WNOHANG = 1;
@@ -148,7 +148,7 @@ struct Rusage {
 
 
 // wait.h.darwin.c3
-module c::sys::wait @if(env::DARWIN);
+module sys::wait @if(env::DARWIN);
 
 // Options for waitpid/waitid
 const int WNOHANG = 0x00000001;
@@ -222,7 +222,7 @@ struct Rusage {
 }
 
 // wait.h.freebsd.c3
-module c::sys::wait @if(env::FREEBSD);
+module sys::wait @if(env::FREEBSD);
 
 // Options for waitpid/waitid
 const int WNOHANG = 1;
@@ -330,7 +330,7 @@ struct Rusage {
 }
 
 // wait.h.netbsd.c3
-module c::sys::wait @if(env::NETBSD);
+module sys::wait @if(env::NETBSD);
 
 // Options for waitpid/waitid
 const int WNOHANG = 0x00000001;
@@ -426,7 +426,7 @@ struct Rusage {
 
 
 // wait.h.openbsd.c3
-module c::sys::wait @if(env::OPENBSD);
+module sys::wait @if(env::OPENBSD);
 
 // Options for waitpid/waitid
 const int WNOHANG = 0x0001;

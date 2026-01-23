@@ -1,10 +1,10 @@
 // regex.h.c3
 
-module c::regex;
+module regex;
 
 // ========== Linux ==========
 
-module c::regex @if(env::LINUX);
+module regex @if(env::LINUX);
 
 // Type Definitions
 struct Regex_t {
@@ -63,7 +63,7 @@ const int REG_BACKR = 512;       // Force use of backref code
 
 // ========== Darwin (macOS) ==========
 
-module c::regex @if(env::DARWIN);
+module regex @if(env::DARWIN);
 
 // Type Definitions
 struct Regex_t {
@@ -129,7 +129,7 @@ const int REG_ITOA = 256;        // Convert name to error code
 
 // ========== FreeBSD ==========
 
-module c::regex @if(env::FREEBSD);
+module regex @if(env::FREEBSD);
 
 // Type Definitions
 struct Regex_t {
@@ -199,7 +199,7 @@ const int REG_ITOA = 256;
 
 // ========== NetBSD ==========
 
-module c::regex @if(env::NETBSD);
+module regex @if(env::NETBSD);
 
 // Type Definitions
 struct Regex_t {
@@ -264,7 +264,7 @@ const int REG_ITOA = 256;
 
 // ========== OpenBSD ==========
 
-module c::regex @if(env::OPENBSD);
+module regex @if(env::OPENBSD);
 
 // Type Definitions
 struct Regex_t {
@@ -335,7 +335,7 @@ const int REG_ITOA = 256;
 // 2. C++11 <regex> (if using C++)
 // 3. Windows-specific pattern matching APIs
 
-module c::regex @if(env::WIN32);
+module regex @if(env::WIN32);
 
 // Windows does not have native POSIX regex support
 // For regex on Windows, consider:

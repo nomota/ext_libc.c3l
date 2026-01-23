@@ -1,6 +1,6 @@
 // signal.h.c3
 
-module c::signal;
+module signal;
 
 // Common signal handling type
 alias Sighandler = fn void(int);
@@ -51,7 +51,7 @@ extern fn void psignal(int sig, char* s);
 extern fn void psiginfo(Siginfo* pinfo, char* s);
 
 
-module c::signal::unused; // default
+module signal::unused; // default
 
 // Timespec structure (if not defined elsewhere)
 struct Timespec {
@@ -105,7 +105,7 @@ const uint SA_RESETHAND = 0x80000000;
 
 
 // signal.h.linux.c3
-module c::signal @if(env::LINUX);
+module signal @if(env::LINUX);
 
 // Linux signal numbers
 const int SIGHUP = 1;     // Hangup
@@ -309,7 +309,7 @@ const int SIGEV_THREAD_ID = 4;
 
 
 // signal.h.darwin.c3
-module c::signal @if(env::DARWIN);
+module signal @if(env::DARWIN);
 
 // macOS/Darwin signal numbers
 const int SIGHUP = 1;
@@ -465,7 +465,7 @@ const int SIGEV_THREAD = 3;
 
 
 // signal.h.freebsd.c3
-module c::signal @if(env::FREEBSD);
+module signal @if(env::FREEBSD);
 
 // FreeBSD signal numbers
 const int SIGHUP = 1;
@@ -651,7 +651,7 @@ const int SIGEV_KEVENT = 3;
 const int SIGEV_THREAD_ID = 4;
 
 // signal.h.netbsd.c3
-module c::signal @if(env::NETBSD);
+module signal @if(env::NETBSD);
 
 // NetBSD signal numbers
 const int SIGHUP = 1;
@@ -826,7 +826,7 @@ const int SIGEV_THREAD = 2;
 
 
 // signal.h.openbsd.c3
-module c::signal @if(env::OPENBSD);
+module signal @if(env::OPENBSD);
 
 // OpenBSD signal numbers
 const int SIGHUP = 1;

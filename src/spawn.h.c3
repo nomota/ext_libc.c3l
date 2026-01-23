@@ -1,10 +1,10 @@
 // spawn.h.c3
 
-module c::spawn;
+module spawn;
 
 // ========== Linux ==========
 
-module c::spawn @if(env::LINUX);
+module spawn @if(env::LINUX);
 
 // Opaque types
 alias SpawnFileActionsT = void;
@@ -55,7 +55,7 @@ const short POSIX_SPAWN_SETSID = 0x80;             // Create new session (Linux 
 
 // ========== Darwin (macOS) ==========
 
-module c::spawn @if(env::DARWIN);
+module spawn @if(env::DARWIN);
 
 // Opaque types
 alias SpawnFileActionsT = void;
@@ -115,7 +115,7 @@ const int CPU_TYPE_ANY = -1;
 
 // ========== FreeBSD ==========
 
-module c::spawn @if(env::FREEBSD);
+module spawn @if(env::FREEBSD);
 
 // Opaque types
 alias SpawnFileActionsT = void;
@@ -163,7 +163,7 @@ const short POSIX_SPAWN_USEVFORK = 0x40;
 
 // ========== NetBSD ==========
 
-module c::spawn @if(env::NETBSD);
+module spawn @if(env::NETBSD);
 
 // Opaque types
 alias SpawnFileActionsT = void;
@@ -210,7 +210,7 @@ const short POSIX_SPAWN_SETSCHEDULER = 0x20;
 
 // ========== OpenBSD ==========
 
-module c::spawn @if(env::OPENBSD);
+module spawn @if(env::OPENBSD);
 
 // Opaque types
 alias SpawnFileActionsT = void;
@@ -257,7 +257,7 @@ const short POSIX_SPAWN_SETSCHEDULER = 0x20;
 
 // ========== Windows ==========
 
-module c::spawn @if(env::WIN32);
+module spawn @if(env::WIN32);
 
 // Windows does not have POSIX spawn
 // Instead, use:

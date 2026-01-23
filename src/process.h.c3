@@ -1,18 +1,18 @@
 // process.h.c3
 
-module c::process;
+module process;
 
 // ========== Linux ==========
 
-module c::process @if(env::LINUX);
+module process @if(env::LINUX);
 
 // Linux does not have process.h
 // Process-related functions are in unistd.h and sys/wait.h
 //
 // For process operations on Linux, use:
-// - c::unistd module for fork(), exec*(), getpid(), etc.
-// - c::sys::wait module for wait(), waitpid(), etc.
-// - c::stdlib module for exit(), abort(), system(), etc.
+// - unistd module for fork(), exec*(), getpid(), etc.
+// - sys::wait module for wait(), waitpid(), etc.
+// - stdlib module for exit(), abort(), system(), etc.
 
 // Common functions available through other headers:
 // - fork() - unistd.h
@@ -24,35 +24,35 @@ module c::process @if(env::LINUX);
 
 // ========== Darwin (macOS) ==========
 
-module c::process @if(env::DARWIN);
+module process @if(env::DARWIN);
 
 // macOS does not have process.h
 // Use unistd.h and sys/wait.h instead
 
 // ========== FreeBSD ==========
 
-module c::process @if(env::FREEBSD);
+module process @if(env::FREEBSD);
 
 // FreeBSD does not have process.h
 // Use unistd.h and sys/wait.h instead
 
 // ========== NetBSD ==========
 
-module c::process @if(env::NETBSD);
+module process @if(env::NETBSD);
 
 // NetBSD does not have process.h
 // Use unistd.h and sys/wait.h instead
 
 // ========== OpenBSD ==========
 
-module c::process @if(env::OPENBSD);
+module process @if(env::OPENBSD);
 
 // OpenBSD does not have process.h
 // Use unistd.h and sys/wait.h instead
 
 // ========== Windows ==========
 
-module c::process @if(env::WIN32);
+module process @if(env::WIN32);
 
 // Process creation - spawn family
 extern fn iptr _spawnl(int mode, char* cmdname, char* arg0, ...);
