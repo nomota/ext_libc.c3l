@@ -34,9 +34,10 @@ Fetch the library from the repository:
 c3l fetch https://github.com/nomota/ext_libc.c3l
 ```
 
-This will install the library to your project's `lib/` folder and update your `project.json`:
+This will install the library to your project's `lib/ext_libc.c3l` as a `zip` packed file and update your `project.json`:
 
 ```json
+// project.json
 {
   "dependencies": ["ext_libc"]
 }
