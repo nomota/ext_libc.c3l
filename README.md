@@ -58,7 +58,8 @@ Access functions and constants using the module namespace:
 ```c3
 import stdio;
 
-fn void main() {
+fn void main() 
+{
     stdio::printf("Hello from ext_libc!\n");
 }
 ```
@@ -69,8 +70,9 @@ fn void main() {
 import winsock2;
 import ws2tcpip;
 
-fn void init_networking() {
-    winsock2::WSAData wsa_data;
+fn void init_networking() 
+{
+    WSAData wsa_data;
     winsock2::wsa_startup(0x0202, &wsa_data);
 }
 ```
@@ -82,13 +84,38 @@ import sys::socket;
 import netinet::in;
 import unistd;
 
-fn int create_server_socket(ushort port) {
+fn int create_server_socket(ushort port) 
+{
     int sockfd = socket::socket(socket::AF_INET, socket::SOCK_STREAM, 0);
     // ... bind, listen, etc.
     return sockfd;
 }
 ```
 
+### Discrepencies
+
+C3 has strong naming rules, which hinders away 1:1 direct conversion.
+* Types (Structure names) should start with uppercase.
+* variables and functions should start with lowercase.
+* CONSTANTS should all be uppercase.
+
+```c3
+// C
+// winsock2.h
+struct WSADATA {
+
+};
+
+int WSAStartup(unsitned short version_required, struct WSADATA* wsa_data);
+
+// C3
+// winsock2.h.c3
+struct WSAData {
+
+}
+
+extern fn int wsa_startup(ushort version_required, WSAData* wsa_data) @cname("WSAStartup");
+```
 ## Available Modules
 
 ### POSIX/Unix Headers
