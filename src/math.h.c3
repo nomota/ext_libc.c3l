@@ -852,10 +852,10 @@ extern fn float floorf(float x);
 extern fn float truncf(float x);
 extern fn float roundf(float x);
 extern fn long lroundf(float x);
-extern fn long lroundf(float x);
+
 extern fn float rintf(float x);
 extern fn long lrintf(float x);
-extern fn long lrintf(float x);
+
 extern fn float nearbyintf(float x);
 extern fn float frexpf(float x, int* exp);
 extern fn float ldexpf(float x, int exp);
