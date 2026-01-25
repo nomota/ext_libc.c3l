@@ -279,10 +279,10 @@ extern fn double floor(double x);
 extern fn double trunc(double x);
 extern fn double round(double x);
 extern fn long lround(double x);
-extern fn long lround(double x);
+
 extern fn double rint(double x);
 extern fn long lrint(double x);
-extern fn long lrint(double x);
+
 extern fn double nearbyint(double x);
 extern fn double frexp(double x, int* exp);
 extern fn double ldexp(double x, int exp);
@@ -342,10 +342,10 @@ extern fn float floorf(float x);
 extern fn float truncf(float x);
 extern fn float roundf(float x);
 extern fn long lroundf(float x);
-extern fn long lroundf(float x);
+
 extern fn float rintf(float x);
 extern fn long lrintf(float x);
-extern fn long lrintf(float x);
+
 extern fn float nearbyintf(float x);
 extern fn float frexpf(float x, int* exp);
 extern fn float ldexpf(float x, int exp);
@@ -399,10 +399,10 @@ extern fn double floorl(double x);
 extern fn double truncl(double x);
 extern fn double roundl(double x);
 extern fn long lroundl(double x);
-extern fn long lroundl(double x);
+
 extern fn double rintl(double x);
 extern fn long lrintl(double x);
-extern fn long lrintl(double x);
+
 extern fn double nearbyintl(double x);
 extern fn double frexpl(double x, int* exp);
 extern fn double ldexpl(double x, int exp);
@@ -489,10 +489,10 @@ extern fn double floor(double x);
 extern fn double trunc(double x);
 extern fn double round(double x);
 extern fn long lround(double x);
-extern fn long lround(double x);
+
 extern fn double rint(double x);
 extern fn long lrint(double x);
-extern fn long lrint(double x);
+
 extern fn double nearbyint(double x);
 extern fn double frexp(double x, int* exp);
 extern fn double ldexp(double x, int exp);
@@ -610,10 +610,10 @@ extern fn double floor(double x);
 extern fn double trunc(double x);
 extern fn double round(double x);
 extern fn long lround(double x);
-extern fn long lround(double x);
+
 extern fn double rint(double x);
 extern fn long lrint(double x);
-extern fn long lrint(double x);
+
 extern fn double nearbyint(double x);
 extern fn double frexp(double x, int* exp);
 extern fn double ldexp(double x, int exp);
@@ -701,10 +701,10 @@ extern fn double floor(double x);
 extern fn double trunc(double x);
 extern fn double round(double x);
 extern fn long lround(double x);
-extern fn long lround(double x);
+
 extern fn double rint(double x);
 extern fn long lrint(double x);
-extern fn long lrint(double x);
+
 extern fn double nearbyint(double x);
 extern fn double frexp(double x, int* exp);
 extern fn double ldexp(double x, int exp);
@@ -800,10 +800,10 @@ extern fn double lgamma(double x);
 extern fn double trunc(double x);
 extern fn double round(double x);
 extern fn long lround(double x);
-extern fn long lround(double x);
+
 extern fn double rint(double x);
 extern fn long lrint(double x);
-extern fn long lrint(double x);
+
 extern fn double nearbyint(double x);
 extern fn double remainder(double x, double y);
 extern fn double remquo(double x, double y, int* quo);
