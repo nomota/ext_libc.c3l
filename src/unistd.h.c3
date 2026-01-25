@@ -2,7 +2,7 @@
 
 // unistd.h C3 Extern Mapping
 
-module unistd;
+module unistd @if(!env::WIN32);
 
 // Function Declarations
 
