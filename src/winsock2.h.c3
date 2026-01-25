@@ -541,7 +541,7 @@ extern fn int getsockname(Socket s, SockAddr* name, int* namelen) @cname("getsoc
 extern fn int getpeername(Socket s, SockAddr* name, int* namelen) @cname("getpeername");
 
 // I/O Control
-extern fn int ioctlsocket(Socket s, int cmd, ULong* argp) @cname("ioctlsocket");
+extern fn int ioctlsocket(Socket s, uint cmd, ULong* argp) @cname("ioctlsocket");
 
 extern fn int wsa_ioctl(
     Socket s,
