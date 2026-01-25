@@ -1,6 +1,6 @@
 // sys.wait.h.c3
 
-module sys::wait;
+module sys::wait @if(!env::WIN32);
 
 // Main wait functions
 extern fn int wait(int* wstatus);
