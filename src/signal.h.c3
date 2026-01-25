@@ -50,60 +50,6 @@ extern fn char* strsignal(int sig);
 extern fn void psignal(int sig, char* s);
 extern fn void psiginfo(SigInfo* pinfo, char* s);
 
-
-module signal::unused; // default
-
-// TimeSpec structure (if not defined elsewhere)
-struct TimeSpec {
-    long tv_sec;
-    long tv_nsec;
-}
-
-// Union for sigval
-union SigVal {
-    int sival_int;
-    void* sival_ptr;
-}
-
-// Generic signal set type (actual size varies by platform)
-struct SigSetPtr {
-    ulong[16] __val;  // Oversized, actual size is platform-specific
-}
-
-// Stack structure for sigaltstack
-struct Stack {
-    void* ss_sp;
-    int ss_flags;
-    usz ss_size;
-}
-
-// Constants for sigaltstack
-const int SS_ONSTACK = 1;
-const int SS_DISABLE = 2;
-const int MINSIGSTKSZ = 2048;
-const int SIGSTKSZ = 8192;
-
-// Constants for sigprocmask
-const int SIG_BLOCK = 0;
-const int SIG_UNBLOCK = 1;
-const int SIG_SETMASK = 2;
-
-// Standard signal handlers
-const SigHandler SIG_DFL = (SigHandler)0;
-const SigHandler SIG_IGN = (SigHandler)1;
-const SigHandler SIG_ERR = (SigHandler)uptr.max; // same as -1;
-
-// Signal action flags (common across platforms, values differ)
-const int SA_NOCLDSTOP = 1;
-const int SA_NOCLDWAIT = 2;
-const int SA_SIGINFO = 4;
-const int SA_ONSTACK = 0x08000000;
-const int SA_RESTART = 0x10000000;
-const int SA_NODEFER = 0x40000000;
-const uint SA_RESETHAND = 0x80000000;
-
-
-
 // signal.h.linux.c3
 module signal @if(env::LINUX);
 
