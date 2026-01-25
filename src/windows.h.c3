@@ -42,7 +42,6 @@ alias Handle = void*;
 alias HInstance = void*;
 alias HModule = void*;
 alias HWnd = void*;
-alias HDC = void*;
 alias HMenu = void*;
 alias HIcon = void*;
 alias HCursor = void*;
@@ -56,7 +55,7 @@ alias HGlobal = void*;
 alias HLocal = void*;
 
 // Special handle values
-const Handle INVALID_HANDLE_VALUE = (Handle)(-1);
+const Handle INVALID_HANDLE_VALUE = (Handle)(uptr.max);
 const Handle NULL_HANDLE = (Handle)0;
 
 // =============================================================================
