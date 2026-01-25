@@ -1,4 +1,4 @@
-module memoryapi;
+module memoryapi @if(env::WIN32);
 
 // Windows Memory API
 // C3 mapping for memoryapi.h

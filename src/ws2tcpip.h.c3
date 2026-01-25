@@ -1,6 +1,6 @@
 // ws2tcpip.h.c3
 
-module ws2tcpip;
+module ws2tcpip @if(env::WIN32);
 
 // Windows TCP/IP Specific API
 // C3 mapping for ws2tcpip.h

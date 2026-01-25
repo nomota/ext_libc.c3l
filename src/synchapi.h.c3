@@ -1,4 +1,4 @@
-module synchapi;
+module synchapi @if(env::WIN32);
 
 // Windows Synchronization API
 // C3 mapping for synchapi.h

@@ -1,6 +1,6 @@
 
 // netdb.h.c3
-module netdb;
+module netdb @if(!env::WIN32);
 
 import netinet::in;
 

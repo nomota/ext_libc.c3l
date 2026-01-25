@@ -1,4 +1,4 @@
-module processthreadapi;
+module processthreadapi @if(env::WIN32);
 
 // Windows Process and Thread API
 // C3 mapping for processthreadapi.h

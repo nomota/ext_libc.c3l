@@ -1,6 +1,6 @@
 // errhandlingapi.h.c3
 
-module errhandlingapi;
+module errhandlingapi @if(env::WIN32);
 
 alias Handle = void*;
 alias Bool = int;

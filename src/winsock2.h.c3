@@ -1,5 +1,5 @@
 // winsock2.h.c3 
-module winsock2;
+module winsock2 @if(env::WIN32);
 
 // Windows Socket API 2
 // C3 mapping for winsock2.h

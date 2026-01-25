@@ -1,6 +1,6 @@
 // handleapi.h.c3
 
-module handleapi;
+module handleapi @if(env::WIN32);
 
 alias Handle = void*;
 alias Bool = int;

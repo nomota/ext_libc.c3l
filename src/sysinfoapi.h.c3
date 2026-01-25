@@ -1,6 +1,6 @@
 // sysinfoapi.h.c3
 
-module sysinfoapi;
+module sysinfoapi @if(env::WIN32);
 
 alias Handle = void*;
 alias UIntPtr = uint*;

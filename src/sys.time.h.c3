@@ -351,30 +351,3 @@ module sys::time @if(env::WIN32);
 // Windows does not have native sys/time.h
 // However, some compatibility layers (like MinGW) may provide it
 // Here we define minimal compatibility structures
-
-// Compatibility structures (if needed)
-struct TimeVal {
-    long tv_sec;
-    long tv_usec;
-}
-
-// Note: The following functions are NOT native to Windows
-// They may be provided by compatibility layers like MinGW or Cygwin
-// For native Windows code, use Windows API instead
-
-// Example of what you might need to implement for Windows:
-/*
-extern fn int gettimeofday(TimeVal* tv, void* tz) @extern("gettimeofday") @if(env::MINGW);
-
-// Or implement yourself:
-fn int gettimeofday(TimeVal* tv, void* tz) @if(!env::MINGW) {
-    // Use GetSystemTimeAsFileTime() or similar
-    // Convert FILETIME to timeval
-    return -1; // Not implemented
-}
-*/
-
-// For native Windows timing, use these instead:
-// - GetSystemTime() / GetLocalTime() - in windows.h
-// - QueryPerformanceCounter() / QueryPerformanceFrequency() - in windows.h
-// - _ftime() / _ftime64() - provides millisecond resolution
