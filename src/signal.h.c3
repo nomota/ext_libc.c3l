@@ -1,6 +1,6 @@
 // signal.h.c3
 
-module signal;
+module signal @if(!env::WIN32);
 
 // Common signal handling type
 alias SigHandler = fn void(int);
@@ -25,8 +25,8 @@ extern fn int sigsuspend(SigSetPtr* mask);
 
 // Signal waiting
 extern fn int sigwait(SigSetPtr* set, int* sig);
-extern fn int sigwaitinfo(SigSetPtr* set, Siginfo* info);
-extern fn int sigtimedwait(SigSetPtr* set, Siginfo* info, TimeSpec* timeout);
+extern fn int sigwaitinfo(SigSetPtr* set, SigInfo* info);
+extern fn int sigtimedwait(SigSetPtr* set, SigInfo* info, TimeSpec* timeout);
 
 // Alternate signal stack
 extern fn int sigaltstack(Stack* ss, Stack* old_ss);
@@ -48,7 +48,7 @@ extern fn int pause();
 // Signal description
 extern fn char* strsignal(int sig);
 extern fn void psignal(int sig, char* s);
-extern fn void psiginfo(Siginfo* pinfo, char* s);
+extern fn void psiginfo(SigInfo* pinfo, char* s);
 
 
 module signal::unused; // default
@@ -226,7 +226,7 @@ struct SigSetPtr {
     ulong[16] __val;  // 1024 bits for signal mask
 }
 
-alias SigFn = fn void(int, Siginfo*, void*);
+alias SigFn = fn void(int, SigInfo*, void*);
 alias Restfn = fn void();
 // Signal action structure
 struct Sigaction {
@@ -240,7 +240,7 @@ struct Sigaction {
 }
 
 // Signal info structure
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_errno;
     int si_code;
@@ -411,7 +411,7 @@ struct SigSetPtr {
     uint __bits;
 }
 
-alias SigFn = fn void(int, Siginfo*, void*);
+alias SigFn = fn void(int, SigInfo*, void*);
 // Signal action structure
 struct Sigaction {
     union {
@@ -423,7 +423,7 @@ struct Sigaction {
 }
 
 // Signal info structure (Darwin)
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_errno;
     int si_code;
@@ -573,7 +573,7 @@ struct SigSetPtr {
     uint[4] __bits;
 }
 
-alias SigFn = fn void(int, Siginfo*, void*);
+alias SigFn = fn void(int, SigInfo*, void*);
 // Signal action structure
 struct Sigaction {
     union {
@@ -585,7 +585,7 @@ struct Sigaction {
 }
 
 // Signal info structure
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_errno;
     int si_code;
@@ -756,7 +756,7 @@ struct SigSetPtr {
     uint[4] __bits;
 }
 
-alias SigFn = fn void(int, Siginfo*, void*);
+alias SigFn = fn void(int, SigInfo*, void*);
 // Signal action structure
 struct Sigaction {
     union {
@@ -768,7 +768,7 @@ struct Sigaction {
 }
 
 // Signal info structure
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_code;
     int si_errno;
@@ -926,7 +926,7 @@ struct SigSetPtr {
     uint __bits;
 }
 
-alias SigFn = fn void(int, Siginfo*, void*);
+alias SigFn = fn void(int, SigInfo*, void*);
 // Signal action structure
 struct Sigaction {
     union {
@@ -938,7 +938,7 @@ struct Sigaction {
 }
 
 // Signal info structure
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_code;
     int si_errno;
