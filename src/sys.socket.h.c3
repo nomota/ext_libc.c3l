@@ -1,5 +1,5 @@
 // sys.socket.h.c3
-module sys::socket;
+module sys::socket @if(!env::WIN32);
 
 // Main socket functions
 extern fn int socket(int domain, int type, int protocol);

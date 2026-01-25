@@ -2,7 +2,7 @@
 
 // C3 extern mappings for pthread.h functions and types.
 
-module pthread;
+module pthread @if(!env::WIN32);
 
 // Thread Creation and Management
 
