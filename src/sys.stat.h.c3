@@ -2,7 +2,7 @@
 
 // sys/stat.h
 
-module sys::stat;
+module sys::stat @if(!env::WIN32);
 
 // Get file status
 extern fn CInt stat(char* path, Stat* buf);
