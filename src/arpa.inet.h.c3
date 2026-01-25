@@ -14,8 +14,8 @@ extern fn uint ntohl(uint netlong);
 
 // IPv4 address conversion functions (legacy)
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_addr);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn char* inet_ntoa(InAddr in_addr);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // IPv4/IPv6 address conversion functions (modern)
 extern fn int inet_pton(int af, char* src, void* dst);
@@ -23,12 +23,12 @@ extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
 
 // Network/host address conversion (legacy)
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_addr);
-extern fn uint inet_netof(In_addr in_addr);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_addr);
+extern fn uint inet_netof(InAddr in_addr);
 
 // Additional Linux functions
-extern fn int inet_aton_r(char* cp, In_addr* inp);
+extern fn int inet_aton_r(char* cp, InAddr* inp);
 
 // ========== Type Definitions ==========
 
@@ -59,8 +59,8 @@ extern fn uint ntohl(uint netlong);
 
 // IPv4 address conversion functions (legacy)
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_addr);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn char* inet_ntoa(InAddr in_addr);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // IPv4/IPv6 address conversion functions (modern)
 extern fn int inet_pton(int af, char* src, void* dst);
@@ -68,9 +68,9 @@ extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
 
 // Network/host address conversion (legacy)
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_addr);
-extern fn uint inet_netof(In_addr in_addr);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_addr);
+extern fn uint inet_netof(InAddr in_addr);
 
 // Darwin-specific functions
 extern fn char* inet_net_ntop(int af, void* src, int bits, char* dst, usz size);
@@ -107,8 +107,8 @@ extern fn uint ntohl(uint netlong);
 
 // IPv4 address conversion functions (legacy)
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_addr);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn char* inet_ntoa(InAddr in_addr);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // IPv4/IPv6 address conversion functions (modern)
 extern fn int inet_pton(int af, char* src, void* dst);
@@ -116,9 +116,9 @@ extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
 
 // Network/host address conversion (legacy)
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_addr);
-extern fn uint inet_netof(In_addr in_addr);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_addr);
+extern fn uint inet_netof(InAddr in_addr);
 
 // FreeBSD-specific functions
 extern fn char* inet_net_ntop(int af, void* src, int bits, char* dst, usz size);
@@ -157,8 +157,8 @@ extern fn uint ntohl(uint netlong);
 
 // IPv4 address conversion functions (legacy)
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_addr);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn char* inet_ntoa(InAddr in_addr);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // IPv4/IPv6 address conversion functions (modern)
 extern fn int inet_pton(int af, char* src, void* dst);
@@ -166,9 +166,9 @@ extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
 
 // Network/host address conversion (legacy)
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_addr);
-extern fn uint inet_netof(In_addr in_addr);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_addr);
+extern fn uint inet_netof(InAddr in_addr);
 
 // NetBSD-specific functions
 extern fn char* inet_net_ntop(int af, void* src, int bits, char* dst, usz size);
@@ -210,8 +210,8 @@ extern fn uint ntohl(uint netlong);
 
 // IPv4 address conversion functions (legacy)
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_addr);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn char* inet_ntoa(InAddr in_addr);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // IPv4/IPv6 address conversion functions (modern)
 extern fn int inet_pton(int af, char* src, void* dst);
@@ -219,9 +219,9 @@ extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
 
 // Network/host address conversion (legacy)
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_addr);
-extern fn uint inet_netof(In_addr in_addr);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_addr);
+extern fn uint inet_netof(InAddr in_addr);
 
 // OpenBSD-specific functions
 extern fn char* inet_net_ntop(int af, void* src, int bits, char* dst, usz size);

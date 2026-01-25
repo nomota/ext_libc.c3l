@@ -14,7 +14,7 @@ alias ULong = uint;
 alias LongPtr = iptr;
 alias ULongPtr = uptr;
 alias PVoid = void*;
-alias Size_t = ulong;
+alias Size = ulong;
 
 // Process creation flags
 const uint DEBUG_PROCESS = 0x00000001;
@@ -174,28 +174,28 @@ struct StartupInfoW {
 struct ProcessMemoryCounters {
     DWord cb;
     DWord page_fault_count;
-    Size_t peak_working_set_size;
-    Size_t working_set_size;
-    Size_t quota_peak_paged_pool_usage;
-    Size_t quota_paged_pool_usage;
-    Size_t quota_peak_non_paged_pool_usage;
-    Size_t quota_non_paged_pool_usage;
-    Size_t pagefile_usage;
-    Size_t peak_pagefile_usage;
+    Size peak_working_set_size;
+    Size working_set_size;
+    Size quota_peak_paged_pool_usage;
+    Size quota_paged_pool_usage;
+    Size quota_peak_non_paged_pool_usage;
+    Size quota_non_paged_pool_usage;
+    Size pagefile_usage;
+    Size peak_pagefile_usage;
 }
 
 struct ProcessMemoryCountersEx {
     DWord cb;
     DWord page_fault_count;
-    Size_t peak_working_set_size;
-    Size_t working_set_size;
-    Size_t quota_peak_paged_pool_usage;
-    Size_t quota_paged_pool_usage;
-    Size_t quota_peak_non_paged_pool_usage;
-    Size_t quota_non_paged_pool_usage;
-    Size_t pagefile_usage;
-    Size_t peak_pagefile_usage;
-    Size_t private_usage;
+    Size peak_working_set_size;
+    Size working_set_size;
+    Size quota_peak_paged_pool_usage;
+    Size quota_paged_pool_usage;
+    Size quota_peak_non_paged_pool_usage;
+    Size quota_non_paged_pool_usage;
+    Size pagefile_usage;
+    Size peak_pagefile_usage;
+    Size private_usage;
 }
 
 // Thread callback type
@@ -230,7 +230,7 @@ extern fn Bool create_process_w(
 
 extern fn Handle create_thread(
     SecurityAttributes* thread_attributes,
-    Size_t stack_size,
+    Size stack_size,
     ThreadStartRoutine start_address,
     PVoid parameter,
     DWord creation_flags,
@@ -240,7 +240,7 @@ extern fn Handle create_thread(
 extern fn Handle create_remote_thread(
     Handle process,
     SecurityAttributes* thread_attributes,
-    Size_t stack_size,
+    Size stack_size,
     ThreadStartRoutine start_address,
     PVoid parameter,
     DWord creation_flags,
@@ -350,14 +350,14 @@ extern fn Bool get_process_memory_info(
 
 extern fn Bool set_process_working_set_size(
     Handle process,
-    Size_t minimum_working_set_size,
-    Size_t maximum_working_set_size
+    Size minimum_working_set_size,
+    Size maximum_working_set_size
 ) @cname("SetProcessWorkingSetSize");
 
 extern fn Bool get_process_working_set_size(
     Handle process,
-    Size_t* minimum_working_set_size,
-    Size_t* maximum_working_set_size
+    Size* minimum_working_set_size,
+    Size* maximum_working_set_size
 ) @cname("GetProcessWorkingSetSize");
 
 extern fn Bool flush_process_write_buffers() @cname("FlushProcessWriteBuffers");
@@ -425,7 +425,7 @@ extern fn Bool initialize_proc_thread_attribute_list(
     void* attribute_list,
     DWord attribute_count,
     DWord flags,
-    Size_t* size
+    Size* size
 ) @cname("InitializeProcThreadAttributeList");
 
 extern fn void delete_proc_thread_attribute_list(void* attribute_list) @cname("DeleteProcThreadAttributeList");
@@ -435,9 +435,9 @@ extern fn Bool update_proc_thread_attribute(
     DWord flags,
     ULongPtr attribute,
     PVoid value,
-    Size_t size,
+    Size size,
     PVoid previous_value,
-    Size_t* return_size
+    Size* return_size
 ) @cname("UpdateProcThreadAttribute");
 
 // Constants for WAIT functions

@@ -5,8 +5,8 @@ module time;
 // ========== Common Types and Structures ==========
 
 // These are available on all platforms
-alias Time_t = long;   // time_t - seconds since epoch
-alias Clock_t = long;  // clock_t - processor time
+alias Time = long;   // time_t - seconds since epoch
+alias Clock = long;  // clock_t - processor time
 
 struct Tm {
     int tm_sec;     // Seconds [0-60] (60 for leap second)
@@ -25,46 +25,46 @@ struct Tm {
 module time @if(env::LINUX);
 
 // Standard C functions
-extern fn Time_t time(Time_t* tloc);
-extern fn double difftime(Time_t time1, Time_t time0);
-extern fn Clock_t clock();
-extern fn Tm* localtime(Time_t* timer);
-extern fn Tm* gmtime(Time_t* timer);
-extern fn Time_t mktime(Tm* timeptr);
+extern fn Time time(Time* tloc);
+extern fn double difftime(Time time1, Time time0);
+extern fn Clock clock();
+extern fn Tm* localtime(Time* timer);
+extern fn Tm* gmtime(Time* timer);
+extern fn Time mktime(Tm* timeptr);
 extern fn char* asctime(Tm* timeptr);
-extern fn char* ctime(Time_t* timer);
+extern fn char* ctime(Time* timer);
 extern fn usz strftime(char* s, usz maxsize, char* format, Tm* timeptr);
 
 // Thread-safe versions
-extern fn Tm* localtime_r(Time_t* timer, Tm* result);
-extern fn Tm* gmtime_r(Time_t* timer, Tm* result);
+extern fn Tm* localtime_r(Time* timer, Tm* result);
+extern fn Tm* gmtime_r(Time* timer, Tm* result);
 extern fn char* asctime_r(Tm* timeptr, char* buf);
-extern fn char* ctime_r(Time_t* timer, char* buf);
+extern fn char* ctime_r(Time* timer, char* buf);
 
 // POSIX functions
-extern fn int clock_gettime(int clk_id, Timespec* tp);
-extern fn int clock_settime(int clk_id, Timespec* tp);
-extern fn int clock_getres(int clk_id, Timespec* res);
-extern fn int nanosleep(Timespec* req, Timespec* rem);
+extern fn int clock_gettime(int clk_id, TimeSpec* tp);
+extern fn int clock_settime(int clk_id, TimeSpec* tp);
+extern fn int clock_getres(int clk_id, TimeSpec* res);
+extern fn int nanosleep(TimeSpec* req, TimeSpec* rem);
 extern fn char* strptime(char* s, char* format, Tm* tm);
 extern fn void tzset();
-extern fn Time_t timegm(Tm* tm);
-extern fn Time_t timelocal(Tm* tm);
+extern fn Time timegm(Tm* tm);
+extern fn Time timelocal(Tm* tm);
 
 // Additional structures
-struct Timespec {
+struct TimeSpec {
     long tv_sec;   // Seconds
     long tv_nsec;  // Nanoseconds
 }
 
-struct Timeval {
+struct TimeVal {
     long tv_sec;   // Seconds
     long tv_usec;  // Microseconds
 }
 
-struct Itimerspec {
-    Timespec it_interval;
-    Timespec it_value;
+struct ITimerSpec {
+    TimeSpec it_interval;
+    TimeSpec it_value;
 }
 
 // Clock IDs
@@ -95,37 +95,37 @@ extern char** tzname;
 module time @if(env::DARWIN);
 
 // Standard C functions
-extern fn Time_t time(Time_t* tloc);
-extern fn double difftime(Time_t time1, Time_t time0);
-extern fn Clock_t clock();
-extern fn Tm* localtime(Time_t* timer);
-extern fn Tm* gmtime(Time_t* timer);
-extern fn Time_t mktime(Tm* timeptr);
+extern fn Time time(Time* tloc);
+extern fn double difftime(Time time1, Time time0);
+extern fn Clock clock();
+extern fn Tm* localtime(Time* timer);
+extern fn Tm* gmtime(Time* timer);
+extern fn Time mktime(Tm* timeptr);
 extern fn char* asctime(Tm* timeptr);
-extern fn char* ctime(Time_t* timer);
+extern fn char* ctime(Time* timer);
 extern fn usz strftime(char* s, usz maxsize, char* format, Tm* timeptr);
 
 // Thread-safe versions
-extern fn Tm* localtime_r(Time_t* timer, Tm* result);
-extern fn Tm* gmtime_r(Time_t* timer, Tm* result);
+extern fn Tm* localtime_r(Time* timer, Tm* result);
+extern fn Tm* gmtime_r(Time* timer, Tm* result);
 extern fn char* asctime_r(Tm* timeptr, char* buf);
-extern fn char* ctime_r(Time_t* timer, char* buf);
+extern fn char* ctime_r(Time* timer, char* buf);
 
 // POSIX functions
-extern fn int clock_gettime(int clk_id, Timespec* tp);
-extern fn int clock_getres(int clk_id, Timespec* res);
-extern fn int nanosleep(Timespec* req, Timespec* rem);
+extern fn int clock_gettime(int clk_id, TimeSpec* tp);
+extern fn int clock_getres(int clk_id, TimeSpec* res);
+extern fn int nanosleep(TimeSpec* req, TimeSpec* rem);
 extern fn char* strptime(char* s, char* format, Tm* tm);
 extern fn void tzset();
-extern fn Time_t timegm(Tm* tm);
+extern fn Time timegm(Tm* tm);
 
 // Additional structures
-struct Timespec {
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
 
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     int tv_usec;
 }
@@ -156,38 +156,38 @@ extern char** tzname;
 module time @if(env::FREEBSD);
 
 // Standard C functions
-extern fn Time_t time(Time_t* tloc);
-extern fn double difftime(Time_t time1, Time_t time0);
-extern fn Clock_t clock();
-extern fn Tm* localtime(Time_t* timer);
-extern fn Tm* gmtime(Time_t* timer);
-extern fn Time_t mktime(Tm* timeptr);
+extern fn Time time(Time* tloc);
+extern fn double difftime(Time time1, Time time0);
+extern fn Clock clock();
+extern fn Tm* localtime(Time* timer);
+extern fn Tm* gmtime(Time* timer);
+extern fn Time mktime(Tm* timeptr);
 extern fn char* asctime(Tm* timeptr);
-extern fn char* ctime(Time_t* timer);
+extern fn char* ctime(Time* timer);
 extern fn usz strftime(char* s, usz maxsize, char* format, Tm* timeptr);
 
 // Thread-safe versions
-extern fn Tm* localtime_r(Time_t* timer, Tm* result);
-extern fn Tm* gmtime_r(Time_t* timer, Tm* result);
+extern fn Tm* localtime_r(Time* timer, Tm* result);
+extern fn Tm* gmtime_r(Time* timer, Tm* result);
 extern fn char* asctime_r(Tm* timeptr, char* buf);
-extern fn char* ctime_r(Time_t* timer, char* buf);
+extern fn char* ctime_r(Time* timer, char* buf);
 
 // POSIX functions
-extern fn int clock_gettime(int clk_id, Timespec* tp);
-extern fn int clock_settime(int clk_id, Timespec* tp);
-extern fn int clock_getres(int clk_id, Timespec* res);
-extern fn int nanosleep(Timespec* req, Timespec* rem);
+extern fn int clock_gettime(int clk_id, TimeSpec* tp);
+extern fn int clock_settime(int clk_id, TimeSpec* tp);
+extern fn int clock_getres(int clk_id, TimeSpec* res);
+extern fn int nanosleep(TimeSpec* req, TimeSpec* rem);
 extern fn char* strptime(char* s, char* format, Tm* tm);
 extern fn void tzset();
-extern fn Time_t timegm(Tm* tm);
+extern fn Time timegm(Tm* tm);
 
 // Additional structures
-struct Timespec {
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
 
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
@@ -225,38 +225,38 @@ extern char** tzname;
 module time @if(env::NETBSD);
 
 // Standard C functions
-extern fn Time_t time(Time_t* tloc);
-extern fn double difftime(Time_t time1, Time_t time0);
-extern fn Clock_t clock();
-extern fn Tm* localtime(Time_t* timer);
-extern fn Tm* gmtime(Time_t* timer);
-extern fn Time_t mktime(Tm* timeptr);
+extern fn Time time(Time* tloc);
+extern fn double difftime(Time time1, Time time0);
+extern fn Clock clock();
+extern fn Tm* localtime(Time* timer);
+extern fn Tm* gmtime(Time* timer);
+extern fn Time mktime(Tm* timeptr);
 extern fn char* asctime(Tm* timeptr);
-extern fn char* ctime(Time_t* timer);
+extern fn char* ctime(Time* timer);
 extern fn usz strftime(char* s, usz maxsize, char* format, Tm* timeptr);
 
 // Thread-safe versions
-extern fn Tm* localtime_r(Time_t* timer, Tm* result);
-extern fn Tm* gmtime_r(Time_t* timer, Tm* result);
+extern fn Tm* localtime_r(Time* timer, Tm* result);
+extern fn Tm* gmtime_r(Time* timer, Tm* result);
 extern fn char* asctime_r(Tm* timeptr, char* buf);
-extern fn char* ctime_r(Time_t* timer, char* buf);
+extern fn char* ctime_r(Time* timer, char* buf);
 
 // POSIX functions
-extern fn int clock_gettime(int clk_id, Timespec* tp);
-extern fn int clock_settime(int clk_id, Timespec* tp);
-extern fn int clock_getres(int clk_id, Timespec* res);
-extern fn int nanosleep(Timespec* req, Timespec* rem);
+extern fn int clock_gettime(int clk_id, TimeSpec* tp);
+extern fn int clock_settime(int clk_id, TimeSpec* tp);
+extern fn int clock_getres(int clk_id, TimeSpec* res);
+extern fn int nanosleep(TimeSpec* req, TimeSpec* rem);
 extern fn char* strptime(char* s, char* format, Tm* tm);
 extern fn void tzset();
-extern fn Time_t timegm(Tm* tm);
+extern fn Time timegm(Tm* tm);
 
 // Additional structures
-struct Timespec {
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
 
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     int tv_usec;
 }
@@ -286,37 +286,37 @@ extern char** tzname;
 module time @if(env::OPENBSD);
 
 // Standard C functions
-extern fn Time_t time(Time_t* tloc);
-extern fn double difftime(Time_t time1, Time_t time0);
-extern fn Clock_t clock();
-extern fn Tm* localtime(Time_t* timer);
-extern fn Tm* gmtime(Time_t* timer);
-extern fn Time_t mktime(Tm* timeptr);
+extern fn Time time(Time* tloc);
+extern fn double difftime(Time time1, Time time0);
+extern fn Clock clock();
+extern fn Tm* localtime(Time* timer);
+extern fn Tm* gmtime(Time* timer);
+extern fn Time mktime(Tm* timeptr);
 extern fn char* asctime(Tm* timeptr);
-extern fn char* ctime(Time_t* timer);
+extern fn char* ctime(Time* timer);
 extern fn usz strftime(char* s, usz maxsize, char* format, Tm* timeptr);
 
 // Thread-safe versions
-extern fn Tm* localtime_r(Time_t* timer, Tm* result);
-extern fn Tm* gmtime_r(Time_t* timer, Tm* result);
+extern fn Tm* localtime_r(Time* timer, Tm* result);
+extern fn Tm* gmtime_r(Time* timer, Tm* result);
 extern fn char* asctime_r(Tm* timeptr, char* buf);
-extern fn char* ctime_r(Time_t* timer, char* buf);
+extern fn char* ctime_r(Time* timer, char* buf);
 
 // POSIX functions
-extern fn int clock_gettime(int clk_id, Timespec* tp);
-extern fn int clock_getres(int clk_id, Timespec* res);
-extern fn int nanosleep(Timespec* req, Timespec* rem);
+extern fn int clock_gettime(int clk_id, TimeSpec* tp);
+extern fn int clock_getres(int clk_id, TimeSpec* res);
+extern fn int nanosleep(TimeSpec* req, TimeSpec* rem);
 extern fn char* strptime(char* s, char* format, Tm* tm);
 extern fn void tzset();
-extern fn Time_t timegm(Tm* tm);
+extern fn Time timegm(Tm* tm);
 
 // Additional structures
-struct Timespec {
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
 
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
@@ -346,21 +346,21 @@ extern char** tzname;
 module time @if(env::WIN32);
 
 // Standard C functions
-extern fn Time_t time(Time_t* tloc);
-extern fn double difftime(Time_t time1, Time_t time0);
-extern fn Clock_t clock();
-extern fn Tm* localtime(Time_t* timer);
-extern fn Tm* gmtime(Time_t* timer);
-extern fn Time_t mktime(Tm* timeptr);
+extern fn Time time(Time* tloc);
+extern fn double difftime(Time time1, Time time0);
+extern fn Clock clock();
+extern fn Tm* localtime(Time* timer);
+extern fn Tm* gmtime(Time* timer);
+extern fn Time mktime(Tm* timeptr);
 extern fn char* asctime(Tm* timeptr);
-extern fn char* ctime(Time_t* timer);
+extern fn char* ctime(Time* timer);
 extern fn usz strftime(char* s, usz maxsize, char* format, Tm* timeptr);
 
 // Windows secure versions
-extern fn int localtime_s(Tm* result, Time_t* timer);
-extern fn int gmtime_s(Tm* result, Time_t* timer);
+extern fn int localtime_s(Tm* result, Time* timer);
+extern fn int gmtime_s(Tm* result, Time* timer);
 extern fn int asctime_s(char* buf, usz size, Tm* timeptr);
-extern fn int ctime_s(char* buf, usz size, Time_t* timer);
+extern fn int ctime_s(char* buf, usz size, Time* timer);
 
 // Windows 64-bit time functions
 extern fn long _time64(long* timer);
@@ -373,10 +373,10 @@ extern fn char* _ctime64(long* timer);
 extern fn int _ctime64_s(char* buf, usz size, long* timer);
 
 // Windows timespec (available from Windows 8+)
-extern fn int timespec_get(Timespec* ts, int base);
+extern fn int timespec_get(TimeSpec* ts, int base);
 
 // Windows time structures
-struct Timespec {
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }

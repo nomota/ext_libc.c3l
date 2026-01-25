@@ -3,30 +3,30 @@
 module signal;
 
 // Common signal handling type
-alias Sighandler = fn void(int);
+alias SigHandler = fn void(int);
 
 // Basic signal functions
-extern fn Sighandler signal(int signum, Sighandler handler);
+extern fn SigHandler signal(int signum, SigHandler handler);
 extern fn int raise(int sig);
 extern fn int kill(int pid, int sig);
 
 // Signal set manipulation
-extern fn int sigemptyset(SigsetPtr* set);
-extern fn int sigfillset(SigsetPtr* set);
-extern fn int sigaddset(SigsetPtr* set, int signum);
-extern fn int sigdelset(SigsetPtr* set, int signum);
-extern fn int sigismember(SigsetPtr* set, int signum);
+extern fn int sigemptyset(SigSetPtr* set);
+extern fn int sigfillset(SigSetPtr* set);
+extern fn int sigaddset(SigSetPtr* set, int signum);
+extern fn int sigdelset(SigSetPtr* set, int signum);
+extern fn int sigismember(SigSetPtr* set, int signum);
 
 // Signal mask and actions
-extern fn int sigprocmask(int how, SigsetPtr* set, SigsetPtr* oldset);
+extern fn int sigprocmask(int how, SigSetPtr* set, SigSetPtr* oldset);
 extern fn int sigaction(int signum, Sigaction* act, Sigaction* oldact);
-extern fn int sigpending(SigsetPtr* set);
-extern fn int sigsuspend(SigsetPtr* mask);
+extern fn int sigpending(SigSetPtr* set);
+extern fn int sigsuspend(SigSetPtr* mask);
 
 // Signal waiting
-extern fn int sigwait(SigsetPtr* set, int* sig);
-extern fn int sigwaitinfo(SigsetPtr* set, Siginfo* info);
-extern fn int sigtimedwait(SigsetPtr* set, Siginfo* info, Timespec* timeout);
+extern fn int sigwait(SigSetPtr* set, int* sig);
+extern fn int sigwaitinfo(SigSetPtr* set, Siginfo* info);
+extern fn int sigtimedwait(SigSetPtr* set, Siginfo* info, TimeSpec* timeout);
 
 // Alternate signal stack
 extern fn int sigaltstack(Stack* ss, Stack* old_ss);
@@ -35,11 +35,11 @@ extern fn int sigaltstack(Stack* ss, Stack* old_ss);
 extern fn int siginterrupt(int sig, int flag);
 
 // Thread signal functions
-extern fn int pthread_sigmask(int how, SigsetPtr* set, SigsetPtr* oldset);
+extern fn int pthread_sigmask(int how, SigSetPtr* set, SigSetPtr* oldset);
 extern fn int pthread_kill(void* thread, int sig);
 
 // Signal queue (realtime)
-extern fn int sigqueue(int pid, int sig, Sigval value);
+extern fn int sigqueue(int pid, int sig, SigVal value);
 
 // Alarm and pause
 extern fn uint alarm(uint seconds);
@@ -53,20 +53,20 @@ extern fn void psiginfo(Siginfo* pinfo, char* s);
 
 module signal::unused; // default
 
-// Timespec structure (if not defined elsewhere)
-struct Timespec {
+// TimeSpec structure (if not defined elsewhere)
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
 
 // Union for sigval
-union Sigval {
+union SigVal {
     int sival_int;
     void* sival_ptr;
 }
 
 // Generic signal set type (actual size varies by platform)
-struct SigsetPtr {
+struct SigSetPtr {
     ulong[16] __val;  // Oversized, actual size is platform-specific
 }
 
@@ -89,9 +89,9 @@ const int SIG_UNBLOCK = 1;
 const int SIG_SETMASK = 2;
 
 // Standard signal handlers
-const Sighandler SIG_DFL = (Sighandler)0;
-const Sighandler SIG_IGN = (Sighandler)1;
-const Sighandler SIG_ERR = (Sighandler)uptr.max; // same as -1;
+const SigHandler SIG_DFL = (SigHandler)0;
+const SigHandler SIG_IGN = (SigHandler)1;
+const SigHandler SIG_ERR = (SigHandler)uptr.max; // same as -1;
 
 // Signal action flags (common across platforms, values differ)
 const int SA_NOCLDSTOP = 1;
@@ -222,7 +222,7 @@ const int POLL_PRI = 5; // High priority input available
 const int POLL_HUP = 6; // Device disconnected
 
 // Signal set type
-struct SigsetPtr {
+struct SigSetPtr {
     ulong[16] __val;  // 1024 bits for signal mask
 }
 
@@ -231,10 +231,10 @@ alias Restfn = fn void();
 // Signal action structure
 struct Sigaction {
     union {
-        Sighandler sa_handler;
+        SigHandler sa_handler;
         SigFn sa_sigaction;
     }
-    SigsetPtr sa_mask;
+    SigSetPtr sa_mask;
     int sa_flags;
     Restfn sa_restorer;
 }
@@ -253,7 +253,7 @@ struct Siginfo {
         struct {
             int si_tid;
             int si_overrun;
-            Sigval si_sigval;
+            SigVal si_sigval;
         }
         struct {
             int si_pid2;
@@ -286,10 +286,10 @@ const int SS_DISABLE = 2;
 const int MINSIGSTKSZ = 2048;
 const int SIGSTKSZ = 8192;
 
-alias Eventfn = fn void(Sigval);
+alias Eventfn = fn void(SigVal);
 // Signal event structure (for timers)
 struct Sigevent {
-    Sigval sigev_value;
+    SigVal sigev_value;
     int sigev_signo;
     int sigev_notify;
     union {
@@ -407,7 +407,7 @@ const int CLD_STOPPED = 5;
 const int CLD_CONTINUED = 6;
 
 // Signal set type (Darwin uses 32-bit mask)
-struct SigsetPtr {
+struct SigSetPtr {
     uint __bits;
 }
 
@@ -415,10 +415,10 @@ alias SigFn = fn void(int, Siginfo*, void*);
 // Signal action structure
 struct Sigaction {
     union {
-        Sighandler sa_handler;
+        SigHandler sa_handler;
         SigFn sa_sigaction;
     }
-    SigsetPtr sa_mask;
+    SigSetPtr sa_mask;
     int sa_flags;
 }
 
@@ -431,7 +431,7 @@ struct Siginfo {
     uint si_uid;
     int si_status;
     void* si_addr;
-    Sigval si_value;
+    SigVal si_value;
     long si_band;
     ulong[7] __pad;
 }
@@ -449,12 +449,12 @@ const int SS_DISABLE = 0x0004;
 const int MINSIGSTKSZ = 32768;
 const int SIGSTKSZ = 131072;
 
-alias Evfn = fn void(Sigval);
+alias Evfn = fn void(SigVal);
 // Signal event structure
 struct Sigevent {
     int sigev_notify;
     int sigev_signo;
-    Sigval sigev_value;
+    SigVal sigev_value;
     Evfn sigev_notify_function;
     void* sigev_notify_attributes;
 }
@@ -569,7 +569,7 @@ const int CLD_STOPPED = 5;
 const int CLD_CONTINUED = 6;
 
 // Signal set type
-struct SigsetPtr {
+struct SigSetPtr {
     uint[4] __bits;
 }
 
@@ -577,11 +577,11 @@ alias SigFn = fn void(int, Siginfo*, void*);
 // Signal action structure
 struct Sigaction {
     union {
-        Sighandler sa_handler;
+        SigHandler sa_handler;
         SigFn sa_sigaction;
     }
     int sa_flags;
-    SigsetPtr sa_mask;
+    SigSetPtr sa_mask;
 }
 
 // Signal info structure
@@ -593,7 +593,7 @@ struct Siginfo {
     uint si_uid;
     int si_status;
     void* si_addr;
-    Sigval si_value;
+    SigVal si_value;
     union {
         struct {
             int _trapno;
@@ -628,12 +628,12 @@ const int SS_DISABLE = 0x0004;
 const int MINSIGSTKSZ = 2048;
 const int SIGSTKSZ = (MINSIGSTKSZ + 32768);
 
-alias Evfn = fn void(Sigval);
+alias Evfn = fn void(SigVal);
 // Signal event structure
 struct Sigevent {
     int sigev_notify;
     int sigev_signo;
-    Sigval sigev_value;
+    SigVal sigev_value;
     union {
         int _threadid;
         struct {
@@ -752,7 +752,7 @@ const int CLD_STOPPED = 5;
 const int CLD_CONTINUED = 6;
 
 // Signal set type
-struct SigsetPtr {
+struct SigSetPtr {
     uint[4] __bits;
 }
 
@@ -760,10 +760,10 @@ alias SigFn = fn void(int, Siginfo*, void*);
 // Signal action structure
 struct Sigaction {
     union {
-        Sighandler sa_handler;
+        SigHandler sa_handler;
         SigFn sa_sigaction;
     }
-    SigsetPtr sa_mask;
+    SigSetPtr sa_mask;
     int sa_flags;
 }
 
@@ -777,7 +777,7 @@ struct Siginfo {
         struct {
             int _pid;
             uint _uid;
-            Sigval _value;
+            SigVal _value;
         }
         struct {
             int _pid2;
@@ -810,12 +810,12 @@ const int SS_DISABLE = 0x0004;
 const int MINSIGSTKSZ = 8192;
 const int SIGSTKSZ = (MINSIGSTKSZ + 32768);
 
-alias Eventfn = fn void(Sigval);
+alias Eventfn = fn void(SigVal);
 // Signal event structure
 struct Sigevent {
     int sigev_notify;
     int sigev_signo;
-    Sigval sigev_value;
+    SigVal sigev_value;
     Eventfn sigev_notify_function;
     void* sigev_notify_attributes;
 }
@@ -922,7 +922,7 @@ const int CLD_STOPPED = 5;
 const int CLD_CONTINUED = 6;
 
 // Signal set type
-struct SigsetPtr {
+struct SigSetPtr {
     uint __bits;
 }
 
@@ -930,10 +930,10 @@ alias SigFn = fn void(int, Siginfo*, void*);
 // Signal action structure
 struct Sigaction {
     union {
-        Sighandler sa_handler;
+        SigHandler sa_handler;
         SigFn sa_sigaction;
     }
-    SigsetPtr sa_mask;
+    SigSetPtr sa_mask;
     int sa_flags;
 }
 
@@ -949,7 +949,7 @@ struct Siginfo {
             union {
                 struct {
                     uint _uid;
-                    Sigval _value;
+                    SigVal _value;
                 }
                 struct {
                     long _utime;

@@ -9,25 +9,25 @@ module pthread;
 // Create a new thread.
 alias ThreadFn = fn void*(void*);
 
-extern fn CInt pthread_create(Pthread_t* thread, Pthread_attr_t* attr, ThreadFn start_routine, void* arg);
+extern fn CInt pthread_create(Pthread* thread, PthreadAttr* attr, ThreadFn start_routine, void* arg);
 
 // Wait for thread termination
-extern fn CInt pthread_join(Pthread_t thread, void** retval);
+extern fn CInt pthread_join(Pthread thread, void** retval);
 
 // Detach a thread (automatically release resources on termination)
-extern fn CInt pthread_detach(Pthread_t thread);
+extern fn CInt pthread_detach(Pthread thread);
 
 // Terminate calling thread
 extern fn void pthread_exit(void* retval);
 
 // Return thread ID of calling thread
-extern fn Pthread_t pthread_self();
+extern fn Pthread pthread_self();
 
 // Compare two thread IDs
-extern fn CInt pthread_equal(Pthread_t t1, Pthread_t t2);
+extern fn CInt pthread_equal(Pthread t1, Pthread t2);
 
 // Send cancellation request to a thread
-extern fn CInt pthread_cancel(Pthread_t thread);
+extern fn CInt pthread_cancel(Pthread thread);
 
 // Set thread cancellation state
 extern fn CInt pthread_setcancelstate(CInt state, CInt* oldstate);
@@ -41,188 +41,188 @@ extern fn void pthread_testcancel();
 // Thread Attribute Management
 
 // Initialize thread attributes
-extern fn CInt pthread_attr_init(Pthread_attr_t* attr);
+extern fn CInt pthread_attr_init(PthreadAttr* attr);
 
 // Destroy thread attributes
-extern fn CInt pthread_attr_destroy(Pthread_attr_t* attr);
+extern fn CInt pthread_attr_destroy(PthreadAttr* attr);
 
 // Set/get detach state
-extern fn CInt pthread_attr_setdetachstate(Pthread_attr_t* attr, CInt detachstate);
-extern fn CInt pthread_attr_getdetachstate(Pthread_attr_t* attr, CInt* detachstate);
+extern fn CInt pthread_attr_setdetachstate(PthreadAttr* attr, CInt detachstate);
+extern fn CInt pthread_attr_getdetachstate(PthreadAttr* attr, CInt* detachstate);
 
 // Set/get stack size
-extern fn CInt pthread_attr_setstacksize(Pthread_attr_t* attr, CSize stacksize);
-extern fn CInt pthread_attr_getstacksize(Pthread_attr_t* attr, CSize* stacksize);
+extern fn CInt pthread_attr_setstacksize(PthreadAttr* attr, CSize stacksize);
+extern fn CInt pthread_attr_getstacksize(PthreadAttr* attr, CSize* stacksize);
 
 // Set/get stack address and size
-extern fn CInt pthread_attr_setstack(Pthread_attr_t* attr, void* stackaddr, CSize stacksize);
-extern fn CInt pthread_attr_getstack(Pthread_attr_t* attr, void** stackaddr, CSize* stacksize);
+extern fn CInt pthread_attr_setstack(PthreadAttr* attr, void* stackaddr, CSize stacksize);
+extern fn CInt pthread_attr_getstack(PthreadAttr* attr, void** stackaddr, CSize* stacksize);
 
 // Set/get scheduling policy
-extern fn CInt pthread_attr_setschedpolicy(Pthread_attr_t* attr, CInt policy);
-extern fn CInt pthread_attr_getschedpolicy(Pthread_attr_t* attr, CInt* policy);
+extern fn CInt pthread_attr_setschedpolicy(PthreadAttr* attr, CInt policy);
+extern fn CInt pthread_attr_getschedpolicy(PthreadAttr* attr, CInt* policy);
 
 // Mutex Functions
 
 // Initialize mutex
-extern fn CInt pthread_mutex_init(Pthread_mutex_t* mutex, Pthread_mutexattr_t* attr);
+extern fn CInt pthread_mutex_init(PthreadMutex* mutex, PthreadMutexAttr* attr);
 
 // Destroy mutex
-extern fn CInt pthread_mutex_destroy(Pthread_mutex_t* mutex);
+extern fn CInt pthread_mutex_destroy(PthreadMutex* mutex);
 
 // Lock mutex
-extern fn CInt pthread_mutex_lock(Pthread_mutex_t* mutex);
+extern fn CInt pthread_mutex_lock(PthreadMutex* mutex);
 
 // Try to lock mutex (non-blocking)
-extern fn CInt pthread_mutex_trylock(Pthread_mutex_t* mutex);
+extern fn CInt pthread_mutex_trylock(PthreadMutex* mutex);
 
 // Lock mutex with timeout
-extern fn CInt pthread_mutex_timedlock(Pthread_mutex_t* mutex, Timespec* abstime);
+extern fn CInt pthread_mutex_timedlock(PthreadMutex* mutex, TimeSpec* abstime);
 
 // Unlock mutex
-extern fn CInt pthread_mutex_unlock(Pthread_mutex_t* mutex);
+extern fn CInt pthread_mutex_unlock(PthreadMutex* mutex);
 
 // Mutex Attribute Management
 
 // Initialize/destroy mutex attributes
-extern fn CInt pthread_mutexattr_init(Pthread_mutexattr_t* attr);
-extern fn CInt pthread_mutexattr_destroy(Pthread_mutexattr_t* attr);
+extern fn CInt pthread_mutexattr_init(PthreadMutexAttr* attr);
+extern fn CInt pthread_mutexattr_destroy(PthreadMutexAttr* attr);
 
 // Set/get mutex type
-extern fn CInt pthread_mutexattr_settype(Pthread_mutexattr_t* attr, CInt type);
-extern fn CInt pthread_mutexattr_gettype(Pthread_mutexattr_t* attr, CInt* type);
+extern fn CInt pthread_mutexattr_settype(PthreadMutexAttr* attr, CInt type);
+extern fn CInt pthread_mutexattr_gettype(PthreadMutexAttr* attr, CInt* type);
 
 // Set/get process-shared attribute
-extern fn CInt pthread_mutexattr_setpshared(Pthread_mutexattr_t* attr, CInt pshared);
-extern fn CInt pthread_mutexattr_getpshared(Pthread_mutexattr_t* attr, CInt* pshared);
+extern fn CInt pthread_mutexattr_setpshared(PthreadMutexAttr* attr, CInt pshared);
+extern fn CInt pthread_mutexattr_getpshared(PthreadMutexAttr* attr, CInt* pshared);
 
 // Set/get protocol attribute
-extern fn CInt pthread_mutexattr_setprotocol(Pthread_mutexattr_t* attr, CInt protocol);
-extern fn CInt pthread_mutexattr_getprotocol(Pthread_mutexattr_t* attr, CInt* protocol);
+extern fn CInt pthread_mutexattr_setprotocol(PthreadMutexAttr* attr, CInt protocol);
+extern fn CInt pthread_mutexattr_getprotocol(PthreadMutexAttr* attr, CInt* protocol);
 
 // Condition Variable Functions
 
 // Initialize/destroy condition variable
-extern fn CInt pthread_cond_init(Pthread_cond_t* cond, Pthread_condattr_t* attr);
-extern fn CInt pthread_cond_destroy(Pthread_cond_t* cond);
+extern fn CInt pthread_cond_init(PthreadCond* cond, PthreadCondAttr* attr);
+extern fn CInt pthread_cond_destroy(PthreadCond* cond);
 
 // Wait on condition variable
-extern fn CInt pthread_cond_wait(Pthread_cond_t* cond, Pthread_mutex_t* mutex);
+extern fn CInt pthread_cond_wait(PthreadCond* cond, PthreadMutex* mutex);
 
 // Wait on condition variable with timeout
-extern fn CInt pthread_cond_timedwait(Pthread_cond_t* cond, Pthread_mutex_t* mutex, Timespec* abstime);
+extern fn CInt pthread_cond_timedwait(PthreadCond* cond, PthreadMutex* mutex, TimeSpec* abstime);
 
 // Wake up one waiting thread
-extern fn CInt pthread_cond_signal(Pthread_cond_t* cond);
+extern fn CInt pthread_cond_signal(PthreadCond* cond);
 
 // Wake up all waiting threads
-extern fn CInt pthread_cond_broadcast(Pthread_cond_t* cond);
+extern fn CInt pthread_cond_broadcast(PthreadCond* cond);
 
 // Condition Variable Attribute Management
 
 // Initialize/destroy condition variable attributes
-extern fn CInt pthread_condattr_init(Pthread_condattr_t* attr);
-extern fn CInt pthread_condattr_destroy(Pthread_condattr_t* attr);
+extern fn CInt pthread_condattr_init(PthreadCondAttr* attr);
+extern fn CInt pthread_condattr_destroy(PthreadCondAttr* attr);
 
 // Set/get process-shared attribute
-extern fn CInt pthread_condattr_setpshared(Pthread_condattr_t* attr, CInt pshared);
-extern fn CInt pthread_condattr_getpshared(Pthread_condattr_t* attr, CInt* pshared);
+extern fn CInt pthread_condattr_setpshared(PthreadCondAttr* attr, CInt pshared);
+extern fn CInt pthread_condattr_getpshared(PthreadCondAttr* attr, CInt* pshared);
 
 // Set/get clock attribute
-extern fn CInt pthread_condattr_setclock(Pthread_condattr_t* attr, CInt clock_id);
-extern fn CInt pthread_condattr_getclock(Pthread_condattr_t* attr, CInt* clock_id);
+extern fn CInt pthread_condattr_setclock(PthreadCondAttr* attr, CInt clock_id);
+extern fn CInt pthread_condattr_getclock(PthreadCondAttr* attr, CInt* clock_id);
 
 // Read-Write Lock Functions
 
 // Initialize/destroy read-write lock
-extern fn CInt pthread_rwlock_init(Pthread_rwlock_t* rwlock, Pthread_rwlockattr_t* attr);
-extern fn CInt pthread_rwlock_destroy(Pthread_rwlock_t* rwlock);
+extern fn CInt pthread_rwlock_init(PthreadRWLock* rwlock, PthreadRWLockAttr* attr);
+extern fn CInt pthread_rwlock_destroy(PthreadRWLock* rwlock);
 
 // Acquire read lock
-extern fn CInt pthread_rwlock_rdlock(Pthread_rwlock_t* rwlock);
+extern fn CInt pthread_rwlock_rdlock(PthreadRWLock* rwlock);
 
 // Try to acquire read lock (non-blocking)
-extern fn CInt pthread_rwlock_tryrdlock(Pthread_rwlock_t* rwlock);
+extern fn CInt pthread_rwlock_tryrdlock(PthreadRWLock* rwlock);
 
 // Acquire read lock with timeout
-extern fn CInt pthread_rwlock_timedrdlock(Pthread_rwlock_t* rwlock, Timespec* abstime);
+extern fn CInt pthread_rwlock_timedrdlock(PthreadRWLock* rwlock, TimeSpec* abstime);
 
 // Acquire write lock
-extern fn CInt pthread_rwlock_wrlock(Pthread_rwlock_t* rwlock);
+extern fn CInt pthread_rwlock_wrlock(PthreadRWLock* rwlock);
 
 // Try to acquire write lock (non-blocking)
-extern fn CInt pthread_rwlock_trywrlock(Pthread_rwlock_t* rwlock);
+extern fn CInt pthread_rwlock_trywrlock(PthreadRWLock* rwlock);
 
 // Acquire write lock with timeout
-extern fn CInt pthread_rwlock_timedwrlock(Pthread_rwlock_t* rwlock, Timespec* abstime);
+extern fn CInt pthread_rwlock_timedwrlock(PthreadRWLock* rwlock, TimeSpec* abstime);
 
 // Unlock read-write lock
-extern fn CInt pthread_rwlock_unlock(Pthread_rwlock_t* rwlock);
+extern fn CInt pthread_rwlock_unlock(PthreadRWLock* rwlock);
 
 // Read-Write Lock Attribute Management
 
 // Initialize/destroy read-write lock attributes
-extern fn CInt pthread_rwlockattr_init(Pthread_rwlockattr_t* attr);
-extern fn CInt pthread_rwlockattr_destroy(Pthread_rwlockattr_t* attr);
+extern fn CInt pthread_rwlockattr_init(PthreadRWLockAttr* attr);
+extern fn CInt pthread_rwlockattr_destroy(PthreadRWLockAttr* attr);
 
 // Set/get process-shared attribute
-extern fn CInt pthread_rwlockattr_setpshared(Pthread_rwlockattr_t* attr, CInt pshared);
-extern fn CInt pthread_rwlockattr_getpshared(Pthread_rwlockattr_t* attr, CInt* pshared);
+extern fn CInt pthread_rwlockattr_setpshared(PthreadRWLockAttr* attr, CInt pshared);
+extern fn CInt pthread_rwlockattr_getpshared(PthreadRWLockAttr* attr, CInt* pshared);
 
 // Spinlock Functions
 
 // Initialize/destroy spinlock
-extern fn CInt pthread_spin_init(Pthread_spinlock_t* lock, CInt pshared);
-extern fn CInt pthread_spin_destroy(Pthread_spinlock_t* lock);
+extern fn CInt pthread_spin_init(PthreadSpinLock* lock, CInt pshared);
+extern fn CInt pthread_spin_destroy(PthreadSpinLock* lock);
 
 // Acquire spinlock
-extern fn CInt pthread_spin_lock(Pthread_spinlock_t* lock);
+extern fn CInt pthread_spin_lock(PthreadSpinLock* lock);
 
 // Try to acquire spinlock (non-blocking)
-extern fn CInt pthread_spin_trylock(Pthread_spinlock_t* lock);
+extern fn CInt pthread_spin_trylock(PthreadSpinLock* lock);
 
 // Release spinlock
-extern fn CInt pthread_spin_unlock(Pthread_spinlock_t* lock);
+extern fn CInt pthread_spin_unlock(PthreadSpinLock* lock);
 
 // Barrier Functions
 
 // Initialize/destroy barrier
-extern fn CInt pthread_barrier_init(Pthread_barrier_t* barrier, Pthread_barrierattr_t* attr, CUInt count);
-extern fn CInt pthread_barrier_destroy(Pthread_barrier_t* barrier);
+extern fn CInt pthread_barrier_init(PthreadBarrier* barrier, PthreadBarrierAttr* attr, CUInt count);
+extern fn CInt pthread_barrier_destroy(PthreadBarrier* barrier);
 
 // Wait at barrier
-extern fn CInt pthread_barrier_wait(Pthread_barrier_t* barrier);
+extern fn CInt pthread_barrier_wait(PthreadBarrier* barrier);
 
 // Barrier Attribute Management
 
 // Initialize/destroy barrier attributes
-extern fn CInt pthread_barrierattr_init(Pthread_barrierattr_t* attr);
-extern fn CInt pthread_barrierattr_destroy(Pthread_barrierattr_t* attr);
+extern fn CInt pthread_barrierattr_init(PthreadBarrierAttr* attr);
+extern fn CInt pthread_barrierattr_destroy(PthreadBarrierAttr* attr);
 
 // Set/get process-shared attribute
-extern fn CInt pthread_barrierattr_setpshared(Pthread_barrierattr_t* attr, CInt pshared);
-extern fn CInt pthread_barrierattr_getpshared(Pthread_barrierattr_t* attr, CInt* pshared);
+extern fn CInt pthread_barrierattr_setpshared(PthreadBarrierAttr* attr, CInt pshared);
+extern fn CInt pthread_barrierattr_getpshared(PthreadBarrierAttr* attr, CInt* pshared);
 
 // Thread-Specific Data
 
 // Create thread-specific data key
 alias Keyfn = fn void(void*);
-extern fn CInt pthread_key_create(Pthread_key_t* key, Keyfn destructor);
+extern fn CInt pthread_key_create(PthreadKey* key, Keyfn destructor);
 
 // Delete thread-specific data key
-extern fn CInt pthread_key_delete(Pthread_key_t key);
+extern fn CInt pthread_key_delete(PthreadKey key);
 
 // Set thread-specific data
-extern fn CInt pthread_setspecific(Pthread_key_t key, void* value);
+extern fn CInt pthread_setspecific(PthreadKey key, void* value);
 
 // Get thread-specific data
-extern fn void* pthread_getspecific(Pthread_key_t key);
+extern fn void* pthread_getspecific(PthreadKey key);
 
 // Once Initialization
 
 // Execute initialization routine once
 alias Oncefn = fn void();
-extern fn CInt pthread_once(Pthread_once_t* once_control, Oncefn init_routine);
+extern fn CInt pthread_once(PthreadOnce* once_control, Oncefn init_routine);
 
 
 // Cleanup Handlers
@@ -239,84 +239,84 @@ extern fn void pthread_cleanup_pop(CInt execute);
 alias CSize = usz;
 
 // Opaque types
-alias Pthread_t = CULong;           // Thread ID
-alias Pthread_key_t = CUInt;        // Thread-specific data key
+alias Pthread = CULong;           // Thread ID
+alias PthreadKey = CUInt;        // Thread-specific data key
 
-// Timespec structure
-struct Timespec {
+// TimeSpec structure
+struct TimeSpec {
     CLong tv_sec;    // Seconds
     CLong tv_nsec;   // Nanoseconds
 }
 
 // Scheduling parameters
-struct Sched_param {
+struct SchedParam {
     CInt sched_priority;  // Scheduling priority
 }
 
 // Structure Definitions
 
 // Thread attributes
-struct Pthread_attr_t {
+struct PthreadAttr {
     char[56] __size;      // Internal implementation (platform-dependent)
 }
 
 // Mutex
-struct Pthread_mutex_t {
+struct PthreadMutex {
     char[40] __size;      // Internal implementation (platform-dependent)
 }
 
 // Mutex attributes
-struct Pthread_mutexattr_t {
+struct PthreadMutexAttr {
     char[4] __size;       // Internal implementation
 }
 
 // Condition variable
-struct Pthread_cond_t {
+struct PthreadCond {
     char[48] __size;      // Internal implementation (platform-dependent)
 }
 
 // Condition variable attributes
-struct Pthread_condattr_t {
+struct PthreadCondAttr {
     char[4] __size;       // Internal implementation
 }
 
 // Read-write lock
-struct Pthread_rwlock_t {
+struct PthreadRWLock {
     char[56] __size;      // Internal implementation (platform-dependent)
 }
 
 // Read-write lock attributes
-struct Pthread_rwlockattr_t {
+struct PthreadRWLockAttr {
     char[8] __size;       // Internal implementation
 }
 
 // Spinlock
-struct Pthread_spinlock_t {
+struct PthreadSpinLock {
     CInt __lock;          // Lock state
 }
 
 // Barrier
-struct Pthread_barrier_t {
+struct PthreadBarrier {
     char[32] __size;      // Internal implementation (platform-dependent)
 }
 
 // Barrier attributes
-struct Pthread_barrierattr_t {
+struct PthreadBarrierAttr {
     char[4] __size;       // Internal implementation
 }
 
 // Once control
-struct Pthread_once_t {
+struct PthreadOnce {
     CInt __once;          // Initialization state
 }
 
 // Initialization Macros
 
 // Static initializers
-const Pthread_mutex_t PTHREAD_MUTEX_INITIALIZER = {};
-const Pthread_cond_t PTHREAD_COND_INITIALIZER = {};
-const Pthread_rwlock_t PTHREAD_RWLOCK_INITIALIZER = {};
-const Pthread_once_t PTHREAD_ONCE_INIT = { .__once = 0 };
+const PthreadMutex PTHREAD_MUTEX_INITIALIZER = {};
+const PthreadCond PTHREAD_COND_INITIALIZER = {};
+const PthreadRWLock PTHREAD_RWLOCK_INITIALIZER = {};
+const PthreadOnce PTHREAD_ONCE_INIT = { .__once = 0 };
 
 // Constant Definitions
 

@@ -7,7 +7,7 @@ module regex;
 module regex @if(env::LINUX);
 
 // Type Definitions
-struct Regex_t {
+struct RegEx {
     usz re_nsub;      // Number of parenthesized subexpressions
     void* re_pcre;    // Compiled pattern (opaque)
     usz re_erroffset; // Error offset
@@ -15,7 +15,7 @@ struct Regex_t {
     uint re_flags;    // Flags
 }
 
-struct Regmatch_t {
+struct RegMatch {
     int rm_so;  // Start offset of match
     int rm_eo;  // End offset of match
 }
@@ -23,10 +23,10 @@ struct Regmatch_t {
 alias RegoffT = int;
 
 // Function Declarations
-extern fn int regcomp(Regex_t* preg, char* pattern, int cflags);
-extern fn int regexec(Regex_t* preg, char* string, usz nmatch, Regmatch_t* pmatch, int eflags);
-extern fn usz regerror(int errcode, Regex_t* preg, char* errbuf, usz errbuf_size);
-extern fn void regfree(Regex_t* preg);
+extern fn int regcomp(RegEx* preg, char* pattern, int cflags);
+extern fn int regexec(RegEx* preg, char* string, usz nmatch, RegMatch* pmatch, int eflags);
+extern fn usz regerror(int errcode, RegEx* preg, char* errbuf, usz errbuf_size);
+extern fn void regfree(RegEx* preg);
 
 // Compilation flags (cflags)
 const int REG_EXTENDED = 1;      // Use Extended Regular Expressions
@@ -66,25 +66,23 @@ const int REG_BACKR = 512;       // Force use of backref code
 module regex @if(env::DARWIN);
 
 // Type Definitions
-struct Regex_t {
+struct RegEx {
     int re_magic;
     usz re_nsub;
     char* re_endp;
     void* re_g;
 }
 
-struct Regmatch_t {
+struct RegMatch {
     int rm_so;
     int rm_eo;
 }
 
-alias RegoffT = int;
-
 // Function Declarations
-extern fn int regcomp(Regex_t* preg, char* pattern, int cflags);
-extern fn int regexec(Regex_t* preg, char* string, usz nmatch, Regmatch_t* pmatch, int eflags);
-extern fn usz regerror(int errcode, Regex_t* preg, char* errbuf, usz errbuf_size);
-extern fn void regfree(Regex_t* preg);
+extern fn int regcomp(RegEx* preg, char* pattern, int cflags);
+extern fn int regexec(RegEx* preg, char* string, usz nmatch, RegMatch* pmatch, int eflags);
+extern fn usz regerror(int errcode, RegEx* preg, char* errbuf, usz errbuf_size);
+extern fn void regfree(RegEx* preg);
 
 // Compilation flags (cflags)
 const int REG_BASIC = 0;         // Basic Regular Expressions (default)
@@ -132,7 +130,7 @@ const int REG_ITOA = 256;        // Convert name to error code
 module regex @if(env::FREEBSD);
 
 // Type Definitions
-struct Regex_t {
+struct RegEx  {
     int re_magic;
     usz re_nsub;
     char* re_endp;
@@ -140,7 +138,7 @@ struct Regex_t {
     int re_flags;
 }
 
-struct Regmatch_t {
+struct RegMatch {
     int rm_so;
     int rm_eo;
 }
@@ -148,14 +146,14 @@ struct Regmatch_t {
 alias RegoffT = int;
 
 // Function Declarations
-extern fn int regcomp(Regex_t* preg, char* pattern, int cflags);
-extern fn int regexec(Regex_t* preg, char* string, usz nmatch, Regmatch_t* pmatch, int eflags);
-extern fn usz regerror(int errcode, Regex_t* preg, char* errbuf, usz errbuf_size);
-extern fn void regfree(Regex_t* preg);
+extern fn int regcomp(RegEx* preg, char* pattern, int cflags);
+extern fn int regexec(RegEx* preg, char* string, usz nmatch, RegMatch* pmatch, int eflags);
+extern fn usz regerror(int errcode, RegEx* preg, char* errbuf, usz errbuf_size);
+extern fn void regfree(RegEx* preg);
 
 // Additional FreeBSD functions
-extern fn int regncomp(Regex_t* preg, char* pattern, usz len, int cflags);
-extern fn int regnexec(Regex_t* preg, char* string, usz len, usz nmatch, Regmatch_t* pmatch, int eflags);
+extern fn int regncomp(RegEx* preg, char* pattern, usz len, int cflags);
+extern fn int regnexec(RegEx* preg, char* string, usz len, usz nmatch, RegMatch* pmatch, int eflags);
 
 // Compilation flags (cflags)
 const int REG_BASIC = 0;
@@ -202,14 +200,14 @@ const int REG_ITOA = 256;
 module regex @if(env::NETBSD);
 
 // Type Definitions
-struct Regex_t {
+struct RegEx  {
     int re_magic;
     usz re_nsub;
     char* re_endp;
     void* re_guts;
 }
 
-struct Regmatch_t {
+struct RegMatch {
     int rm_so;
     int rm_eo;
 }
@@ -217,10 +215,10 @@ struct Regmatch_t {
 alias RegoffT = int;
 
 // Function Declarations
-extern fn int regcomp(Regex_t* preg, char* pattern, int cflags);
-extern fn int regexec(Regex_t* preg, char* string, usz nmatch, Regmatch_t* pmatch, int eflags);
-extern fn usz regerror(int errcode, Regex_t* preg, char* errbuf, usz errbuf_size);
-extern fn void regfree(Regex_t* preg);
+extern fn int regcomp(RegEx* preg, char* pattern, int cflags);
+extern fn int regexec(RegEx* preg, char* string, usz nmatch, RegMatch* pmatch, int eflags);
+extern fn usz regerror(int errcode, RegEx* preg, char* errbuf, usz errbuf_size);
+extern fn void regfree(RegEx* preg);
 
 // Compilation flags (cflags)
 const int REG_BASIC = 0;
@@ -267,14 +265,14 @@ const int REG_ITOA = 256;
 module regex @if(env::OPENBSD);
 
 // Type Definitions
-struct Regex_t {
+struct RegEx  {
     int re_magic;
     usz re_nsub;
     char* re_endp;
     void* re_guts;
 }
 
-struct Regmatch_t {
+struct RegMatch {
     int rm_so;
     int rm_eo;
 }
@@ -282,10 +280,10 @@ struct Regmatch_t {
 alias RegoffT = int;
 
 // Function Declarations
-extern fn int regcomp(Regex_t* preg, char* pattern, int cflags);
-extern fn int regexec(Regex_t* preg, char* string, usz nmatch, Regmatch_t* pmatch, int eflags);
-extern fn usz regerror(int errcode, Regex_t* preg, char* errbuf, usz errbuf_size);
-extern fn void regfree(Regex_t* preg);
+extern fn int regcomp(RegEx* preg, char* pattern, int cflags);
+extern fn int regexec(RegEx* preg, char* string, usz nmatch, RegMatch* pmatch, int eflags);
+extern fn usz regerror(int errcode, RegEx* preg, char* errbuf, usz errbuf_size);
+extern fn void regfree(RegEx* preg);
 
 // Compilation flags (cflags)
 const int REG_BASIC = 0;
@@ -345,7 +343,7 @@ module regex @if(env::WIN32);
 // - .NET Regex if interoping with C#
 
 // Minimal compatibility definitions (if using a compatibility layer like MinGW with regex)
-struct Regex_t {
+struct RegEx  {
     void* buffer;
     usz re_nsub;
     usz used;
@@ -362,7 +360,7 @@ struct Regex_t {
     char newline_anchor;
 }
 
-struct Regmatch_t {
+struct RegMatch {
     int rm_so;
     int rm_eo;
 }
@@ -371,10 +369,10 @@ alias RegoffT = int;
 
 // These functions are NOT native to Windows
 // They may be available through MinGW/MSYS/Cygwin or third-party libraries
-extern fn int regcomp(Regex_t* preg, char* pattern, int cflags) @if(env::MINGW || env::CYGWIN);
-extern fn int regexec(Regex_t* preg, char* string, usz nmatch, Regmatch_t* pmatch, int eflags) @if(env::MINGW || env::CYGWIN);
-extern fn usz regerror(int errcode, Regex_t* preg, char* errbuf, usz errbuf_size) @if(env::MINGW || env::CYGWIN);
-extern fn void regfree(Regex_t* preg) @if(env::MINGW || env::CYGWIN);
+extern fn int regcomp(RegEx* preg, char* pattern, int cflags) @if(env::MINGW || env::CYGWIN);
+extern fn int regexec(RegEx* preg, char* string, usz nmatch, RegMatch* pmatch, int eflags) @if(env::MINGW || env::CYGWIN);
+extern fn usz regerror(int errcode, RegEx* preg, char* errbuf, usz errbuf_size) @if(env::MINGW || env::CYGWIN);
+extern fn void regfree(RegEx* preg) @if(env::MINGW || env::CYGWIN);
 
 // Flags (if available through compatibility layer)
 const int REG_EXTENDED = 1;

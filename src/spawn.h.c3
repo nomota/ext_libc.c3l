@@ -7,41 +7,41 @@ module spawn;
 module spawn @if(env::LINUX);
 
 // Opaque types
-alias SpawnFileActionsT = void;
-alias SpawnattrT = void;
+alias SpawnFileActions = void;
+alias SpawnAttr = void;
 
 // Function Declarations - spawn functions
-extern fn int posix_spawn(int* pid, char* path, SpawnFileActionsT* file_actions, 
-                         SpawnattrT* attrp, char** argv, char** envp);
-extern fn int posix_spawnp(int* pid, char* file, SpawnFileActionsT* file_actions,
-                          SpawnattrT* attrp, char** argv, char** envp);
+extern fn int posix_spawn(int* pid, char* path, SpawnFileActions* file_actions, 
+                         SpawnAttr* attrp, char** argv, char** envp);
+extern fn int posix_spawnp(int* pid, char* file, SpawnFileActions* file_actions,
+                          SpawnAttr* attrp, char** argv, char** envp);
 
 // File actions functions
-extern fn int posix_spawn_file_actions_init(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_destroy(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_addopen(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_init(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_destroy(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_addopen(SpawnFileActions* file_actions,
                                                int fd, char* path, int oflag, uint mode);
-extern fn int posix_spawn_file_actions_addclose(SpawnFileActionsT* file_actions, int fd);
-extern fn int posix_spawn_file_actions_adddup2(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_addclose(SpawnFileActions* file_actions, int fd);
+extern fn int posix_spawn_file_actions_adddup2(SpawnFileActions* file_actions,
                                                int fd, int newfd);
-extern fn int posix_spawn_file_actions_addchdir_np(SpawnFileActionsT* file_actions, char* path);
-extern fn int posix_spawn_file_actions_addfchdir_np(SpawnFileActionsT* file_actions, int fd);
+extern fn int posix_spawn_file_actions_addchdir_np(SpawnFileActions* file_actions, char* path);
+extern fn int posix_spawn_file_actions_addfchdir_np(SpawnFileActions* file_actions, int fd);
 
 // Spawn attributes functions
-extern fn int posix_spawnattr_init(SpawnattrT* attr);
-extern fn int posix_spawnattr_destroy(SpawnattrT* attr);
-extern fn int posix_spawnattr_getflags(SpawnattrT* attr, short* flags);
-extern fn int posix_spawnattr_setflags(SpawnattrT* attr, short flags);
-extern fn int posix_spawnattr_getpgroup(SpawnattrT* attr, int* pgroup);
-extern fn int posix_spawnattr_setpgroup(SpawnattrT* attr, int pgroup);
-extern fn int posix_spawnattr_getschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_setschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_getschedpolicy(SpawnattrT* attr, int* schedpolicy);
-extern fn int posix_spawnattr_setschedpolicy(SpawnattrT* attr, int schedpolicy);
-extern fn int posix_spawnattr_getsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_setsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_getsigmask(SpawnattrT* attr, void* sigmask);
-extern fn int posix_spawnattr_setsigmask(SpawnattrT* attr, void* sigmask);
+extern fn int posix_spawnattr_init(SpawnAttr* attr);
+extern fn int posix_spawnattr_destroy(SpawnAttr* attr);
+extern fn int posix_spawnattr_getflags(SpawnAttr* attr, short* flags);
+extern fn int posix_spawnattr_setflags(SpawnAttr* attr, short flags);
+extern fn int posix_spawnattr_getpgroup(SpawnAttr* attr, int* pgroup);
+extern fn int posix_spawnattr_setpgroup(SpawnAttr* attr, int pgroup);
+extern fn int posix_spawnattr_getschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_setschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_getschedpolicy(SpawnAttr* attr, int* schedpolicy);
+extern fn int posix_spawnattr_setschedpolicy(SpawnAttr* attr, int schedpolicy);
+extern fn int posix_spawnattr_getsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_setsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_getsigmask(SpawnAttr* attr, void* sigmask);
+extern fn int posix_spawnattr_setsigmask(SpawnAttr* attr, void* sigmask);
 
 // Flags for posix_spawnattr_setflags()
 const short POSIX_SPAWN_RESETIDS = 0x01;           // Reset effective uid/gid
@@ -58,46 +58,46 @@ const short POSIX_SPAWN_SETSID = 0x80;             // Create new session (Linux 
 module spawn @if(env::DARWIN);
 
 // Opaque types
-alias SpawnFileActionsT = void;
-alias SpawnattrT = void;
+alias SpawnFileActions = void;
+alias SpawnAttr = void;
 
 // Function Declarations
-extern fn int posix_spawn(int* pid, char* path, SpawnFileActionsT* file_actions,
-                         SpawnattrT* attrp, char** argv, char** envp);
-extern fn int posix_spawnp(int* pid, char* file, SpawnFileActionsT* file_actions,
-                          SpawnattrT* attrp, char** argv, char** envp);
+extern fn int posix_spawn(int* pid, char* path, SpawnFileActions* file_actions,
+                         SpawnAttr* attrp, char** argv, char** envp);
+extern fn int posix_spawnp(int* pid, char* file, SpawnFileActions* file_actions,
+                          SpawnAttr* attrp, char** argv, char** envp);
 
 // File actions functions
-extern fn int posix_spawn_file_actions_init(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_destroy(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_addopen(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_init(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_destroy(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_addopen(SpawnFileActions* file_actions,
                                                int fd, char* path, int oflag, uint mode);
-extern fn int posix_spawn_file_actions_addclose(SpawnFileActionsT* file_actions, int fd);
-extern fn int posix_spawn_file_actions_adddup2(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_addclose(SpawnFileActions* file_actions, int fd);
+extern fn int posix_spawn_file_actions_adddup2(SpawnFileActions* file_actions,
                                                int fd, int newfd);
-extern fn int posix_spawn_file_actions_addinherit_np(SpawnFileActionsT* file_actions, int fd);
-extern fn int posix_spawn_file_actions_addchdir_np(SpawnFileActionsT* file_actions, char* path);
-extern fn int posix_spawn_file_actions_addfchdir_np(SpawnFileActionsT* file_actions, int fd);
+extern fn int posix_spawn_file_actions_addinherit_np(SpawnFileActions* file_actions, int fd);
+extern fn int posix_spawn_file_actions_addchdir_np(SpawnFileActions* file_actions, char* path);
+extern fn int posix_spawn_file_actions_addfchdir_np(SpawnFileActions* file_actions, int fd);
 
 // Spawn attributes functions
-extern fn int posix_spawnattr_init(SpawnattrT* attr);
-extern fn int posix_spawnattr_destroy(SpawnattrT* attr);
-extern fn int posix_spawnattr_getflags(SpawnattrT* attr, short* flags);
-extern fn int posix_spawnattr_setflags(SpawnattrT* attr, short flags);
-extern fn int posix_spawnattr_getpgroup(SpawnattrT* attr, int* pgroup);
-extern fn int posix_spawnattr_setpgroup(SpawnattrT* attr, int pgroup);
-extern fn int posix_spawnattr_getschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_setschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_getschedpolicy(SpawnattrT* attr, int* schedpolicy);
-extern fn int posix_spawnattr_setschedpolicy(SpawnattrT* attr, int schedpolicy);
-extern fn int posix_spawnattr_getsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_setsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_getsigmask(SpawnattrT* attr, void* sigmask);
-extern fn int posix_spawnattr_setsigmask(SpawnattrT* attr, void* sigmask);
+extern fn int posix_spawnattr_init(SpawnAttr* attr);
+extern fn int posix_spawnattr_destroy(SpawnAttr* attr);
+extern fn int posix_spawnattr_getflags(SpawnAttr* attr, short* flags);
+extern fn int posix_spawnattr_setflags(SpawnAttr* attr, short flags);
+extern fn int posix_spawnattr_getpgroup(SpawnAttr* attr, int* pgroup);
+extern fn int posix_spawnattr_setpgroup(SpawnAttr* attr, int pgroup);
+extern fn int posix_spawnattr_getschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_setschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_getschedpolicy(SpawnAttr* attr, int* schedpolicy);
+extern fn int posix_spawnattr_setschedpolicy(SpawnAttr* attr, int schedpolicy);
+extern fn int posix_spawnattr_getsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_setsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_getsigmask(SpawnAttr* attr, void* sigmask);
+extern fn int posix_spawnattr_setsigmask(SpawnAttr* attr, void* sigmask);
 
 // macOS-specific attribute functions
-extern fn int posix_spawnattr_setbinpref_np(SpawnattrT* attr, usz count, int* pref, usz* ocount);
-extern fn int posix_spawnattr_getbinpref_np(SpawnattrT* attr, usz count, int* pref, usz* ocount);
+extern fn int posix_spawnattr_setbinpref_np(SpawnAttr* attr, usz count, int* pref, usz* ocount);
+extern fn int posix_spawnattr_getbinpref_np(SpawnAttr* attr, usz count, int* pref, usz* ocount);
 
 // Flags
 const short POSIX_SPAWN_RESETIDS = 0x0001;
@@ -118,39 +118,39 @@ const int CPU_TYPE_ANY = -1;
 module spawn @if(env::FREEBSD);
 
 // Opaque types
-alias SpawnFileActionsT = void;
-alias SpawnattrT = void;
+alias SpawnFileActions = void;
+alias SpawnAttr = void;
 
 // Function Declarations
-extern fn int posix_spawn(int* pid, char* path, SpawnFileActionsT* file_actions,
-                         SpawnattrT* attrp, char** argv, char** envp);
-extern fn int posix_spawnp(int* pid, char* file, SpawnFileActionsT* file_actions,
-                          SpawnattrT* attrp, char** argv, char** envp);
+extern fn int posix_spawn(int* pid, char* path, SpawnFileActions* file_actions,
+                         SpawnAttr* attrp, char** argv, char** envp);
+extern fn int posix_spawnp(int* pid, char* file, SpawnFileActions* file_actions,
+                          SpawnAttr* attrp, char** argv, char** envp);
 
 // File actions functions
-extern fn int posix_spawn_file_actions_init(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_destroy(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_addopen(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_init(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_destroy(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_addopen(SpawnFileActions* file_actions,
                                                int fd, char* path, int oflag, uint mode);
-extern fn int posix_spawn_file_actions_addclose(SpawnFileActionsT* file_actions, int fd);
-extern fn int posix_spawn_file_actions_adddup2(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_addclose(SpawnFileActions* file_actions, int fd);
+extern fn int posix_spawn_file_actions_adddup2(SpawnFileActions* file_actions,
                                                int fd, int newfd);
 
 // Spawn attributes functions
-extern fn int posix_spawnattr_init(SpawnattrT* attr);
-extern fn int posix_spawnattr_destroy(SpawnattrT* attr);
-extern fn int posix_spawnattr_getflags(SpawnattrT* attr, short* flags);
-extern fn int posix_spawnattr_setflags(SpawnattrT* attr, short flags);
-extern fn int posix_spawnattr_getpgroup(SpawnattrT* attr, int* pgroup);
-extern fn int posix_spawnattr_setpgroup(SpawnattrT* attr, int pgroup);
-extern fn int posix_spawnattr_getschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_setschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_getschedpolicy(SpawnattrT* attr, int* schedpolicy);
-extern fn int posix_spawnattr_setschedpolicy(SpawnattrT* attr, int schedpolicy);
-extern fn int posix_spawnattr_getsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_setsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_getsigmask(SpawnattrT* attr, void* sigmask);
-extern fn int posix_spawnattr_setsigmask(SpawnattrT* attr, void* sigmask);
+extern fn int posix_spawnattr_init(SpawnAttr* attr);
+extern fn int posix_spawnattr_destroy(SpawnAttr* attr);
+extern fn int posix_spawnattr_getflags(SpawnAttr* attr, short* flags);
+extern fn int posix_spawnattr_setflags(SpawnAttr* attr, short flags);
+extern fn int posix_spawnattr_getpgroup(SpawnAttr* attr, int* pgroup);
+extern fn int posix_spawnattr_setpgroup(SpawnAttr* attr, int pgroup);
+extern fn int posix_spawnattr_getschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_setschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_getschedpolicy(SpawnAttr* attr, int* schedpolicy);
+extern fn int posix_spawnattr_setschedpolicy(SpawnAttr* attr, int schedpolicy);
+extern fn int posix_spawnattr_getsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_setsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_getsigmask(SpawnAttr* attr, void* sigmask);
+extern fn int posix_spawnattr_setsigmask(SpawnAttr* attr, void* sigmask);
 
 // Flags
 const short POSIX_SPAWN_RESETIDS = 0x01;
@@ -166,39 +166,39 @@ const short POSIX_SPAWN_USEVFORK = 0x40;
 module spawn @if(env::NETBSD);
 
 // Opaque types
-alias SpawnFileActionsT = void;
-alias SpawnattrT = void;
+alias SpawnFileActions = void;
+alias SpawnAttr = void;
 
 // Function Declarations
-extern fn int posix_spawn(int* pid, char* path, SpawnFileActionsT* file_actions,
-                         SpawnattrT* attrp, char** argv, char** envp);
-extern fn int posix_spawnp(int* pid, char* file, SpawnFileActionsT* file_actions,
-                          SpawnattrT* attrp, char** argv, char** envp);
+extern fn int posix_spawn(int* pid, char* path, SpawnFileActions* file_actions,
+                         SpawnAttr* attrp, char** argv, char** envp);
+extern fn int posix_spawnp(int* pid, char* file, SpawnFileActions* file_actions,
+                          SpawnAttr* attrp, char** argv, char** envp);
 
 // File actions functions
-extern fn int posix_spawn_file_actions_init(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_destroy(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_addopen(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_init(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_destroy(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_addopen(SpawnFileActions* file_actions,
                                                int fd, char* path, int oflag, uint mode);
-extern fn int posix_spawn_file_actions_addclose(SpawnFileActionsT* file_actions, int fd);
-extern fn int posix_spawn_file_actions_adddup2(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_addclose(SpawnFileActions* file_actions, int fd);
+extern fn int posix_spawn_file_actions_adddup2(SpawnFileActions* file_actions,
                                                int fd, int newfd);
 
 // Spawn attributes functions
-extern fn int posix_spawnattr_init(SpawnattrT* attr);
-extern fn int posix_spawnattr_destroy(SpawnattrT* attr);
-extern fn int posix_spawnattr_getflags(SpawnattrT* attr, short* flags);
-extern fn int posix_spawnattr_setflags(SpawnattrT* attr, short flags);
-extern fn int posix_spawnattr_getpgroup(SpawnattrT* attr, int* pgroup);
-extern fn int posix_spawnattr_setpgroup(SpawnattrT* attr, int pgroup);
-extern fn int posix_spawnattr_getschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_setschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_getschedpolicy(SpawnattrT* attr, int* schedpolicy);
-extern fn int posix_spawnattr_setschedpolicy(SpawnattrT* attr, int schedpolicy);
-extern fn int posix_spawnattr_getsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_setsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_getsigmask(SpawnattrT* attr, void* sigmask);
-extern fn int posix_spawnattr_setsigmask(SpawnattrT* attr, void* sigmask);
+extern fn int posix_spawnattr_init(SpawnAttr* attr);
+extern fn int posix_spawnattr_destroy(SpawnAttr* attr);
+extern fn int posix_spawnattr_getflags(SpawnAttr* attr, short* flags);
+extern fn int posix_spawnattr_setflags(SpawnAttr* attr, short flags);
+extern fn int posix_spawnattr_getpgroup(SpawnAttr* attr, int* pgroup);
+extern fn int posix_spawnattr_setpgroup(SpawnAttr* attr, int pgroup);
+extern fn int posix_spawnattr_getschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_setschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_getschedpolicy(SpawnAttr* attr, int* schedpolicy);
+extern fn int posix_spawnattr_setschedpolicy(SpawnAttr* attr, int schedpolicy);
+extern fn int posix_spawnattr_getsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_setsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_getsigmask(SpawnAttr* attr, void* sigmask);
+extern fn int posix_spawnattr_setsigmask(SpawnAttr* attr, void* sigmask);
 
 // Flags
 const short POSIX_SPAWN_RESETIDS = 0x01;
@@ -213,39 +213,39 @@ const short POSIX_SPAWN_SETSCHEDULER = 0x20;
 module spawn @if(env::OPENBSD);
 
 // Opaque types
-alias SpawnFileActionsT = void;
-alias SpawnattrT = void;
+alias SpawnFileActions = void;
+alias SpawnAttr = void;
 
 // Function Declarations
-extern fn int posix_spawn(int* pid, char* path, SpawnFileActionsT* file_actions,
-                         SpawnattrT* attrp, char** argv, char** envp);
-extern fn int posix_spawnp(int* pid, char* file, SpawnFileActionsT* file_actions,
-                          SpawnattrT* attrp, char** argv, char** envp);
+extern fn int posix_spawn(int* pid, char* path, SpawnFileActions* file_actions,
+                         SpawnAttr* attrp, char** argv, char** envp);
+extern fn int posix_spawnp(int* pid, char* file, SpawnFileActions* file_actions,
+                          SpawnAttr* attrp, char** argv, char** envp);
 
 // File actions functions
-extern fn int posix_spawn_file_actions_init(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_destroy(SpawnFileActionsT* file_actions);
-extern fn int posix_spawn_file_actions_addopen(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_init(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_destroy(SpawnFileActions* file_actions);
+extern fn int posix_spawn_file_actions_addopen(SpawnFileActions* file_actions,
                                                int fd, char* path, int oflag, uint mode);
-extern fn int posix_spawn_file_actions_addclose(SpawnFileActionsT* file_actions, int fd);
-extern fn int posix_spawn_file_actions_adddup2(SpawnFileActionsT* file_actions,
+extern fn int posix_spawn_file_actions_addclose(SpawnFileActions* file_actions, int fd);
+extern fn int posix_spawn_file_actions_adddup2(SpawnFileActions* file_actions,
                                                int fd, int newfd);
 
 // Spawn attributes functions
-extern fn int posix_spawnattr_init(SpawnattrT* attr);
-extern fn int posix_spawnattr_destroy(SpawnattrT* attr);
-extern fn int posix_spawnattr_getflags(SpawnattrT* attr, short* flags);
-extern fn int posix_spawnattr_setflags(SpawnattrT* attr, short flags);
-extern fn int posix_spawnattr_getpgroup(SpawnattrT* attr, int* pgroup);
-extern fn int posix_spawnattr_setpgroup(SpawnattrT* attr, int pgroup);
-extern fn int posix_spawnattr_getschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_setschedparam(SpawnattrT* attr, void* schedparam);
-extern fn int posix_spawnattr_getschedpolicy(SpawnattrT* attr, int* schedpolicy);
-extern fn int posix_spawnattr_setschedpolicy(SpawnattrT* attr, int schedpolicy);
-extern fn int posix_spawnattr_getsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_setsigdefault(SpawnattrT* attr, void* sigdefault);
-extern fn int posix_spawnattr_getsigmask(SpawnattrT* attr, void* sigmask);
-extern fn int posix_spawnattr_setsigmask(SpawnattrT* attr, void* sigmask);
+extern fn int posix_spawnattr_init(SpawnAttr* attr);
+extern fn int posix_spawnattr_destroy(SpawnAttr* attr);
+extern fn int posix_spawnattr_getflags(SpawnAttr* attr, short* flags);
+extern fn int posix_spawnattr_setflags(SpawnAttr* attr, short flags);
+extern fn int posix_spawnattr_getpgroup(SpawnAttr* attr, int* pgroup);
+extern fn int posix_spawnattr_setpgroup(SpawnAttr* attr, int pgroup);
+extern fn int posix_spawnattr_getschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_setschedparam(SpawnAttr* attr, void* schedparam);
+extern fn int posix_spawnattr_getschedpolicy(SpawnAttr* attr, int* schedpolicy);
+extern fn int posix_spawnattr_setschedpolicy(SpawnAttr* attr, int schedpolicy);
+extern fn int posix_spawnattr_getsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_setsigdefault(SpawnAttr* attr, void* sigdefault);
+extern fn int posix_spawnattr_getsigmask(SpawnAttr* attr, void* sigmask);
+extern fn int posix_spawnattr_setsigmask(SpawnAttr* attr, void* sigmask);
 
 // Flags
 const short POSIX_SPAWN_RESETIDS = 0x01;

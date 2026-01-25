@@ -7,18 +7,18 @@ module poll;
 module poll @if(env::LINUX);
 
 // Structure for poll()
-struct Pollfd {
+struct PollFd {
     int fd;         // File descriptor
     short events;   // Requested events
     short revents;  // Returned events
 }
 
 // Function Declarations
-extern fn int poll(Pollfd* fds, ulong nfds, int timeout);
-extern fn int ppoll(Pollfd* fds, ulong nfds, Timespec* timeout, void* sigmask);
+extern fn int poll(PollFd* fds, ulong nfds, int timeout);
+extern fn int ppoll(PollFd* fds, ulong nfds, TimeSpec* timeout, void* sigmask);
 
-// Timespec for ppoll
-struct Timespec {
+// TimeSpec for ppoll
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
@@ -48,14 +48,14 @@ const int INFTIM = -1;
 module poll @if(env::DARWIN);
 
 // Structure for poll()
-struct Pollfd {
+struct PollFd {
     int fd;
     short events;
     short revents;
 }
 
 // Function Declarations
-extern fn int poll(Pollfd* fds, uint nfds, int timeout);
+extern fn int poll(PollFd* fds, uint nfds, int timeout);
 
 // Event types
 const short POLLIN = 0x0001;
@@ -84,17 +84,17 @@ const int INFTIM = -1;
 module poll @if(env::FREEBSD);
 
 // Structure for poll()
-struct Pollfd {
+struct PollFd {
     int fd;
     short events;
     short revents;
 }
 
 // Function Declarations
-extern fn int poll(Pollfd* fds, uint nfds, int timeout);
-extern fn int ppoll(Pollfd* fds, uint nfds, Timespec* timeout, void* sigmask);
+extern fn int poll(PollFd* fds, uint nfds, int timeout);
+extern fn int ppoll(PollFd* fds, uint nfds, TimeSpec* timeout, void* sigmask);
 
-struct Timespec {
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
@@ -123,17 +123,17 @@ const int INFTIM = -1;
 module poll @if(env::NETBSD);
 
 // Structure for poll()
-struct Pollfd {
+struct PollFd {
     int fd;
     short events;
     short revents;
 }
 
 // Function Declarations
-extern fn int poll(Pollfd* fds, uint nfds, int timeout);
-extern fn int pollts(Pollfd* fds, uint nfds, Timespec* timeout, void* sigmask);
+extern fn int poll(PollFd* fds, uint nfds, int timeout);
+extern fn int pollts(PollFd* fds, uint nfds, TimeSpec* timeout, void* sigmask);
 
-struct Timespec {
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
@@ -161,17 +161,17 @@ const int INFTIM = -1;
 module poll @if(env::OPENBSD);
 
 // Structure for poll()
-struct Pollfd {
+struct PollFd {
     int fd;
     short events;
     short revents;
 }
 
 // Function Declarations
-extern fn int poll(Pollfd* fds, uint nfds, int timeout);
-extern fn int ppoll(Pollfd* fds, uint nfds, Timespec* timeout, void* sigmask);
+extern fn int poll(PollFd* fds, uint nfds, int timeout);
+extern fn int ppoll(PollFd* fds, uint nfds, TimeSpec* timeout, void* sigmask);
 
-struct Timespec {
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
@@ -203,14 +203,14 @@ module poll @if(env::WIN32);
 // For compatibility, MinGW/Cygwin may provide poll()
 
 // Structure for poll() (if available through compatibility layer)
-struct Pollfd {
+struct PollFd {
     int fd;
     short events;
     short revents;
 }
 
 // Function Declaration (WSAPoll or compatibility layer)
-extern fn int poll(Pollfd* fds, ulong nfds, int timeout);
+extern fn int poll(PollFd* fds, ulong nfds, int timeout);
 
 // Windows WSAPoll uses similar constants
 const short POLLIN = 0x0001;

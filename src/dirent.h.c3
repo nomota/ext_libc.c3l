@@ -10,20 +10,20 @@ module dirent @if(env::LINUX);
 extern fn Dir* opendir(char* name);
 extern fn Dir* fdopendir(int fd);
 extern fn int closedir(Dir* dirp);
-extern fn Dirent* readdir(Dir* dirp);
-extern fn int readdir_r(Dir* dirp, Dirent* entry, Dirent** result);
+extern fn DirEnt* readdir(Dir* dirp);
+extern fn int readdir_r(Dir* dirp, DirEnt* entry, DirEnt** result);
 extern fn void rewinddir(Dir* dirp);
 extern fn void seekdir(Dir* dirp, long loc);
 extern fn long telldir(Dir* dirp);
 extern fn int dirfd(Dir* dirp);
-extern fn int scandir(char* dirp, Dirent*** namelist, void* filter, void* compar);
-extern fn int alphasort(Dirent** a, Dirent** b);
-extern fn int versionsort(Dirent** a, Dirent** b);
+extern fn int scandir(char* dirp, DirEnt*** namelist, void* filter, void* compar);
+extern fn int alphasort(DirEnt** a, DirEnt** b);
+extern fn int versionsort(DirEnt** a, DirEnt** b);
 
 // Type Definitions
 alias Dir = void;
 
-struct Dirent {
+struct DirEnt {
     ulong d_ino;
     long d_off;
     ushort d_reclen;
@@ -51,19 +51,19 @@ module dirent @if(env::DARWIN);
 extern fn Dir* opendir(char* name);
 extern fn Dir* fdopendir(int fd);
 extern fn int closedir(Dir* dirp);
-extern fn Dirent* readdir(Dir* dirp);
-extern fn int readdir_r(Dir* dirp, Dirent* entry, Dirent** result);
+extern fn DirEnt* readdir(Dir* dirp);
+extern fn int readdir_r(Dir* dirp, DirEnt* entry, DirEnt** result);
 extern fn void rewinddir(Dir* dirp);
 extern fn void seekdir(Dir* dirp, long loc);
 extern fn long telldir(Dir* dirp);
 extern fn int dirfd(Dir* dirp);
-extern fn int scandir(char* dirp, Dirent*** namelist, void* filter, void* compar);
-extern fn int alphasort(Dirent** a, Dirent** b);
+extern fn int scandir(char* dirp, DirEnt*** namelist, void* filter, void* compar);
+extern fn int alphasort(DirEnt** a, DirEnt** b);
 
 // Type Definitions
 alias Dir = void;
 
-struct Dirent {
+struct DirEnt {
     ulong d_ino;
     ulong d_seekoff;
     ushort d_reclen;
@@ -95,19 +95,19 @@ module dirent @if(env::FREEBSD);
 extern fn Dir* opendir(char* name);
 extern fn Dir* fdopendir(int fd);
 extern fn int closedir(Dir* dirp);
-extern fn Dirent* readdir(Dir* dirp);
-extern fn int readdir_r(Dir* dirp, Dirent* entry, Dirent** result);
+extern fn DirEnt* readdir(Dir* dirp);
+extern fn int readdir_r(Dir* dirp, DirEnt* entry, DirEnt** result);
 extern fn void rewinddir(Dir* dirp);
 extern fn void seekdir(Dir* dirp, long loc);
 extern fn long telldir(Dir* dirp);
 extern fn int dirfd(Dir* dirp);
-extern fn int scandir(char* dirp, Dirent*** namelist, void* filter, void* compar);
-extern fn int alphasort(Dirent** a, Dirent** b);
+extern fn int scandir(char* dirp, DirEnt*** namelist, void* filter, void* compar);
+extern fn int alphasort(DirEnt** a, DirEnt** b);
 
 // Type Definitions
 alias Dir = void;
 
-struct Dirent {
+struct DirEnt {
     uint d_fileno;
     ushort d_reclen;
     char d_type;
@@ -137,19 +137,19 @@ module dirent @if(env::NETBSD);
 extern fn Dir* opendir(char* name);
 extern fn Dir* fdopendir(int fd);
 extern fn int closedir(Dir* dirp);
-extern fn Dirent* readdir(Dir* dirp);
-extern fn int readdir_r(Dir* dirp, Dirent* entry, Dirent** result);
+extern fn DirEnt* readdir(Dir* dirp);
+extern fn int readdir_r(Dir* dirp, DirEnt* entry, DirEnt** result);
 extern fn void rewinddir(Dir* dirp);
 extern fn void seekdir(Dir* dirp, long loc);
 extern fn long telldir(Dir* dirp);
 extern fn int dirfd(Dir* dirp);
-extern fn int scandir(char* dirp, Dirent*** namelist, void* filter, void* compar);
-extern fn int alphasort(Dirent** a, Dirent** b);
+extern fn int scandir(char* dirp, DirEnt*** namelist, void* filter, void* compar);
+extern fn int alphasort(DirEnt** a, DirEnt** b);
 
 // Type Definitions
 alias Dir = void;
 
-struct Dirent {
+struct DirEnt {
     ulong d_fileno;
     ushort d_reclen;
     ushort d_namlen;
@@ -179,19 +179,19 @@ module dirent @if(env::OPENBSD);
 extern fn Dir* opendir(char* name);
 extern fn Dir* fdopendir(int fd);
 extern fn int closedir(Dir* dirp);
-extern fn Dirent* readdir(Dir* dirp);
-extern fn int readdir_r(Dir* dirp, Dirent* entry, Dirent** result);
+extern fn DirEnt* readdir(Dir* dirp);
+extern fn int readdir_r(Dir* dirp, DirEnt* entry, DirEnt** result);
 extern fn void rewinddir(Dir* dirp);
 extern fn void seekdir(Dir* dirp, long loc);
 extern fn long telldir(Dir* dirp);
 extern fn int dirfd(Dir* dirp);
-extern fn int scandir(char* dirp, Dirent*** namelist, void* filterfn, void* comparfn);
-extern fn int alphasort(Dirent** a, Dirent** b);
+extern fn int scandir(char* dirp, DirEnt*** namelist, void* filterfn, void* comparfn);
+extern fn int alphasort(DirEnt** a, DirEnt** b);
 
 // Type Definitions
 alias Dir = void;
 
-struct Dirent {
+struct DirEnt {
     ulong d_fileno;
     long d_off;
     ushort d_reclen;

@@ -44,24 +44,24 @@ extern fn int abs(int j);
 extern fn CInt labs(CInt j);
 extern fn LongLong llabs(LongLong j);
 
-struct Div_t {
+struct Div {
     int quot;
     int rem;
 }
 
-struct Ldiv_t {
+struct LDiv {
     CInt quot;
     CInt rem;
 }
 
-struct Lldiv_t {
+struct LLDiv {
     LongLong quot;
     LongLong rem;
 }
 
-extern fn Div_t div(int numer, int denom);
-extern fn Ldiv_t ldiv(CInt numer, CInt denom);
-extern fn Lldiv_t lldiv(LongLong numer, LongLong denom);
+extern fn Div div(int numer, int denom);
+extern fn LDiv ldiv(CInt numer, CInt denom);
+extern fn LLDiv lldiv(LongLong numer, LongLong denom);
 
 // String conversion
 extern fn float strtof(char* nptr, char** endptr);

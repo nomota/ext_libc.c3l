@@ -3,39 +3,39 @@ module sys::socket;
 
 // Main socket functions
 extern fn int socket(int domain, int type, int protocol);
-extern fn int bind(int sockfd, Sockaddr* addr, Socklen_t addrlen);
+extern fn int bind(int sockfd, SockAddr* addr, SockLen addrlen);
 extern fn int listen(int sockfd, int backlog);
-extern fn int accept(int sockfd, Sockaddr* addr, Socklen_t* addrlen);
-extern fn int connect(int sockfd, Sockaddr* addr, Socklen_t addrlen);
+extern fn int accept(int sockfd, SockAddr* addr, SockLen* addrlen);
+extern fn int connect(int sockfd, SockAddr* addr, SockLen addrlen);
 
 // Data transfer
 extern fn isz send(int sockfd, void* buf, usz len, int flags);
 extern fn isz recv(int sockfd, void* buf, usz len, int flags);
-extern fn isz sendto(int sockfd, void* buf, usz len, int flags, Sockaddr* dest_addr, Socklen_t addrlen);
-extern fn isz recvfrom(int sockfd, void* buf, usz len, int flags, Sockaddr* src_addr, Socklen_t* addrlen);
-extern fn isz sendmsg(int sockfd, Msghdr* msg, int flags);
-extern fn isz recvmsg(int sockfd, Msghdr* msg, int flags);
+extern fn isz sendto(int sockfd, void* buf, usz len, int flags, SockAddr* dest_addr, SockLen addrlen);
+extern fn isz recvfrom(int sockfd, void* buf, usz len, int flags, SockAddr* src_addr, SockLen* addrlen);
+extern fn isz sendmsg(int sockfd, MsgHdr* msg, int flags);
+extern fn isz recvmsg(int sockfd, MsgHdr* msg, int flags);
 
 // Socket options
-extern fn int setsockopt(int sockfd, int level, int optname, void* optval, Socklen_t optlen);
-extern fn int getsockopt(int sockfd, int level, int optname, void* optval, Socklen_t* optlen);
+extern fn int setsockopt(int sockfd, int level, int optname, void* optval, SockLen optlen);
+extern fn int getsockopt(int sockfd, int level, int optname, void* optval, SockLen* optlen);
 
 // Socket control
 extern fn int shutdown(int sockfd, int how);
 extern fn int socketpair(int domain, int type, int protocol, int[2] sv);
 
 // Name/address functions
-extern fn int getsockname(int sockfd, Sockaddr* addr, Socklen_t* addrlen);
-extern fn int getpeername(int sockfd, Sockaddr* addr, Socklen_t* addrlen);
+extern fn int getsockname(int sockfd, SockAddr* addr, SockLen* addrlen);
+extern fn int getpeername(int sockfd, SockAddr* addr, SockLen* addrlen);
 
 // Control message macros (helper functions)
 macro usz cmsg_align(usz len) => (((len) + usz.sizeof - 1) & ~(usz.sizeof - 1));
-macro usz cmsg_space(usz len) => (cmsg_align(Cmsghdr.sizeof) + cmsg_align(len));
-macro usz cmsg_len(usz len) => (cmsg_align(Cmsghdr.sizeof) + (len));
-macro Cmsghdr* cmsg_firsthdr(Msghdr* msg) => ((msg).msg_controllen >= Cmsghdr.sizeof ? (Cmsghdr*)(msg).msg_control : (Cmsghdr*)0);
-macro char* cmsg_data(Cmsghdr* cmsg) => ((char*)(cmsg) + cmsg_align(Cmsghdr.sizeof));
+macro usz cmsg_space(usz len) => (cmsg_align(CMsgHdr.sizeof) + cmsg_align(len));
+macro usz cmsg_len(usz len) => (cmsg_align(CMsgHdr.sizeof) + (len));
+macro CMsgHdr* cmsg_firsthdr(MsgHdr* msg) => ((msg).msg_controllen >= CMsgHdr.sizeof ? (CMsgHdr*)(msg).msg_control : (CMsgHdr*)0);
+macro char* cmsg_data(CMsgHdr* cmsg) => ((char*)(cmsg) + cmsg_align(CMsgHdr.sizeof));
 
-alias Socklen_t = uint;
+alias SockLen = uint;
 
 module sys::socket @if(env::LINUX);
 
@@ -189,28 +189,28 @@ const int SHUT_WR = 1;
 const int SHUT_RDWR = 2;
 
 // Socket address structures
-struct Sockaddr {
+struct SockAddr {
     ushort sa_family;
     char[14] sa_data;
 }
 
-struct SockaddrStorage {
+struct SockAddrStorage {
     ushort ss_family;
     ulong __ss_align;
     char[128 - ushort.sizeof - ulong.sizeof] __ss_padding;
 }
 
 // I/O vector
-struct Iovec {
+struct IoVec {
     void* iov_base;
     usz iov_len;
 }
 
 // Message header
-struct Msghdr {
+struct MsgHdr {
     void* msg_name;
-    Socklen_t msg_namelen;
-    Iovec* msg_iov;
+    SockLen msg_namelen;
+    IoVec* msg_iov;
     usz msg_iovlen;
     void* msg_control;
     usz msg_controllen;
@@ -218,20 +218,20 @@ struct Msghdr {
 }
 
 // Multiple message header (for sendmmsg/recvmmsg)
-struct Mmsghdr {
-    Msghdr msg_hdr;
+struct MMsgHdr {
+    MsgHdr msg_hdr;
     uint msg_len;
 }
 
 // Control message header
-struct Cmsghdr {
+struct CMsgHdr {
     usz cmsg_len;
     int cmsg_level;
     int cmsg_type;
 }
 
 // User credentials structure
-struct Ucred {
+struct UCred {
     uint pid;
     uint uid;
     uint gid;
@@ -244,12 +244,12 @@ struct Linger {
 }
 
 // Linux-specific functions
-extern fn int accept4(int sockfd, Sockaddr* addr, Socklen_t* addrlen, int flags);
-extern fn int sendmmsg(int sockfd, Mmsghdr* msgvec, uint vlen, int flags);
-extern fn int recvmmsg(int sockfd, Mmsghdr* msgvec, uint vlen, int flags, Timespec* timeout);
+extern fn int accept4(int sockfd, SockAddr* addr, SockLen* addrlen, int flags);
+extern fn int sendmmsg(int sockfd, MMsgHdr* msgvec, uint vlen, int flags);
+extern fn int recvmmsg(int sockfd, MMsgHdr* msgvec, uint vlen, int flags, TimeSpec* timeout);
 
-// Timespec for recvmmsg timeout
-struct Timespec {
+// TimeSpec for recvmmsg timeout
+struct TimeSpec {
     long tv_sec;
     long tv_nsec;
 }
@@ -390,13 +390,13 @@ const int SHUT_WR = 1;
 const int SHUT_RDWR = 2;
 
 // Socket address length type (Darwin uses uint8_t for sa_len)
-struct Sockaddr {
+struct SockAddr {
     char sa_len;
     char sa_family;
     char[14] sa_data;
 }
 
-struct SockaddrStorage {
+struct SockAddrStorage {
     char ss_len;
     char ss_family;
     char[6] __ss_pad1;
@@ -405,25 +405,25 @@ struct SockaddrStorage {
 }
 
 // I/O vector
-struct Iovec {
+struct IoVec {
     void* iov_base;
     usz iov_len;
 }
 
 // Message header
-struct Msghdr {
+struct MsgHdr {
     void* msg_name;
-    Socklen_t msg_namelen;
-    Iovec* msg_iov;
+    SockLen msg_namelen;
+    IoVec* msg_iov;
     int msg_iovlen;
     void* msg_control;
-    Socklen_t msg_controllen;
+    SockLen msg_controllen;
     int msg_flags;
 }
 
 // Control message header
-struct Cmsghdr {
-    Socklen_t cmsg_len;
+struct CMsgHdr {
+    SockLen cmsg_len;
     int cmsg_level;
     int cmsg_type;
 }
@@ -582,13 +582,13 @@ const int SHUT_WR = 1;
 const int SHUT_RDWR = 2;
 
 // Socket address structures (FreeBSD has sa_len)
-struct Sockaddr {
+struct SockAddr {
     char sa_len;
     char sa_family;
     char[14] sa_data;
 }
 
-struct SockaddrStorage {
+struct SockAddrStorage {
     char ss_len;
     char ss_family;
     char[6] __ss_pad1;
@@ -597,25 +597,25 @@ struct SockaddrStorage {
 }
 
 // I/O vector
-struct Iovec {
+struct IoVec {
     void* iov_base;
     usz iov_len;
 }
 
 // Message header
-struct Msghdr {
+struct MsgHdr {
     void* msg_name;
-    Socklen_t msg_namelen;
-    Iovec* msg_iov;
+    SockLen msg_namelen;
+    IoVec* msg_iov;
     int msg_iovlen;
     void* msg_control;
-    Socklen_t msg_controllen;
+    SockLen msg_controllen;
     int msg_flags;
 }
 
 // Control message header
-struct Cmsghdr {
-    Socklen_t cmsg_len;
+struct CMsgHdr {
+    SockLen cmsg_len;
     int cmsg_level;
     int cmsg_type;
 }
@@ -651,9 +651,9 @@ struct Cmsgcred {
 }
 
 // FreeBSD-specific functions
-extern fn int accept4(int sockfd, Sockaddr* addr, Socklen_t* addrlen, int flags);
-extern fn int bindat(int fd, int sockfd, Sockaddr* addr, Socklen_t addrlen);
-extern fn int connectat(int fd, int sockfd, Sockaddr* addr, Socklen_t addrlen);
+extern fn int accept4(int sockfd, SockAddr* addr, SockLen* addrlen, int flags);
+extern fn int bindat(int fd, int sockfd, SockAddr* addr, SockLen addrlen);
+extern fn int connectat(int fd, int sockfd, SockAddr* addr, SockLen addrlen);
 
 
 
@@ -768,13 +768,13 @@ const int SHUT_WR = 1;
 const int SHUT_RDWR = 2;
 
 // Socket address structures (NetBSD has sa_len)
-struct Sockaddr {
+struct SockAddr {
     char sa_len;
     char sa_family;
     char[14] sa_data;
 }
 
-struct SockaddrStorage {
+struct SockAddrStorage {
     char ss_len;
     char ss_family;
     char[6] __ss_pad1;
@@ -783,25 +783,25 @@ struct SockaddrStorage {
 }
 
 // I/O vector
-struct Iovec {
+struct IoVec {
     void* iov_base;
     usz iov_len;
 }
 
 // Message header
-struct Msghdr {
+struct MsgHdr {
     void* msg_name;
-    Socklen_t msg_namelen;
-    Iovec* msg_iov;
+    SockLen msg_namelen;
+    IoVec* msg_iov;
     int msg_iovlen;
     void* msg_control;
-    Socklen_t msg_controllen;
+    SockLen msg_controllen;
     int msg_flags;
 }
 
 // Control message header
-struct Cmsghdr {
-    Socklen_t cmsg_len;
+struct CMsgHdr {
+    SockLen cmsg_len;
     int cmsg_level;
     int cmsg_type;
 }
@@ -824,7 +824,7 @@ const int SCM_TIMESTAMP = 0x02;
 const int SCM_CREDS = 0x04;
 
 // NetBSD-specific functions
-extern fn int accept4(int sockfd, Sockaddr* addr, Socklen_t* addrlen, int flags);
+extern fn int accept4(int sockfd, SockAddr* addr, SockLen* addrlen, int flags);
 
 
 
@@ -946,13 +946,13 @@ const int SHUT_WR = 1;
 const int SHUT_RDWR = 2;
 
 // Socket address structures (OpenBSD has sa_len)
-struct Sockaddr {
+struct SockAddr {
     char sa_len;
     char sa_family;
     char[14] sa_data;
 }
 
-struct SockaddrStorage {
+struct SockAddrStorage {
     char ss_len;
     char ss_family;
     char[6] __ss_pad1;
@@ -961,25 +961,25 @@ struct SockaddrStorage {
 }
 
 // I/O vector
-struct Iovec {
+struct IoVec {
     void* iov_base;
     usz iov_len;
 }
 
 // Message header
-struct Msghdr {
+struct MsgHdr {
     void* msg_name;
-    Socklen_t msg_namelen;
-    Iovec* msg_iov;
+    SockLen msg_namelen;
+    IoVec* msg_iov;
     uint msg_iovlen;
     void* msg_control;
-    Socklen_t msg_controllen;
+    SockLen msg_controllen;
     int msg_flags;
 }
 
 // Control message header
-struct Cmsghdr {
-    Socklen_t cmsg_len;
+struct CMsgHdr {
+    SockLen cmsg_len;
     int cmsg_level;
     int cmsg_type;
 }
@@ -1007,7 +1007,7 @@ struct Timeval {
 }
 
 // OpenBSD-specific functions
-extern fn int accept4(int sockfd, Sockaddr* addr, Socklen_t* addrlen, int flags);
+extern fn int accept4(int sockfd, SockAddr* addr, SockLen* addrlen, int flags);
 extern fn int getrtable();
 extern fn int setrtable(int rtableid);
  

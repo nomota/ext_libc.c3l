@@ -5,21 +5,21 @@ module sys::wait;
 // Main wait functions
 extern fn int wait(int* wstatus);
 extern fn int waitpid(int pid, int* wstatus, int options);
-extern fn int waitid(IdType idtype, uint id, Siginfo* infop, int options);
+extern fn int waitid(IdType idtype, uint id, SigInfo* infop, int options);
 extern fn int wait3(int* wstatus, int options, Rusage* rusage);
 extern fn int wait4(int pid, int* wstatus, int options, Rusage* rusage);
 
 module sys::wait::unused;
 
 // Resource usage structure (from sys/resource.h)
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
 
 struct Rusage {
-    Timeval ru_utime;
-    Timeval ru_stime;
+    TimeVal ru_utime;
+    TimeVal ru_stime;
     long ru_maxrss;
     long ru_ixrss;
     long ru_idrss;
@@ -46,8 +46,8 @@ macro bool wifstopped(int status) => (((status) & 0xff) == 0x7f);
 macro int wstopsig(int status) => wexitstatus(status);
 macro bool wifcontinued(int status) => ((status) == 0xffff);
 
-// Siginfo structure (simplified, actual structure in signal.h)
-struct Siginfo {
+// SigInfo structure (simplified, actual structure in signal.h)
+struct SigInfo {
     int si_signo;
     int si_errno;
     int si_code;
@@ -101,7 +101,7 @@ enum IdType : int {
 }
 
 // Signal info structure for waitid
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_errno;
     int si_code;
@@ -122,14 +122,14 @@ struct Siginfo {
 }
 
 // Resource usage
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
 
 struct Rusage {
-    Timeval ru_utime;
-    Timeval ru_stime;
+    TimeVal ru_utime;
+    TimeVal ru_stime;
     long ru_maxrss;
     long ru_ixrss;
     long ru_idrss;
@@ -177,13 +177,13 @@ enum IdType : uint {
 }
 
 // Union for sigval
-union Sigval {
+union SigVal {
     int sival_int;
     void* sival_ptr;
 }
 
 // Signal info structure
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_errno;
     int si_code;
@@ -191,20 +191,20 @@ struct Siginfo {
     uint si_uid;
     int si_status;
     void* si_addr;
-    Sigval si_value;
+    SigVal si_value;
     long si_band;
     ulong[7] __pad;
 }
 
 // Resource usage
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     int tv_usec;
 }
 
 struct Rusage {
-    Timeval ru_utime;
-    Timeval ru_stime;
+    TimeVal ru_utime;
+    TimeVal ru_stime;
     long ru_maxrss;
     long ru_ixrss;
     long ru_idrss;
@@ -268,13 +268,13 @@ enum IdType : int {
 }
 
 // Union for sigval
-union Sigval {
+union SigVal {
     int sival_int;
     void* sival_ptr;
 }
 
 // Signal info structure
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_errno;
     int si_code;
@@ -282,7 +282,7 @@ struct Siginfo {
     uint si_uid;
     int si_status;
     void* si_addr;
-    Sigval si_value;
+    SigVal si_value;
     union {
         struct {
             int _trapno;
@@ -305,14 +305,14 @@ struct Siginfo {
 }
 
 // Resource usage
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
 
 struct Rusage {
-    Timeval ru_utime;
-    Timeval ru_stime;
+    TimeVal ru_utime;
+    TimeVal ru_stime;
     long ru_maxrss;
     long ru_ixrss;
     long ru_idrss;
@@ -364,13 +364,13 @@ enum IdType : int {
 }
 
 // Union for sigval
-union Sigval {
+union SigVal {
     int sival_int;
     void* sival_ptr;
 }
 
 // Signal info structure
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_code;
     int si_errno;
@@ -379,7 +379,7 @@ struct Siginfo {
         struct {
             int _pid;
             uint _uid;
-            Sigval _value;
+            SigVal _value;
         }
         struct {
             int _pid2;
@@ -400,14 +400,14 @@ struct Siginfo {
 }
 
 // Resource usage
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
 
 struct Rusage {
-    Timeval ru_utime;
-    Timeval ru_stime;
+    TimeVal ru_utime;
+    TimeVal ru_stime;
     long ru_maxrss;
     long ru_ixrss;
     long ru_idrss;
@@ -453,13 +453,13 @@ enum IdType : int {
 }
 
 // Union for sigval
-union Sigval {
+union SigVal {
     int sival_int;
     void* sival_ptr;
 }
 
 // Signal info structure
-struct Siginfo {
+struct SigInfo {
     int si_signo;
     int si_code;
     int si_errno;
@@ -470,7 +470,7 @@ struct Siginfo {
             union {
                 struct {
                     uint _uid;
-                    Sigval _value;
+                    SigVal _value;
                 }
                 struct {
                     long _utime;
@@ -491,14 +491,14 @@ struct Siginfo {
 }
 
 // Resource usage
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
 
 struct Rusage {
-    Timeval ru_utime;
-    Timeval ru_stime;
+    TimeVal ru_utime;
+    TimeVal ru_stime;
     long ru_maxrss;
     long ru_ixrss;
     long ru_idrss;

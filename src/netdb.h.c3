@@ -7,48 +7,48 @@ import netinet::in;
 // ========== Function Declarations (Common) ==========
 
 // Host database functions
-extern fn Hostent* gethostbyname(char* name);
-extern fn Hostent* gethostbyaddr(void* addr, uint len, int type);
-extern fn int gethostbyname_r(char* name, Hostent* ret, char* buf, usz buflen, Hostent** result, int* h_errnop);
-extern fn int gethostbyaddr_r(void* addr, uint len, int type, Hostent* ret, char* buf, usz buflen, Hostent** result, int* h_errnop);
+extern fn HostEnt* gethostbyname(char* name);
+extern fn HostEnt* gethostbyaddr(void* addr, uint len, int type);
+extern fn int gethostbyname_r(char* name, HostEnt* ret, char* buf, usz buflen, HostEnt** result, int* h_errnop);
+extern fn int gethostbyaddr_r(void* addr, uint len, int type, HostEnt* ret, char* buf, usz buflen, HostEnt** result, int* h_errnop);
 
 // Service database functions
-extern fn Servent* getservbyname(char* name, char* proto);
-extern fn Servent* getservbyport(int port, char* proto);
-extern fn int getservbyname_r(char* name, char* proto, Servent* ret, char* buf, usz buflen, Servent** result);
-extern fn int getservbyport_r(int port, char* proto, Servent* ret, char* buf, usz buflen, Servent** result);
+extern fn ServEnt* getservbyname(char* name, char* proto);
+extern fn ServEnt* getservbyport(int port, char* proto);
+extern fn int getservbyname_r(char* name, char* proto, ServEnt* ret, char* buf, usz buflen, ServEnt** result);
+extern fn int getservbyport_r(int port, char* proto, ServEnt* ret, char* buf, usz buflen, ServEnt** result);
 
 // Protocol database functions
-extern fn Protoent* getprotobyname(char* name);
-extern fn Protoent* getprotobynumber(int proto);
-extern fn int getprotobyname_r(char* name, Protoent* ret, char* buf, usz buflen, Protoent** result);
-extern fn int getprotobynumber_r(int proto, Protoent* ret, char* buf, usz buflen, Protoent** result);
+extern fn ProtoEnt* getprotobyname(char* name);
+extern fn ProtoEnt* getprotobynumber(int proto);
+extern fn int getprotobyname_r(char* name, ProtoEnt* ret, char* buf, usz buflen, ProtoEnt** result);
+extern fn int getprotobynumber_r(int proto, ProtoEnt* ret, char* buf, usz buflen, ProtoEnt** result);
 
 // Modern address resolution (getaddrinfo/getnameinfo)
-extern fn int getaddrinfo(char* node, char* service, Addrinfo* hints, Addrinfo** res);
-extern fn void freeaddrinfo(Addrinfo* res);
+extern fn int getaddrinfo(char* node, char* service, AddrInfo* hints, AddrInfo** res);
+extern fn void freeaddrinfo(AddrInfo* res);
 extern fn char* gai_strerror(int errcode);
-extern fn int getnameinfo(Sockaddr* sa, uint salen, char* host, uint hostlen, char* serv, uint servlen, int flags);
+extern fn int getnameinfo(SockAddr* sa, uint salen, char* host, uint hostlen, char* serv, uint servlen, int flags);
 
 // Host database iteration
-extern fn Hostent* gethostent();
+extern fn HostEnt* gethostent();
 extern fn void sethostent(int stayopen);
 extern fn void endhostent();
 
 // Service database iteration
-extern fn Servent* getservent();
+extern fn ServEnt* getservent();
 extern fn void setservent(int stayopen);
 extern fn void endservent();
 
 // Protocol database iteration
-extern fn Protoent* getprotoent();
+extern fn ProtoEnt* getprotoent();
 extern fn void setprotoent(int stayopen);
 extern fn void endprotoent();
 
 // Network database functions
-extern fn Netent* getnetbyname(char* name);
-extern fn Netent* getnetbyaddr(uint net, int type);
-extern fn Netent* getnetent();
+extern fn NetEnt* getnetbyname(char* name);
+extern fn NetEnt* getnetbyaddr(uint net, int type);
+extern fn NetEnt* getnetent();
 extern fn void setnetent(int stayopen);
 extern fn void endnetent();
 
@@ -59,7 +59,7 @@ extern fn char* hstrerror(int err);
 // ========== Common Type Definitions ==========
 
 // Host entry structure
-struct Hostent {
+struct HostEnt {
     char* h_name;
     char** h_aliases;
     int h_addrtype;
@@ -68,7 +68,7 @@ struct Hostent {
 }
 
 // Service entry structure
-struct Servent {
+struct ServEnt {
     char* s_name;
     char** s_aliases;
     int s_port;
@@ -76,14 +76,14 @@ struct Servent {
 }
 
 // Protocol entry structure
-struct Protoent {
+struct ProtoEnt {
     char* p_name;
     char** p_aliases;
     int p_proto;
 }
 
 // Network entry structure
-struct Netent {
+struct NetEnt {
     char* n_name;
     char** n_aliases;
     int n_addrtype;
@@ -91,19 +91,19 @@ struct Netent {
 }
 
 // Address info structure (for getaddrinfo)
-struct Addrinfo {
+struct AddrInfo {
     int ai_flags;
     int ai_family;
     int ai_socktype;
     int ai_protocol;
     uint ai_addrlen;
-    Sockaddr* ai_addr;
+    SockAddr* ai_addr;
     char* ai_canonname;
-    Addrinfo* ai_next;
+    AddrInfo* ai_next;
 }
 
 // Socket address structure (from sys/socket.h)
-struct Sockaddr {
+struct SockAddr {
     ushort sa_family;
     char[14] sa_data;
 }

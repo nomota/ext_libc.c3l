@@ -1,5 +1,4 @@
 // netinet.in.h.c3
-module netinet::in;
 
 module netinet::in @if(env::LINUX);
 
@@ -13,26 +12,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_);
+extern fn char* inet_ntoa(InAddr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_);
-extern fn uint inet_netof(In_addr in_);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_);
+extern fn uint inet_netof(InAddr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct In_addr {
+struct InAddr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6_addr {
+struct In6Addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -41,64 +40,64 @@ struct In6_addr {
 }
 
 // Socket address structures (Linux)
-struct Sockaddr_in {
+struct SockAddrIn {
     ushort sin_family;
     ushort sin_port;
-    In_addr sin_addr;
+    InAddr sin_addr;
     char[8] sin_zero;
 }
 
-struct Sockaddr_in6 {
+struct SockAddrIn6 {
     ushort sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6_addr sin6_addr;
+    In6Addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
 }
 
 struct IpMreqn {
-    In_addr imr_multiaddr;
-    In_addr imr_address;
+    InAddr imr_multiaddr;
+    InAddr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
-    In_addr imr_sourceaddr;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
+    InAddr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6_addr ipv6mr_multiaddr;
+    In6Addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     int ipi_ifindex;
-    In_addr ipi_spec_dst;
-    In_addr ipi_addr;
+    InAddr ipi_spec_dst;
+    InAddr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6_addr ipi6_addr;
+    In6Addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
 struct InPktinfo {
     int ipi_ifindex;
-    In_addr ipi_spec_dst;
-    In_addr ipi_addr;
+    InAddr ipi_spec_dst;
+    InAddr ipi_addr;
 }
 
 struct In6Pktinfo {
-    In6_addr ipi6_addr;
+    In6Addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -279,26 +278,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_);
+extern fn char* inet_ntoa(InAddr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_);
-extern fn uint inet_netof(In_addr in_);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_);
+extern fn uint inet_netof(InAddr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct In_addr {
+struct InAddr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6_addr {
+struct In6Addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -307,55 +306,55 @@ struct In6_addr {
 }
 
 // Socket address structures (Darwin - includes length field)
-struct Sockaddr_in {
+struct SockAddrIn {
     char sin_len;
     char sin_family;
     ushort sin_port;
-    In_addr sin_addr;
+    InAddr sin_addr;
     char[8] sin_zero;
 }
 
-struct Sockaddr_in6 {
+struct SockAddrIn6 {
     char sin6_len;
     char sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6_addr sin6_addr;
+    In6Addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
 }
 
 struct IpMreqn {
-    In_addr imr_multiaddr;
-    In_addr imr_address;
+    InAddr imr_multiaddr;
+    InAddr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
-    In_addr imr_sourceaddr;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
+    InAddr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6_addr ipv6mr_multiaddr;
+    In6Addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     uint ipi_ifindex;
-    In_addr ipi_spec_dst;
-    In_addr ipi_addr;
+    InAddr ipi_spec_dst;
+    InAddr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6_addr ipi6_addr;
+    In6Addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -519,26 +518,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_);
+extern fn char* inet_ntoa(InAddr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_);
-extern fn uint inet_netof(In_addr in_);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_);
+extern fn uint inet_netof(InAddr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct In_addr {
+struct InAddr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6_addr {
+struct In6Addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -547,55 +546,55 @@ struct In6_addr {
 }
 
 // Socket address structures (FreeBSD - includes length field)
-struct Sockaddr_in {
+struct SockAddrIn {
     char sin_len;
     char sin_family;
     ushort sin_port;
-    In_addr sin_addr;
+    InAddr sin_addr;
     char[8] sin_zero;
 }
 
-struct Sockaddr_in6 {
+struct SockAddrIn6 {
     char sin6_len;
     char sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6_addr sin6_addr;
+    In6Addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
 }
 
 struct IpMreqn {
-    In_addr imr_multiaddr;
-    In_addr imr_address;
+    InAddr imr_multiaddr;
+    InAddr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
-    In_addr imr_sourceaddr;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
+    InAddr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6_addr ipv6mr_multiaddr;
+    In6Addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     uint ipi_ifindex;
-    In_addr ipi_spec_dst;
-    In_addr ipi_addr;
+    InAddr ipi_spec_dst;
+    InAddr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6_addr ipi6_addr;
+    In6Addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -772,26 +771,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_);
+extern fn char* inet_ntoa(InAddr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_);
-extern fn uint inet_netof(In_addr in_);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_);
+extern fn uint inet_netof(InAddr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct In_addr {
+struct InAddr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6_addr {
+struct In6Addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -800,55 +799,55 @@ struct In6_addr {
 }
 
 // Socket address structures (NetBSD - includes length field)
-struct Sockaddr_in {
+struct SockAddrIn {
     char sin_len;
     char sin_family;
     ushort sin_port;
-    In_addr sin_addr;
+    InAddr sin_addr;
     char[8] sin_zero;
 }
 
-struct Sockaddr_in6 {
+struct SockAddrIn6 {
     char sin6_len;
     char sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6_addr sin6_addr;
+    In6Addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
 }
 
 struct IpMreqn {
-    In_addr imr_multiaddr;
-    In_addr imr_address;
+    InAddr imr_multiaddr;
+    InAddr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
-    In_addr imr_sourceaddr;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
+    InAddr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6_addr ipv6mr_multiaddr;
+    In6Addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     uint ipi_ifindex;
-    In_addr ipi_spec_dst;
-    In_addr ipi_addr;
+    InAddr ipi_spec_dst;
+    InAddr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6_addr ipi6_addr;
+    In6Addr ipi6_addr;
     uint ipi6_ifindex;
 }
 
@@ -1000,26 +999,26 @@ extern fn uint ntohl(uint netlong);
 
 // Address conversion functions
 extern fn uint inet_addr(char* cp);
-extern fn char* inet_ntoa(In_addr in_);
+extern fn char* inet_ntoa(InAddr in_);
 extern fn int inet_pton(int af, char* src, void* dst);
 extern fn char* inet_ntop(int af, void* src, char* dst, uint size);
-extern fn int inet_aton(char* cp, In_addr* inp);
+extern fn int inet_aton(char* cp, InAddr* inp);
 
 // Network/host address conversion
 extern fn uint inet_network(char* cp);
-extern fn In_addr inet_makeaddr(uint net, uint host);
-extern fn uint inet_lnaof(In_addr in_);
-extern fn uint inet_netof(In_addr in_);
+extern fn InAddr inet_makeaddr(uint net, uint host);
+extern fn uint inet_lnaof(InAddr in_);
+extern fn uint inet_netof(InAddr in_);
 
 // ========== Type Definitions ==========
 
 // Internet address structure
-struct In_addr {
+struct InAddr {
     uint s_addr;
 }
 
 // IPv6 address structure
-struct In6_addr {
+struct In6Addr {
     union {
         char[16] s6_addr;
         ushort[8] s6_addr16;
@@ -1028,55 +1027,55 @@ struct In6_addr {
 }
 
 // Socket address structures (OpenBSD - includes length field)
-struct Sockaddr_in {
+struct SockAddrIn {
     char sin_len;
     char sin_family;
     ushort sin_port;
-    In_addr sin_addr;
+    InAddr sin_addr;
     char[8] sin_zero;
 }
 
-struct Sockaddr_in6 {
+struct SockAddrIn6 {
     char sin6_len;
     char sin6_family;
     ushort sin6_port;
     uint sin6_flowinfo;
-    In6_addr sin6_addr;
+    In6Addr sin6_addr;
     uint sin6_scope_id;
 }
 
 // Multicast request structures
 struct IpMreq {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
 }
 
 struct IpMreqn {
-    In_addr imr_multiaddr;
-    In_addr imr_address;
+    InAddr imr_multiaddr;
+    InAddr imr_address;
     int imr_ifindex;
 }
 
 struct IpMreqSource {
-    In_addr imr_multiaddr;
-    In_addr imr_interface;
-    In_addr imr_sourceaddr;
+    InAddr imr_multiaddr;
+    InAddr imr_interface;
+    InAddr imr_sourceaddr;
 }
 
 struct Ipv6Mreq {
-    In6_addr ipv6mr_multiaddr;
+    In6Addr ipv6mr_multiaddr;
     uint ipv6mr_interface;
 }
 
 // Additional structures
 struct IpPktinfo {
     uint ipi_ifindex;
-    In_addr ipi_spec_dst;
-    In_addr ipi_addr;
+    InAddr ipi_spec_dst;
+    InAddr ipi_addr;
 }
 
 struct Ipv6Pktinfo {
-    In6_addr ipi6_addr;
+    In6Addr ipi6_addr;
     uint ipi6_ifindex;
 }
 

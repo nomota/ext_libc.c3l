@@ -8,7 +8,7 @@ alias Handle = void*;
 alias DWord = uint;
 alias Bool = int;
 alias PVoid = void*;
-alias Size_t = ulong;
+alias Size = ulong;
 alias ULongPtr = uptr;
 alias LongPtr = iptr;
 alias ULong = ulong;
@@ -102,7 +102,7 @@ struct MemoryBasicInformation {
     PVoid allocation_base;
     DWord allocation_protect;
     ushort partition_id;
-    Size_t region_size;
+    Size region_size;
     DWord state;
     DWord protect;
     DWord type;
@@ -110,20 +110,20 @@ struct MemoryBasicInformation {
 
 struct Win32MemoryRangeEntry {
     PVoid virtual_address;
-    Size_t number_of_bytes;
+    Size number_of_bytes;
 }
 
 struct Win32MemoryRegionInformation {
     PVoid allocation_base;
     DWord allocation_protect;
     DWord region_type;
-    Size_t region_size;
+    Size region_size;
 }
 
 // Memory management functions
 extern fn PVoid virtual_alloc(
     PVoid address,
-    Size_t size,
+    Size size,
     DWord allocation_type,
     DWord protect
 ) @cname("VirtualAlloc");
@@ -131,27 +131,27 @@ extern fn PVoid virtual_alloc(
 extern fn PVoid virtual_alloc_ex(
     Handle process,
     PVoid address,
-    Size_t size,
+    Size size,
     DWord allocation_type,
     DWord protect
 ) @cname("VirtualAllocEx");
 
 extern fn Bool virtual_free(
     PVoid address,
-    Size_t size,
+    Size size,
     DWord free_type
 ) @cname("VirtualFree");
 
 extern fn Bool virtual_free_ex(
     Handle process,
     PVoid address,
-    Size_t size,
+    Size size,
     DWord free_type
 ) @cname("VirtualFreeEx");
 
 extern fn Bool virtual_protect(
     PVoid address,
-    Size_t size,
+    Size size,
     DWord new_protect,
     DWord* old_protect
 ) @cname("VirtualProtect");
@@ -159,38 +159,38 @@ extern fn Bool virtual_protect(
 extern fn Bool virtual_protect_ex(
     Handle process,
     PVoid address,
-    Size_t size,
+    Size size,
     DWord new_protect,
     DWord* old_protect
 ) @cname("VirtualProtectEx");
 
-extern fn Size_t virtual_query(
+extern fn Size virtual_query(
     PVoid address,
     MemoryBasicInformation* buffer,
-    Size_t length
+    Size length
 ) @cname("VirtualQuery");
 
-extern fn Size_t virtual_query_ex(
+extern fn Size virtual_query_ex(
     Handle process,
     PVoid address,
     MemoryBasicInformation* buffer,
-    Size_t length
+    Size length
 ) @cname("VirtualQueryEx");
 
 extern fn Bool virtual_lock(
     PVoid address,
-    Size_t size
+    Size size
 ) @cname("VirtualLock");
 
 extern fn Bool virtual_unlock(
     PVoid address,
-    Size_t size
+    Size size
 ) @cname("VirtualUnlock");
 
 extern fn PVoid virtual_alloc_2(
     Handle process,
     PVoid base_address,
-    Size_t size,
+    Size size,
     DWord allocation_type,
     DWord page_protection,
     void* extended_parameters,
@@ -202,7 +202,7 @@ extern fn PVoid map_view_of_file_3(
     Handle process,
     PVoid base_address,
     ulong offset,
-    Size_t view_size,
+    Size view_size,
     DWord allocation_type,
     DWord page_protection,
     void* extended_parameters,
@@ -212,13 +212,13 @@ extern fn PVoid map_view_of_file_3(
 extern fn Bool virtual_unlock_ex(
     Handle process,
     PVoid address,
-    Size_t size
+    Size size
 ) @cname("VirtualUnlockEx");
 
 extern fn ULong get_write_watch(
     DWord flags,
     PVoid base_address,
-    Size_t region_size,
+    Size region_size,
     PVoid* addresses,
     ULongPtr* count,
     DWord* granularity
@@ -226,23 +226,23 @@ extern fn ULong get_write_watch(
 
 extern fn ULong reset_write_watch(
     PVoid base_address,
-    Size_t region_size
+    Size region_size
 ) @cname("ResetWriteWatch");
 
 extern fn Bool read_process_memory(
     Handle process,
     PVoid base_address,
     PVoid buffer,
-    Size_t size,
-    Size_t* number_of_bytes_read
+    Size size,
+    Size* number_of_bytes_read
 ) @cname("ReadProcessMemory");
 
 extern fn Bool write_process_memory(
     Handle process,
     PVoid base_address,
     PVoid buffer,
-    Size_t size,
-    Size_t* number_of_bytes_written
+    Size size,
+    Size* number_of_bytes_written
 ) @cname("WriteProcessMemory");
 
 // File mapping functions
@@ -281,7 +281,7 @@ extern fn PVoid map_view_of_file(
     DWord desired_access,
     DWord file_offset_high,
     DWord file_offset_low,
-    Size_t number_of_bytes_to_map
+    Size number_of_bytes_to_map
 ) @cname("MapViewOfFile");
 
 extern fn PVoid map_view_of_file_ex(
@@ -289,7 +289,7 @@ extern fn PVoid map_view_of_file_ex(
     DWord desired_access,
     DWord file_offset_high,
     DWord file_offset_low,
-    Size_t number_of_bytes_to_map,
+    Size number_of_bytes_to_map,
     PVoid base_address
 ) @cname("MapViewOfFileEx");
 
@@ -299,7 +299,7 @@ extern fn Bool unmap_view_of_file_ex(PVoid base_address, DWord unmap_flags) @cna
 
 extern fn Bool flush_view_of_file(
     PVoid base_address,
-    Size_t number_of_bytes_to_flush
+    Size number_of_bytes_to_flush
 ) @cname("FlushViewOfFile");
 
 // Heap functions
@@ -309,8 +309,8 @@ extern fn DWord get_process_heaps(DWord number_of_heaps, Handle* process_heaps) 
 
 extern fn Handle heap_create(
     DWord options,
-    Size_t initial_size,
-    Size_t maximum_size
+    Size initial_size,
+    Size maximum_size
 ) @cname("HeapCreate");
 
 extern fn Bool heap_destroy(Handle heap) @cname("HeapDestroy");
@@ -318,14 +318,14 @@ extern fn Bool heap_destroy(Handle heap) @cname("HeapDestroy");
 extern fn PVoid heap_alloc(
     Handle heap,
     DWord flags,
-    Size_t bytes
+    Size bytes
 ) @cname("HeapAlloc");
 
 extern fn PVoid heap_realloc(
     Handle heap,
     DWord flags,
     PVoid mem,
-    Size_t bytes
+    Size bytes
 ) @cname("HeapReAlloc");
 
 extern fn Bool heap_free(
@@ -334,7 +334,7 @@ extern fn Bool heap_free(
     PVoid mem
 ) @cname("HeapFree");
 
-extern fn Size_t heap_size(
+extern fn Size heap_size(
     Handle heap,
     DWord flags,
     PVoid mem
@@ -346,7 +346,7 @@ extern fn Bool heap_validate(
     PVoid mem
 ) @cname("HeapValidate");
 
-extern fn Size_t heap_compact(
+extern fn Size heap_compact(
     Handle heap,
     DWord flags
 ) @cname("HeapCompact");
@@ -364,23 +364,23 @@ extern fn Bool heap_set_information(
     Handle heap,
     int heap_information_class,
     PVoid heap_information,
-    Size_t heap_information_length
+    Size heap_information_length
 ) @cname("HeapSetInformation");
 
 extern fn Bool heap_query_information(
     Handle heap,
     int heap_information_class,
     PVoid heap_information,
-    Size_t heap_information_length,
-    Size_t* return_length
+    Size heap_information_length,
+    Size* return_length
 ) @cname("HeapQueryInformation");
 
 // Global and Local memory functions (legacy, but still available)
-extern fn Handle global_alloc(DWord flags, Size_t bytes) @cname("GlobalAlloc");
+extern fn Handle global_alloc(DWord flags, Size bytes) @cname("GlobalAlloc");
 
-extern fn Handle global_realloc(Handle mem, Size_t bytes, DWord flags) @cname("GlobalReAlloc");
+extern fn Handle global_realloc(Handle mem, Size bytes, DWord flags) @cname("GlobalReAlloc");
 
-extern fn Size_t global_size(Handle mem) @cname("GlobalSize");
+extern fn Size global_size(Handle mem) @cname("GlobalSize");
 
 extern fn PVoid global_lock(Handle mem) @cname("GlobalLock");
 
@@ -388,11 +388,11 @@ extern fn Bool global_unlock(Handle mem) @cname("GlobalUnlock");
 
 extern fn Handle global_free(Handle mem) @cname("GlobalFree");
 
-extern fn Handle local_alloc(DWord flags, Size_t bytes) @cname("LocalAlloc");
+extern fn Handle local_alloc(DWord flags, Size bytes) @cname("LocalAlloc");
 
-extern fn Handle local_realloc(Handle mem, Size_t bytes, DWord flags) @cname("LocalReAlloc");
+extern fn Handle local_realloc(Handle mem, Size bytes, DWord flags) @cname("LocalReAlloc");
 
-extern fn Size_t local_size(Handle mem) @cname("LocalSize");
+extern fn Size local_size(Handle mem) @cname("LocalSize");
 
 extern fn PVoid local_lock(Handle mem) @cname("LocalLock");
 
@@ -449,24 +449,24 @@ extern fn Bool prefetch_virtual_memory(
 
 extern fn Bool offer_virtual_memory(
     PVoid virtual_address,
-    Size_t size,
+    Size size,
     int priority
 ) @cname("OfferVirtualMemory");
 
 extern fn Bool reclaim_virtual_memory(
     PVoid virtual_address,
-    Size_t size
+    Size size
 ) @cname("ReclaimVirtualMemory");
 
 extern fn Bool discard_virtual_memory(
     PVoid virtual_address,
-    Size_t size
+    Size size
 ) @cname("DiscardVirtualMemory");
 
 extern fn Bool set_process_valid_call_targets(
     Handle process,
     PVoid virtual_address,
-    Size_t region_size,
+    Size region_size,
     DWord number_of_offsets,
     void* offset_information
 ) @cname("SetProcessValidCallTargets");

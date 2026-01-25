@@ -7,8 +7,8 @@ module unistd;
 // Function Declarations
 
 // Process Control Functions
-extern fn Pid_t fork() ;
-extern fn Pid_t vfork() ;
+extern fn Pid fork() ;
+extern fn Pid vfork() ;
 
 extern fn CInt execv(char* path, char** argv) ;
 extern fn CInt execve(char* path, char** argv, char** envp) ;
@@ -18,33 +18,33 @@ extern fn CInt execle(char* path, char* arg, ...) ;
 extern fn CInt execlp(char* file, char* arg, ...) ;
 extern fn CInt fexecve(CInt fd, char** argv, char** envp) ;
 
-extern fn Pid_t getpid() ;
-extern fn Pid_t getppid() ;
-extern fn Pid_t gettid() ;  // Linux specific - thread ID
-extern fn Pid_t getpgrp() ;
-extern fn Pid_t getpgid(Pid_t pid) ;
-extern fn CInt setpgid(Pid_t pid, Pid_t pgid) ;
+extern fn Pid getpid() ;
+extern fn Pid getppid() ;
+extern fn Pid gettid() ;  // Linux specific - thread ID
+extern fn Pid getpgrp() ;
+extern fn Pid getpgid(Pid pid) ;
+extern fn CInt setpgid(Pid pid, Pid pgid) ;
 extern fn CInt setpgrp() ;
 
-extern fn Pid_t getsid(Pid_t pid) ;
-extern fn Pid_t setsid() ;
+extern fn Pid getsid(Pid pid) ;
+extern fn Pid setsid() ;
 
 extern fn CInt daemon(CInt nochdir, CInt noclose) ;
 
 // File Descriptor Operations
-extern fn Ssize_t read(CInt fd, void* buf, usz count) ;
-extern fn Ssize_t write(CInt fd, void* buf, usz count) ;
-extern fn Ssize_t pread(CInt fd, void* buf, usz count, Off offset) ;
-extern fn Ssize_t pwrite(CInt fd, void* buf, usz count, Off offset) ;
-extern fn Ssize_t pread64(CInt fd, void* buf, usz count, Off64 offset) ;
-extern fn Ssize_t pwrite64(CInt fd, void* buf, usz count, Off64 offset) ;
+extern fn Ssize read(CInt fd, void* buf, usz count) ;
+extern fn Ssize write(CInt fd, void* buf, usz count) ;
+extern fn Ssize pread(CInt fd, void* buf, usz count, Off offset) ;
+extern fn Ssize pwrite(CInt fd, void* buf, usz count, Off offset) ;
+extern fn Ssize pread64(CInt fd, void* buf, usz count, Off64 offset) ;
+extern fn Ssize pwrite64(CInt fd, void* buf, usz count, Off64 offset) ;
 
-extern fn Ssize_t readv(CInt fd, Iovec* iov, CInt iovcnt) ;
-extern fn Ssize_t writev(CInt fd, Iovec* iov, CInt iovcnt) ;
-extern fn Ssize_t preadv(CInt fd, Iovec* iov, CInt iovcnt, Off offset) ;
-extern fn Ssize_t pwritev(CInt fd, Iovec* iov, CInt iovcnt, Off offset) ;
-extern fn Ssize_t preadv2(CInt fd, Iovec* iov, CInt iovcnt, Off offset, CInt flags) ;
-extern fn Ssize_t pwritev2(CInt fd, Iovec* iov, CInt iovcnt, Off offset, CInt flags) ;
+extern fn Ssize readv(CInt fd, IoVec* iov, CInt iovcnt) ;
+extern fn Ssize writev(CInt fd, IoVec* iov, CInt iovcnt) ;
+extern fn Ssize preadv(CInt fd, IoVec* iov, CInt iovcnt, Off offset) ;
+extern fn Ssize pwritev(CInt fd, IoVec* iov, CInt iovcnt, Off offset) ;
+extern fn Ssize preadv2(CInt fd, IoVec* iov, CInt iovcnt, Off offset, CInt flags) ;
+extern fn Ssize pwritev2(CInt fd, IoVec* iov, CInt iovcnt, Off offset, CInt flags) ;
 
 extern fn CInt close(CInt fd) ;
 extern fn CInt dup(CInt oldfd) ;
@@ -66,12 +66,12 @@ extern fn CInt ftruncate(CInt fd, Off length) ;
 extern fn CInt ftruncate64(CInt fd, Off64 length) ;
 
 // Advanced I/O operations (Linux specific)
-extern fn Ssize_t splice(CInt fd_in, Off64* off_in, CInt fd_out, Off64* off_out, usz len, CUInt flags) ;
-extern fn Ssize_t tee(CInt fd_in, CInt fd_out, usz len, CUInt flags) ;
-extern fn Ssize_t vmsplice(CInt fd, Iovec* iov, CULong nr_segs, CUInt flags) ;
+extern fn Ssize splice(CInt fd_in, Off64* off_in, CInt fd_out, Off64* off_out, usz len, CUInt flags) ;
+extern fn Ssize tee(CInt fd_in, CInt fd_out, usz len, CUInt flags) ;
+extern fn Ssize vmsplice(CInt fd, IoVec* iov, CULong nr_segs, CUInt flags) ;
 extern fn CInt sync_file_range(CInt fd, Off64 offset, Off64 nbytes, CUInt flags) ;
-extern fn Ssize_t readahead(CInt fd, Off64 offset, usz count) ;
-extern fn Ssize_t copy_file_range(CInt fd_in, Off64* off_in, CInt fd_out, Off64* off_out, usz len, CUInt flags) ;
+extern fn Ssize readahead(CInt fd, Off64 offset, usz count) ;
+extern fn Ssize copy_file_range(CInt fd_in, Off64* off_in, CInt fd_out, Off64* off_out, usz len, CUInt flags) ;
 
 // File allocation
 extern fn CInt fallocate(CInt fd, CInt mode, Off offset, Off len) ;
@@ -91,10 +91,10 @@ extern fn CInt fchdir(CInt fd) ;
 extern fn char* getcwd(char* buf, usz size) ;
 extern fn char* get_current_dir_name() ;
 
-extern fn CInt chown(char* pathname, Uid_t owner, Gid_t group) ;
-extern fn CInt fchown(CInt fd, Uid_t owner, Gid_t group) ;
-extern fn CInt lchown(char* pathname, Uid_t owner, Gid_t group) ;
-extern fn CInt fchownat(CInt dirfd, char* pathname, Uid_t owner, Gid_t group, CInt flags) ;
+extern fn CInt chown(char* pathname, Uid owner, Gid group) ;
+extern fn CInt fchown(CInt fd, Uid owner, Gid group) ;
+extern fn CInt lchown(char* pathname, Uid owner, Gid group) ;
+extern fn CInt fchownat(CInt dirfd, char* pathname, Uid owner, Gid group, CInt flags) ;
 
 extern fn CInt link(char* oldpath, char* newpath) ;
 extern fn CInt linkat(CInt olddirfd, char* oldpath, CInt newdirfd, char* newpath, CInt flags) ;
@@ -105,8 +105,8 @@ extern fn CInt unlink(char* pathname) ;
 extern fn CInt unlinkat(CInt dirfd, char* pathname, CInt flags) ;
 extern fn CInt rmdir(char* pathname) ;
 
-extern fn Ssize_t readlink(char* pathname, char* buf, usz bufsiz) ;
-extern fn Ssize_t readlinkat(CInt dirfd, char* pathname, char* buf, usz bufsiz) ;
+extern fn Ssize readlink(char* pathname, char* buf, usz bufsiz) ;
+extern fn Ssize readlinkat(CInt dirfd, char* pathname, char* buf, usz bufsiz) ;
 
 extern fn CInt truncate(char* path, Off length) ;
 extern fn CInt truncate64(char* path, Off64 length) ;
@@ -114,31 +114,31 @@ extern fn CInt truncate64(char* path, Off64 length) ;
 extern fn CInt chroot(char* path) ;
 
 // User and Group ID Functions
-extern fn Uid_t getuid() ;
-extern fn Uid_t geteuid() ;
-extern fn CInt setuid(Uid_t uid) ;
-extern fn CInt seteuid(Uid_t uid) ;
-extern fn CInt setreuid(Uid_t ruid, Uid_t euid) ;
+extern fn Uid getuid() ;
+extern fn Uid geteuid() ;
+extern fn CInt setuid(Uid uid) ;
+extern fn CInt seteuid(Uid uid) ;
+extern fn CInt setreuid(Uid ruid, Uid euid) ;
 
-extern fn Gid_t getgid() ;
-extern fn Gid_t getegid() ;
-extern fn CInt setgid(Gid_t gid) ;
-extern fn CInt setegid(Gid_t gid) ;
-extern fn CInt setregid(Gid_t rgid, Gid_t egid) ;
+extern fn Gid getgid() ;
+extern fn Gid getegid() ;
+extern fn CInt setgid(Gid gid) ;
+extern fn CInt setegid(Gid gid) ;
+extern fn CInt setregid(Gid rgid, Gid egid) ;
 
-extern fn CInt getgroups(CInt size, Gid_t* list) ;
-extern fn CInt setgroups(usz size, Gid_t* list) ;
-extern fn CInt initgroups(char* user, Gid_t group) ;
+extern fn CInt getgroups(CInt size, Gid* list) ;
+extern fn CInt setgroups(usz size, Gid* list) ;
+extern fn CInt initgroups(char* user, Gid group) ;
 
-extern fn CInt getresuid(Uid_t* ruid, Uid_t* euid, Uid_t* suid) ;
-extern fn CInt setresuid(Uid_t ruid, Uid_t euid, Uid_t suid) ;
+extern fn CInt getresuid(Uid* ruid, Uid* euid, Uid* suid) ;
+extern fn CInt setresuid(Uid ruid, Uid euid, Uid suid) ;
 
-extern fn CInt getresgid(Gid_t* rgid, Gid_t* egid, Gid_t* sgid) ;
-extern fn CInt setresgid(Gid_t rgid, Gid_t egid, Gid_t sgid) ;
+extern fn CInt getresgid(Gid* rgid, Gid* egid, Gid* sgid) ;
+extern fn CInt setresgid(Gid rgid, Gid egid, Gid sgid) ;
 
 // Filesystem UID/GID (Linux specific)
-extern fn CInt setfsuid(Uid_t fsuid) ;
-extern fn CInt setfsgid(Gid_t fsgid) ;
+extern fn CInt setfsuid(Uid fsuid) ;
+extern fn CInt setfsgid(Gid fsgid) ;
 
 // Login information
 extern fn char* getlogin() ;
@@ -159,12 +159,12 @@ extern fn char* ttyname(CInt fd) ;
 extern fn CInt ttyname_r(CInt fd, char* buf, usz buflen) ;
 extern fn char* ctermid(char* s) ;
 
-extern fn Pid_t tcgetpgrp(CInt fd) ;
-extern fn CInt tcsetpgrp(CInt fd, Pid_t pgrp) ;
+extern fn Pid tcgetpgrp(CInt fd) ;
+extern fn CInt tcsetpgrp(CInt fd, Pid pgrp) ;
 
 // Random/Entropy
 extern fn CInt getentropy(void* buffer, usz length) ;
-extern fn Ssize_t getrandom(void* buf, usz buflen, CUInt flags) ;
+extern fn Ssize getrandom(void* buf, usz buflen, CUInt flags) ;
 
 // Priority Control
 extern fn CInt nice(CInt inc) ;
@@ -218,7 +218,7 @@ extern fn CInt getopt(CInt argc, char** argv, char* optstring) ;
 module unistd @if (env::LINUX);
 
 // Vectored I/O
-struct Iovec 
+struct IoVec 
 {
     void* iov_base;
     usz iov_len;
@@ -234,12 +234,12 @@ extern CInt opterr ;
 // Type Definitions
 
 // Basic POSIX types
-alias Pid_t = CInt;
-alias Uid_t = CUInt;
-alias Gid_t = CUInt;
+alias Pid = CInt;
+alias Uid = CUInt;
+alias Gid = CUInt;
 alias Off = CLong;
 alias Off64 = CLongLong;
-alias Ssize_t = CLong;
+alias Ssize = CLong;
 alias Mode = CUInt;
 alias UShort = CUShort;
 
@@ -341,7 +341,7 @@ const ulong RWF_APPEND = 0x00000010;
 module unistd @if (env::DARWIN);
 
 // Vectored I/O
-struct Iovec 
+struct IoVec 
 {
     void* iov_base;
     usz iov_len;
@@ -358,12 +358,12 @@ extern CInt optreset ;  // Darwin specific
 // Type Definitions
 
 // Basic POSIX types
-alias Pid_t = CInt;
-alias Uid_t = CUInt;
-alias Gid_t = CUInt;
+alias Pid = CInt;
+alias Uid = CUInt;
+alias Gid = CUInt;
 alias Off = CLongLong;  // macOS uses 64-bit off_t
 alias Off64 = CLongLong;
-alias Ssize_t = CLong;
+alias Ssize = CLong;
 alias Mode = CUShort;  // Different from Linux
 alias UShort = CUShort;
 
@@ -434,7 +434,7 @@ const int RB_HALT = 8;
 module unistd @if (env::FREEBSD);
 
 // Vectored I/O
-struct Iovec 
+struct IoVec 
 {
     void* iov_base;
     usz iov_len;
@@ -451,12 +451,12 @@ extern CInt optreset ;  // BSD specific
 // Type Definitions
 
 // Basic POSIX types
-alias Pid_t = CInt;
-alias Uid_t = CUInt;
-alias Gid_t = CUInt;
+alias Pid = CInt;
+alias Uid = CUInt;
+alias Gid = CUInt;
 alias Off = CLongLong;  // FreeBSD uses 64-bit off_t
 alias Off64 = CLongLong;
-alias Ssize_t = CLong;
+alias Ssize = CLong;
 alias Mode = CUShort;
 alias UShort = CUShort;
 
@@ -547,7 +547,7 @@ const int RB_PROBE = 0x10000000;
 module unistd @if (env::OPENBSD);
 
 // Vectored I/O
-struct Iovec 
+struct IoVec 
 {
     void* iov_base;
     usz iov_len;
@@ -564,12 +564,12 @@ extern CInt optreset ;  // BSD specific
 // Type Definitions
 
 // Basic POSIX types
-alias Pid_t = CInt;
-alias Uid_t = CUInt;
-alias Gid_t = CUInt;
+alias Pid = CInt;
+alias Uid = CUInt;
+alias Gid = CUInt;
 alias Off = CLongLong;  // OpenBSD uses 64-bit off_t
 alias Off64 = CLongLong;
-alias Ssize_t = CLong;
+alias Ssize = CLong;
 alias Mode = CUInt;
 alias UShort = CUShort;
 
@@ -654,7 +654,7 @@ const int RB_GOODRANDOM = 0x10000;
 module unistd @if (env::NETBSD);
 
 // Vectored I/O
-struct Iovec 
+struct IoVec 
 {
     void* iov_base;
     usz iov_len;
@@ -671,12 +671,12 @@ extern CInt optreset ;  // BSD specific
 // Type Definitions
 
 // Basic POSIX types
-alias Pid_t = CInt;
-alias Uid_t = CUInt;
-alias Gid_t = CUInt;
+alias Pid = CInt;
+alias Uid = CUInt;
+alias Gid = CUInt;
 alias Off = CLongLong;  // NetBSD uses 64-bit off_t
 alias Off64 = CLongLong;
-alias Ssize_t = CLong;
+alias Ssize = CLong;
 alias Mode = CUInt;
 alias UShort = CUShort;
 

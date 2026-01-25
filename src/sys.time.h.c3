@@ -7,33 +7,33 @@ module sys::time;
 module sys::time @if(env::LINUX);
 
 // Structures
-struct Timeval {
+struct TimeVal {
     long tv_sec;   // Seconds
     long tv_usec;  // Microseconds
 }
 
-struct Timezone {
+struct TimeZone {
     int tz_minuteswest;  // Minutes west of Greenwich
     int tz_dsttime;      // Type of DST correction
 }
 
-struct Itimerval {
-    Timeval it_interval;  // Timer interval
-    Timeval it_value;     // Current value
+struct ITimerVal {
+    TimeVal it_interval;  // Timer interval
+    TimeVal it_value;     // Current value
 }
 
 // Function Declarations
-extern fn int gettimeofday(Timeval* tv, Timezone* tz);
-extern fn int settimeofday(Timeval* tv, Timezone* tz);
-extern fn int adjtime(Timeval* delta, Timeval* olddelta);
+extern fn int gettimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int settimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int adjtime(TimeVal* delta, TimeVal* olddelta);
 
-extern fn int getitimer(int which, Itimerval* curr_value);
-extern fn int setitimer(int which, Itimerval* new_value, Itimerval* old_value);
+extern fn int getitimer(int which, ITimerVal* curr_value);
+extern fn int setitimer(int which, ITimerVal* new_value, ITimerVal* old_value);
 
-extern fn int utimes(char* filename, Timeval[2] times);
-extern fn int lutimes(char* filename, Timeval[2] times);
-extern fn int futimes(int fd, Timeval[2] times);
-extern fn int futimesat(int dirfd, char* pathname, Timeval[2] times);
+extern fn int utimes(char* filename, TimeVal[2] times);
+extern fn int lutimes(char* filename, TimeVal[2] times);
+extern fn int futimes(int fd, TimeVal[2] times);
+extern fn int futimesat(int dirfd, char* pathname, TimeVal[2] times);
 
 // Timer types for setitimer/getitimer
 const int ITIMER_REAL = 0;     // Real time
@@ -41,14 +41,14 @@ const int ITIMER_VIRTUAL = 1;  // Process virtual time
 const int ITIMER_PROF = 2;     // Process and system time
 
 // Macros for timeval operations
-macro void timerclear(Timeval* tvp) {
+macro void timerclear(TimeVal* tvp) {
     tvp.tv_sec = 0;
     tvp.tv_usec = 0;
 }
 
-macro bool timerisset(Timeval* tvp) => (tvp.tv_sec || tvp.tv_usec);
+macro bool timerisset(TimeVal* tvp) => (tvp.tv_sec || tvp.tv_usec);
 
-macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
+macro void timeradd(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec + b.tv_sec;
     result.tv_usec = a.tv_usec + b.tv_usec;
     if (result.tv_usec >= 1000000) {
@@ -57,7 +57,7 @@ macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
     }
 }
 
-macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
+macro void timersub(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec - b.tv_sec;
     result.tv_usec = a.tv_usec - b.tv_usec;
     if (result.tv_usec < 0) {
@@ -71,32 +71,32 @@ macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
 module sys::time @if(env::DARWIN);
 
 // Structures
-struct Timeval {
+struct TimeVal {
     long tv_sec;   // Seconds
     int tv_usec;   // Microseconds (note: int on macOS, not long)
 }
 
-struct Timezone {
+struct TimeZone {
     int tz_minuteswest;
     int tz_dsttime;
 }
 
-struct Itimerval {
-    Timeval it_interval;
-    Timeval it_value;
+struct ITimerVal {
+    TimeVal it_interval;
+    TimeVal it_value;
 }
 
 // Function Declarations
-extern fn int gettimeofday(Timeval* tv, Timezone* tz);
-extern fn int settimeofday(Timeval* tv, Timezone* tz);
-extern fn int adjtime(Timeval* delta, Timeval* olddelta);
+extern fn int gettimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int settimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int adjtime(TimeVal* delta, TimeVal* olddelta);
 
-extern fn int getitimer(int which, Itimerval* curr_value);
-extern fn int setitimer(int which, Itimerval* new_value, Itimerval* old_value);
+extern fn int getitimer(int which, ITimerVal* curr_value);
+extern fn int setitimer(int which, ITimerVal* new_value, ITimerVal* old_value);
 
-extern fn int utimes(char* filename, Timeval[2] times);
-extern fn int lutimes(char* filename, Timeval[2] times);
-extern fn int futimes(int fd, Timeval[2] times);
+extern fn int utimes(char* filename, TimeVal[2] times);
+extern fn int lutimes(char* filename, TimeVal[2] times);
+extern fn int futimes(int fd, TimeVal[2] times);
 
 // Timer types
 const int ITIMER_REAL = 0;
@@ -104,15 +104,15 @@ const int ITIMER_VIRTUAL = 1;
 const int ITIMER_PROF = 2;
 
 // Macros for timeval operations
-macro void timerclear(Timeval* tvp) {
+macro void timerclear(TimeVal* tvp) {
     tvp.tv_sec = 0;
     tvp.tv_usec = 0;
 }
 
-macro bool timerisset(Timeval* tvp) => (tvp.tv_sec || tvp.tv_usec);
+macro bool timerisset(TimeVal* tvp) => (tvp.tv_sec || tvp.tv_usec);
 
 
-macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
+macro void timeradd(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec + b.tv_sec;
     result.tv_usec = a.tv_usec + b.tv_usec;
     if (result.tv_usec >= 1000000) {
@@ -121,7 +121,7 @@ macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
     }
 }
 
-macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
+macro void timersub(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec - b.tv_sec;
     result.tv_usec = a.tv_usec - b.tv_usec;
     if (result.tv_usec < 0) {
@@ -139,33 +139,33 @@ const int CLOCK_MONOTONIC = 6;
 module sys::time @if(env::FREEBSD);
 
 // Structures
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
 
-struct Timezone {
+struct TimeZone {
     int tz_minuteswest;
     int tz_dsttime;
 }
 
-struct Itimerval {
-    Timeval it_interval;
-    Timeval it_value;
+struct ITimerVal {
+    TimeVal it_interval;
+    TimeVal it_value;
 }
 
 // Function Declarations
-extern fn int gettimeofday(Timeval* tv, Timezone* tz);
-extern fn int settimeofday(Timeval* tv, Timezone* tz);
-extern fn int adjtime(Timeval* delta, Timeval* olddelta);
+extern fn int gettimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int settimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int adjtime(TimeVal* delta, TimeVal* olddelta);
 
-extern fn int getitimer(int which, Itimerval* curr_value);
-extern fn int setitimer(int which, Itimerval* new_value, Itimerval* old_value);
+extern fn int getitimer(int which, ITimerVal* curr_value);
+extern fn int setitimer(int which, ITimerVal* new_value, ITimerVal* old_value);
 
-extern fn int utimes(char* filename, Timeval[2] times);
-extern fn int lutimes(char* filename, Timeval[2] times);
-extern fn int futimes(int fd, Timeval[2] times);
-extern fn int futimesat(int dirfd, char* pathname, Timeval[2] times);
+extern fn int utimes(char* filename, TimeVal[2] times);
+extern fn int lutimes(char* filename, TimeVal[2] times);
+extern fn int futimes(int fd, TimeVal[2] times);
+extern fn int futimesat(int dirfd, char* pathname, TimeVal[2] times);
 
 // Timer types
 const int ITIMER_REAL = 0;
@@ -173,15 +173,15 @@ const int ITIMER_VIRTUAL = 1;
 const int ITIMER_PROF = 2;
 
 // Macros for timeval operations
-macro void timerclear(Timeval* tvp) {
+macro void timerclear(TimeVal* tvp) {
     tvp.tv_sec = 0;
     tvp.tv_usec = 0;
 }
 
-macro bool timerisset(Timeval* tvp) => (tvp.tv_sec || tvp.tv_usec);
+macro bool timerisset(TimeVal* tvp) => (tvp.tv_sec || tvp.tv_usec);
 
 
-macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
+macro void timeradd(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec + b.tv_sec;
     result.tv_usec = a.tv_usec + b.tv_usec;
     if (result.tv_usec >= 1000000) {
@@ -190,7 +190,7 @@ macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
     }
 }
 
-macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
+macro void timersub(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec - b.tv_sec;
     result.tv_usec = a.tv_usec - b.tv_usec;
     if (result.tv_usec < 0) {
@@ -202,7 +202,7 @@ macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
 // FreeBSD-specific
 extern fn int bintime(Bintime* bt);
 extern fn int nanotime(Timespec* ts);
-extern fn int microtime(Timeval* tv);
+extern fn int microtime(TimeVal* tv);
 
 struct Bintime {
     long sec;
@@ -214,32 +214,32 @@ struct Bintime {
 module sys::time @if(env::NETBSD);
 
 // Structures
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     int tv_usec;
 }
 
-struct Timezone {
+struct TimeZone {
     int tz_minuteswest;
     int tz_dsttime;
 }
 
-struct Itimerval {
-    Timeval it_interval;
-    Timeval it_value;
+struct ITimerVal {
+    TimeVal it_interval;
+    TimeVal it_value;
 }
 
 // Function Declarations
-extern fn int gettimeofday(Timeval* tv, Timezone* tz);
-extern fn int settimeofday(Timeval* tv, Timezone* tz);
-extern fn int adjtime(Timeval* delta, Timeval* olddelta);
+extern fn int gettimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int settimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int adjtime(TimeVal* delta, TimeVal* olddelta);
 
-extern fn int getitimer(int which, Itimerval* curr_value);
-extern fn int setitimer(int which, Itimerval* new_value, Itimerval* old_value);
+extern fn int getitimer(int which, ITimerVal* curr_value);
+extern fn int setitimer(int which, ITimerVal* new_value, ITimerVal* old_value);
 
-extern fn int utimes(char* filename, Timeval[2] times);
-extern fn int lutimes(char* filename, Timeval[2] times);
-extern fn int futimes(int fd, Timeval[2] times);
+extern fn int utimes(char* filename, TimeVal[2] times);
+extern fn int lutimes(char* filename, TimeVal[2] times);
+extern fn int futimes(int fd, TimeVal[2] times);
 
 // Timer types
 const int ITIMER_REAL = 0;
@@ -247,15 +247,15 @@ const int ITIMER_VIRTUAL = 1;
 const int ITIMER_PROF = 2;
 
 // Macros for timeval operations
-macro void timerclear(Timeval* tvp) {
+macro void timerclear(TimeVal* tvp) {
     tvp.tv_sec = 0;
     tvp.tv_usec = 0;
 }
 
-macro bool timerisset(Timeval* tvp) => (tvp.tv_sec || tvp.tv_usec);
+macro bool timerisset(TimeVal* tvp) => (tvp.tv_sec || tvp.tv_usec);
 
 
-macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
+macro void timeradd(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec + b.tv_sec;
     result.tv_usec = a.tv_usec + b.tv_usec;
     if (result.tv_usec >= 1000000) {
@@ -264,7 +264,7 @@ macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
     }
 }
 
-macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
+macro void timersub(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec - b.tv_sec;
     result.tv_usec = a.tv_usec - b.tv_usec;
     if (result.tv_usec < 0) {
@@ -278,32 +278,32 @@ macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
 module sys::time @if(env::OPENBSD);
 
 // Structures
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
 
-struct Timezone {
+struct TimeZone {
     int tz_minuteswest;
     int tz_dsttime;
 }
 
-struct Itimerval {
-    Timeval it_interval;
-    Timeval it_value;
+struct ITimerVal {
+    TimeVal it_interval;
+    TimeVal it_value;
 }
 
 // Function Declarations
-extern fn int gettimeofday(Timeval* tv, Timezone* tz);
-extern fn int settimeofday(Timeval* tv, Timezone* tz);
-extern fn int adjtime(Timeval* delta, Timeval* olddelta);
+extern fn int gettimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int settimeofday(TimeVal* tv, TimeZone* tz);
+extern fn int adjtime(TimeVal* delta, TimeVal* olddelta);
 
-extern fn int getitimer(int which, Itimerval* curr_value);
-extern fn int setitimer(int which, Itimerval* new_value, Itimerval* old_value);
+extern fn int getitimer(int which, ITimerVal* curr_value);
+extern fn int setitimer(int which, ITimerVal* new_value, ITimerVal* old_value);
 
-extern fn int utimes(char* filename, Timeval[2] times);
-extern fn int lutimes(char* filename, Timeval[2] times);
-extern fn int futimes(int fd, Timeval[2] times);
+extern fn int utimes(char* filename, TimeVal[2] times);
+extern fn int lutimes(char* filename, TimeVal[2] times);
+extern fn int futimes(int fd, TimeVal[2] times);
 
 // Timer types
 const int ITIMER_REAL = 0;
@@ -311,15 +311,15 @@ const int ITIMER_VIRTUAL = 1;
 const int ITIMER_PROF = 2;
 
 // Macros for timeval operations
-macro void timerclear(Timeval* tvp) {
+macro void timerclear(TimeVal* tvp) {
     tvp.tv_sec = 0;
     tvp.tv_usec = 0;
 }
 
-macro bool timerisset(Timeval* tvp) => (tvp.tv_sec || tvp.tv_usec);
+macro bool timerisset(TimeVal* tvp) => (tvp.tv_sec || tvp.tv_usec);
 
 
-macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
+macro void timeradd(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec + b.tv_sec;
     result.tv_usec = a.tv_usec + b.tv_usec;
     if (result.tv_usec >= 1000000) {
@@ -328,7 +328,7 @@ macro void timeradd(Timeval* a, Timeval* b, Timeval* result) {
     }
 }
 
-macro void timersub(Timeval* a, Timeval* b, Timeval* result) {
+macro void timersub(TimeVal* a, TimeVal* b, TimeVal* result) {
     result.tv_sec = a.tv_sec - b.tv_sec;
     result.tv_usec = a.tv_usec - b.tv_usec;
     if (result.tv_usec < 0) {
@@ -353,7 +353,7 @@ module sys::time @if(env::WIN32);
 // Here we define minimal compatibility structures
 
 // Compatibility structures (if needed)
-struct Timeval {
+struct TimeVal {
     long tv_sec;
     long tv_usec;
 }
@@ -364,10 +364,10 @@ struct Timeval {
 
 // Example of what you might need to implement for Windows:
 /*
-extern fn int gettimeofday(Timeval* tv, void* tz) @extern("gettimeofday") @if(env::MINGW);
+extern fn int gettimeofday(TimeVal* tv, void* tz) @extern("gettimeofday") @if(env::MINGW);
 
 // Or implement yourself:
-fn int gettimeofday(Timeval* tv, void* tz) @if(!env::MINGW) {
+fn int gettimeofday(TimeVal* tv, void* tz) @if(!env::MINGW) {
     // Use GetSystemTimeAsFileTime() or similar
     // Convert FILETIME to timeval
     return -1; // Not implemented

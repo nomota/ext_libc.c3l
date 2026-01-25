@@ -2,7 +2,7 @@
 
 module stdio;
 
-alias Size_t = usz;
+alias Size = usz;
 alias CFile = void*;
 
 // Standard I/O
@@ -32,8 +32,8 @@ extern fn int fscanf(CFile stream, char* format, ...);
 extern fn char* fgets(char* s, int n, CFile stream);
 extern fn int fputs(char* s, CFile stream);
 
-extern fn Size_t fread(void* ptr, Size_t size, Size_t nmemb, CFile stream);
-extern fn Size_t fwrite(void* ptr, Size_t size, Size_t nmemb, CFile stream);
+extern fn Size fread(void* ptr, Size size, Size nmemb, CFile stream);
+extern fn Size fwrite(void* ptr, Size size, Size nmemb, CFile stream);
 
 // File Positioning
 
@@ -52,5 +52,5 @@ extern fn long _ftelli64(CFile stream) @if(env::WIN32);
 // String I/O 
 
 extern fn int sprintf(char* str, char* format, ...);
-extern fn int snprintf(char* str, Size_t size, char* format, ...);
+extern fn int snprintf(char* str, Size size, char* format, ...);
 extern fn int sscanf(char* str, char* format, ...);
