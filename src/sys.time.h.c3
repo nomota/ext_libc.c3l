@@ -200,14 +200,21 @@ macro void timersub(TimeVal* a, TimeVal* b, TimeVal* result) {
 }
 
 // FreeBSD-specific
-extern fn int bintime(Bintime* bt);
-extern fn int nanotime(Timespec* ts);
+extern fn int bintime(BinTime* bt);
+extern fn int nanotime(TimeSpec* ts);
 extern fn int microtime(TimeVal* tv);
 
-struct Bintime {
+struct BinTime {
     long sec;
     ulong frac;
 }
+
+struct TimeSpec {
+    long tv_sec;   // Seconds
+    long tv_nsec;  // Nanoseconds
+}
+
+
 
 // ========== NetBSD ==========
 
