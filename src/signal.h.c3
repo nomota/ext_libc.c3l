@@ -50,13 +50,15 @@ extern fn char* strsignal(int sig);
 extern fn void psignal(int sig, char* s);
 extern fn void psiginfo(SigInfo* pinfo, char* s);
 
+alias Time = long; // time_t
+
 union SigVal {
     int   sival_int;    // Integer value
     void *sival_ptr;    // Pointer value
 }
 
 struct TimeSpec {
-    time_t tv_sec;   // Seconds
+    Time tv_sec;   // Seconds
     long   tv_nsec;  // Nanoseconds (0-999,999,999)
 }
 
