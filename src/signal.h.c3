@@ -19,7 +19,7 @@ extern fn int sigismember(SigSetPtr* set, int signum);
 
 // Signal mask and actions
 extern fn int sigprocmask(int how, SigSetPtr* set, SigSetPtr* oldset);
-extern fn int sigaction(int signum, Sigaction* act, Sigaction* oldact);
+extern fn int sigaction(int signum, SigAction* act, SigAction* oldact);
 extern fn int sigpending(SigSetPtr* set);
 extern fn int sigsuspend(SigSetPtr* mask);
 
@@ -50,7 +50,19 @@ extern fn char* strsignal(int sig);
 extern fn void psignal(int sig, char* s);
 extern fn void psiginfo(SigInfo* pinfo, char* s);
 
-// signal.h.linux.c3
+union SigVal {
+    int   sival_int;    // Integer value
+    void *sival_ptr;    // Pointer value
+}
+
+struct TimeSpec {
+    time_t tv_sec;   // Seconds
+    long   tv_nsec;  // Nanoseconds (0-999,999,999)
+}
+
+
+
+
 module signal @if(env::LINUX);
 
 // Linux signal numbers
@@ -175,7 +187,7 @@ struct SigSetPtr {
 alias SigFn = fn void(int, SigInfo*, void*);
 alias Restfn = fn void();
 // Signal action structure
-struct Sigaction {
+struct SigAction {
     union {
         SigHandler sa_handler;
         SigFn sa_sigaction;
@@ -234,7 +246,7 @@ const int SIGSTKSZ = 8192;
 
 alias Eventfn = fn void(SigVal);
 // Signal event structure (for timers)
-struct Sigevent {
+struct SigEvent {
     SigVal sigev_value;
     int sigev_signo;
     int sigev_notify;
@@ -254,7 +266,7 @@ const int SIGEV_THREAD = 2;
 const int SIGEV_THREAD_ID = 4;
 
 
-// signal.h.darwin.c3
+
 module signal @if(env::DARWIN);
 
 // macOS/Darwin signal numbers
@@ -359,7 +371,7 @@ struct SigSetPtr {
 
 alias SigFn = fn void(int, SigInfo*, void*);
 // Signal action structure
-struct Sigaction {
+struct SigAction {
     union {
         SigHandler sa_handler;
         SigFn sa_sigaction;
@@ -397,7 +409,7 @@ const int SIGSTKSZ = 131072;
 
 alias Evfn = fn void(SigVal);
 // Signal event structure
-struct Sigevent {
+struct SigEvent {
     int sigev_notify;
     int sigev_signo;
     SigVal sigev_value;
@@ -410,7 +422,7 @@ const int SIGEV_SIGNAL = 1;
 const int SIGEV_THREAD = 3;
 
 
-// signal.h.freebsd.c3
+
 module signal @if(env::FREEBSD);
 
 // FreeBSD signal numbers
@@ -521,7 +533,7 @@ struct SigSetPtr {
 
 alias SigFn = fn void(int, SigInfo*, void*);
 // Signal action structure
-struct Sigaction {
+struct SigAction {
     union {
         SigHandler sa_handler;
         SigFn sa_sigaction;
@@ -576,7 +588,7 @@ const int SIGSTKSZ = (MINSIGSTKSZ + 32768);
 
 alias Evfn = fn void(SigVal);
 // Signal event structure
-struct Sigevent {
+struct SigEvent {
     int sigev_notify;
     int sigev_signo;
     SigVal sigev_value;
@@ -596,7 +608,8 @@ const int SIGEV_THREAD = 2;
 const int SIGEV_KEVENT = 3;
 const int SIGEV_THREAD_ID = 4;
 
-// signal.h.netbsd.c3
+
+
 module signal @if(env::NETBSD);
 
 // NetBSD signal numbers
@@ -704,7 +717,7 @@ struct SigSetPtr {
 
 alias SigFn = fn void(int, SigInfo*, void*);
 // Signal action structure
-struct Sigaction {
+struct SigAction {
     union {
         SigHandler sa_handler;
         SigFn sa_sigaction;
@@ -758,7 +771,7 @@ const int SIGSTKSZ = (MINSIGSTKSZ + 32768);
 
 alias Eventfn = fn void(SigVal);
 // Signal event structure
-struct Sigevent {
+struct SigEvent {
     int sigev_notify;
     int sigev_signo;
     SigVal sigev_value;
@@ -771,7 +784,7 @@ const int SIGEV_SIGNAL = 1;
 const int SIGEV_THREAD = 2;
 
 
-// signal.h.openbsd.c3
+
 module signal @if(env::OPENBSD);
 
 // OpenBSD signal numbers
@@ -874,7 +887,7 @@ struct SigSetPtr {
 
 alias SigFn = fn void(int, SigInfo*, void*);
 // Signal action structure
-struct Sigaction {
+struct SigAction {
     union {
         SigHandler sa_handler;
         SigFn sa_sigaction;

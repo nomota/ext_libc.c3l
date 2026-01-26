@@ -9,64 +9,9 @@ extern fn int waitid(IdType idtype, uint id, SigInfo* infop, int options);
 extern fn int wait3(int* wstatus, int options, Rusage* rusage);
 extern fn int wait4(int pid, int* wstatus, int options, Rusage* rusage);
 
-module sys::wait::unused;
 
-// Resource usage structure (from sys/resource.h)
-struct TimeVal {
-    long tv_sec;
-    long tv_usec;
-}
 
-struct Rusage {
-    TimeVal ru_utime;
-    TimeVal ru_stime;
-    long ru_maxrss;
-    long ru_ixrss;
-    long ru_idrss;
-    long ru_isrss;
-    long ru_minflt;
-    long ru_majflt;
-    long ru_nswap;
-    long ru_inblock;
-    long ru_oublock;
-    long ru_msgsnd;
-    long ru_msgrcv;
-    long ru_nsignals;
-    long ru_nvcsw;
-    long ru_nivcsw;
-}
 
-// Status examination macros as inline functions
-macro bool wifexited(int status) => (((status) & 0x7f) == 0);
-macro int wexitstatus(int status) => (((status) & 0xff00) >> 8);
-macro bool wifsignaled(int status) => ((char)(((status) & 0x7f) + 1) >> 1 > 0);
-macro int wtermsig(int status) => ((status) & 0x7f);
-macro bool wcoredump(int status) => ((status) & 0x80);
-macro bool wifstopped(int status) => (((status) & 0xff) == 0x7f);
-macro int wstopsig(int status) => wexitstatus(status);
-macro bool wifcontinued(int status) => ((status) == 0xffff);
-
-// SigInfo structure (simplified, actual structure in signal.h)
-struct SigInfo {
-    int si_signo;
-    int si_errno;
-    int si_code;
-    int si_pid;
-    uint si_uid;
-    int si_status;
-    void* si_addr;
-}
-
-// Common constants across platforms
-const int WNOHANG = 1;
-const int WUNTRACED = 2;
-const int WCONTINUED = 8;
-
-// Special pid values
-const int WAIT_ANY = -1;
-const int WAIT_MYPGRP = 0;
-
-// wait.h.linux.c3
 module sys::wait @if(env::LINUX);
 
 // Options for waitpid/waitid
@@ -147,7 +92,8 @@ struct Rusage {
 }
 
 
-// wait.h.darwin.c3
+
+
 module sys::wait @if(env::DARWIN);
 
 // Options for waitpid/waitid
@@ -171,9 +117,9 @@ macro bool wifcontinued(int status) => (status == 0x13);
 
 // idtype for waitid
 enum IdType : uint {
-    P_ALL = 0,
-    P_PID = 1,
-    P_PGID = 2,
+    P_ALL ,
+    P_PID ,
+    P_PGID ,
 }
 
 // Union for sigval
@@ -221,7 +167,8 @@ struct Rusage {
     long ru_nivcsw;
 }
 
-// wait.h.freebsd.c3
+
+
 module sys::wait @if(env::FREEBSD);
 
 // Options for waitpid/waitid
@@ -249,22 +196,22 @@ macro bool wifcontinued(int status) => (status == 0x13);
 
 // idtype for waitid
 enum IdType : int {
-    P_PID = 0,
-    P_PPID = 1,
-    P_PGID = 2,
-    P_SID = 3,
-    P_CID = 4,
-    P_UID = 5,
-    P_GID = 6,
-    P_ALL = 7,
-    P_LWPID = 8,
-    P_TASKID = 9,
-    P_PROJID = 10,
-    P_POOLID = 11,
-    P_JAILID = 12,
-    P_CTID = 13,
-    P_CPUID = 14,
-    P_PSETID = 15,
+    P_PID ,
+    P_PPID ,
+    P_PGID ,
+    P_SID ,
+    P_CID ,
+    P_UID ,
+    P_GID ,
+    P_ALL ,
+    P_LWPID ,
+    P_TASKID ,
+    P_PROJID ,
+    P_POOLID ,
+    P_JAILID ,
+    P_CTID ,
+    P_CPUID ,
+    P_PSETID,
 }
 
 // Union for sigval
@@ -329,7 +276,8 @@ struct Rusage {
     long ru_nivcsw;
 }
 
-// wait.h.netbsd.c3
+
+
 module sys::wait @if(env::NETBSD);
 
 // Options for waitpid/waitid
@@ -358,9 +306,9 @@ macro bool wifcontinued(int status) => (status == 0xffff);
 
 // idtype for waitid
 enum IdType : int {
-    P_ALL = 0,
-    P_PID = 1,
-    P_PGID = 2,
+    P_ALL,
+    P_PID,
+    P_PGID,
 }
 
 // Union for sigval
@@ -425,7 +373,7 @@ struct Rusage {
 }
 
 
-// wait.h.openbsd.c3
+
 module sys::wait @if(env::OPENBSD);
 
 // Options for waitpid/waitid
@@ -447,9 +395,9 @@ macro bool wifcontinued(int status) => (status == 0x13);
 
 // idtype for waitid (OpenBSD doesn't have waitid in base system)
 enum IdType : int {
-    P_ALL = 0,
-    P_PID = 1,
-    P_PGID = 2,
+    P_ALL ,
+    P_PID ,
+    P_PGID ,
 }
 
 // Union for sigval

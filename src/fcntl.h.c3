@@ -422,8 +422,8 @@ const int F_GETPROTECTIONCLASS = 63;
 const int O_DSYNC = O_SYNC;
 const int O_NDELAY = O_NONBLOCK;
 const int O_EVTONLY = 0x8000;
-const int O_POPUP = 0x80000000;
-const int O_ALERT = 0x20000000;
+const uint O_POPUP = 0x80000000;
+const uint O_ALERT = 0x20000000;
 
 const int F_OWNER_TID = 0;
 const int F_OWNER_PID = 1;
