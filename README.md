@@ -1,4 +1,3 @@
-
 # ext_libc - C Standard Library Bindings for C3
 
 A comprehensive collection of C standard library bindings for the [C3 programming language](https://c3-lang.org/), providing cross-platform system programming capabilities.
@@ -11,6 +10,7 @@ A comprehensive collection of C standard library bindings for the [C3 programmin
 
 - **Cross-Platform Support**: Comprehensive bindings for both POSIX and Windows systems
 - **Standard Library Coverage**: Networking, file I/O, threading, memory management, and more
+- **File System Utilities**: High-level cross-platform file operations and metadata queries
 - **Direct C Interop**: Faithful mappings of C APIs to C3 modules
 - **Easy Integration**: Simple dependency management via C3's package system
 - **Translation-Friendly**: Designed specifically to facilitate C-to-C3 code translation
@@ -92,6 +92,53 @@ fn int create_server_socket(ushort port)
 }
 ```
 
+### Cross-Platform File Operations
+
+Three abstraction files for file operations.
+* `stat.def.c3` : cross-platform definition of `struct Stat`
+* `stat.posix.c3` : functions for posix systems.
+* `stat.win32.c3` : functions for win32 systems.
+
+Available functions are:
+* `bool file_exists(String file)`
+* `long? file_size(String file)`
+* `bool is_dir(String path)`
+* `bool is_file(String path)`
+* `bool is_link(String path)`
+* `bool is_readable(String file)`
+* `bool is_writeable(String path)`
+* `bool is_executable(String file)`
+* `usz? read_link(String path, char[] output)`
+
+```c3
+import io::stat;
+import std::io;
+
+fn void check_file(String path) 
+{
+    if (stat::file_exists(path)) {
+        io::printfn("File exists: %s", path);
+        
+        if (stat::is_dir(path)) {
+            io::printfn("  Type: Directory");
+        } else if (stat::is_file(path)) {
+            io::printfn("  Type: File");
+            
+            ulong? size = stat::file_size(path);
+            if (catch size) {
+                io::printn("  Cannot get file size");
+            } else {
+                io::printfn("  Size: %d bytes", size);
+            }
+        }
+        
+        io::printfn("  Readable: %s", stat::is_readable(path) ? "yes" : "no");
+        io::printfn("  Writable: %s", stat::is_writeable(path) ? "yes" : "no");
+        io::printfn("  Executable: %s", stat::is_executable(path) ? "yes" : "no");
+    }
+}
+```
+
 ### Discrepencies
 
 C3 has strong naming rules, which hinders away 1:1 direct conversion.
@@ -116,7 +163,14 @@ struct WSAData {
 
 extern fn int wsa_startup(ushort version_required, WSAData* wsa_data) @cname("WSAStartup");
 ```
+
 ## Available Modules
+
+### Cross-Platform Utilities
+
+| Module | Description |
+|--------|-------------|
+| `io::stat` | File system utilities: file existence, size, type checking (file/dir/link), permissions (readable/writable/executable), symbolic link resolution, and modification time queries |
 
 ### POSIX/Unix Headers
 
@@ -156,12 +210,14 @@ extern fn int wsa_startup(ushort version_required, WSAData* wsa_data) @cname("WS
 | `fileapi` | File management functions |
 | `handleapi` | Handle management |
 | `io` | Low-level I/O operations |
+| `ioapiset` | I/O API functions (overlapped I/O, completion ports) |
 | `memoryapi` | Memory management functions |
 | `process` | Process control |
 | `processthreadapi` | Process and thread functions |
 | `synchapi` | Synchronization functions |
 | `sysinfoapi` | System information functions |
 | `windows` | Core Windows API |
+| `winioctl` | Windows device I/O control codes and structures |
 | `winsock2` | Windows Sockets 2 |
 | `ws2tcpip` | Windows Sockets TCP/IP functions |
 
@@ -178,6 +234,7 @@ C header files are mapped to C3 modules using the following pattern:
 - **C Code Translation**: Port existing C codebases to C3 with minimal API changes
 - **System Programming**: Direct access to OS-level functionality
 - **Network Programming**: Socket operations, protocol handling
+- **File System Operations**: Cross-platform file metadata and permission queries
 - **Cross-Platform Development**: Write portable system code targeting multiple platforms
 - **Low-Level Libraries**: Build system-level C3 libraries and tools
 
@@ -230,4 +287,3 @@ MIT License
 ## Support
 
 For issues, questions, or contributions, please visit the [GitHub repository](https://github.com/nomota/ext_libc.c3l).
-
