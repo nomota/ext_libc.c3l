@@ -102,6 +102,7 @@ Three abstraction files for file operations.
 Available functions are:
 * `bool file_exists(String file)`
 * `long? file_size(String file)`
+* `long? last_modified(String file)`
 * `bool is_dir(String path)`
 * `bool is_file(String path)`
 * `bool is_link(String path)`
@@ -111,7 +112,7 @@ Available functions are:
 * `usz? read_link(String path, char[] output)`
 
 ```c3
-import io::stat;
+import ext::io::stat;
 import std::io;
 
 fn void check_file(String path) 
